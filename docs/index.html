@@ -1,10 +1,39 @@
 <!DOCTYPE html>
 <html lang="es">
+
+<head>
     <meta charset="UTF-8">
-  <title>JuanJo's Bizarre Tower Defense</title>
+    <link rel="shortcut icon" href="./img/favicon.png" type="image/png" />
+    <meta name="viewport" content="width=device-width, initial-scale=2.0">
+    <link rel="stylesheet" href="./src/game.css">
+    <script src="./src/phaser.min.js"></script>
+
+    <title>¡Juego con Juanjos!</title>
 </head>
-<body> <!-- cuerpo del documento, lo que se ve -->
-  You fell for it
-  <img src=./img/thunderSplit.png alt="fool" style="width: 800px;height: 600px;">
+
+<body>
+    <h1>Juego con YOU FELL FOR IT</h1>
+    <script type="module">
+        import Game from './src/game.js';
+
+
+        var config = {
+            type: Phaser.AUTO,
+            width: 1400,
+            height: 800,
+            pixelArt: true,
+            input: {
+                gamepad: true
+            },
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            scene: [ Game ],
+            physics: { default: 'arcade', arcade: { gravity: { y: 400 }, debug: false } }
+        };
+        new Phaser.Game(config);
+    </script>
 </body>
+
 </html>

@@ -1,5 +1,6 @@
-import Elemental from "./Elemental.js"
+
 import elements from "./enum.js"
+import Tower from "./Tower.js"
 
 export default class Game extends Phaser.Scene {
   
@@ -14,8 +15,7 @@ export default class Game extends Phaser.Scene {
   create() {
     let bg = this.add.image(700,400,'jojoBG');
     bg.setScale(.7);
-    let DIO = new Elemental(this,elements.FIRE,50,50);
-    let mul = DIO.dmgMultiplier(elements.WATER);
+    let DIO = new Tower(this,elements.FIRE, 50, 50, 20, 1, 'jojoSprite');
     console.log(mul);
   }
 

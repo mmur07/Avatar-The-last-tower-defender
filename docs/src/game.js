@@ -1,5 +1,5 @@
 import Elemental from "./Elemental.js"
-const _element ={FIRE: 0,WATER: 1, EARTH: 2}
+
 export default class Game extends Phaser.Scene {
   
   constructor() {
@@ -13,10 +13,13 @@ export default class Game extends Phaser.Scene {
   create() {
     let bg = this.add.image(700,400,'jojoBG');
     bg.setScale(.7);
-    DIO = new Elemental(this,_element.FIRE,50,50);
+    let DIO = new Elemental(this,1,50,50);
+    let mul = DIO.dmgMultiplier(2);
+    console.log(mul);
   }
 
   update(time, delta) {    
-    DIO.dmgMultiplier(_element.WATER);
+    
   }
+  
 }

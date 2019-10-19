@@ -1,4 +1,5 @@
 import Elemental from "./Elemental.js"
+import elements from "./enum.js"
 
 export default class Game extends Phaser.Scene {
   
@@ -13,8 +14,8 @@ export default class Game extends Phaser.Scene {
   create() {
     let bg = this.add.image(700,400,'jojoBG');
     bg.setScale(.7);
-    let DIO = new Elemental(this,1,50,50);
-    let mul = DIO.dmgMultiplier(2);
+    let DIO = new Elemental(this,elements.FIRE,50,50);
+    let mul = DIO.dmgMultiplier(elements.WATER);
     console.log(mul);
   }
 

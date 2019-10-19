@@ -5,7 +5,7 @@ export default class Elemental extends Phaser.GameObjects.Sprite{
         super(scene,xPos,yPos,'jojoSprite');
         this.elem = element;
         //this.anchor.setTo(0.5,0.5);
-        this.scene.add.existing(this);
+        //this.scene.add.existing(this);
     }
     
     get element(){

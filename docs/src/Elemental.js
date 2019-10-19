@@ -1,8 +1,8 @@
 //fire 0  water 1 earth 2
 export default class Elemental extends Phaser.GameObjects.Sprite{
 
-    constructor(scene,element,xPos, yPos){
-        super(scene,xPos,yPos,'jojoSprite');
+    constructor(scene,spritename,element,xPos, yPos){
+        super(scene,xPos,yPos,spritename);
         this._elem = element;
         //this.anchor.setTo(0.5,0.5);
         this.scene.add.existing(this);

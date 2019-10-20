@@ -14,8 +14,21 @@ export default class Enemy extends Elemental{
 }
 Enemy.prototype.ReceiveDMG = function (dmg,dmgType) {
     this._hp = this._hp - (this.dmgMultiplier(dmgType)*dmg);
-    return(this._hp > 0);
+    if(this._hp <=0 ){
+        this.die();
+    }
+    console.log(this._hp);
+}
+Enemy.prototype.update = function () {
+    
+}
+Enemy.prototype.spawn = function (xPos,yPos) {
+    this.setActive(true);
+    this.setVisible(true);
+    this.setPosition(xPos,yPos);
 }
 Enemy.prototype.die = function(){
-    this.scene.kill(this);
+    this.scene.ActiveEnemies.killAndHide(this);
+    this.scene.EnemyPool.add(this);
+    console.log("MUERO, quedan " + this.scene.ActiveEnemies.getLength()+ "enemigos");
 }

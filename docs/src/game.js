@@ -25,11 +25,6 @@ export default class Game extends Phaser.Scene {
       DIO.die();
     hpbug = DIO.hp;
     console.log(hpbug);
-
+    }
   }
-
-  update(time, delta) {    
-    
-  }
-  
 }

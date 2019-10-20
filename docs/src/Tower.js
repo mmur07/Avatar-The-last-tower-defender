@@ -18,8 +18,8 @@ export default class Tower extends Elemental{
         console.log(super.element);
     }
 
-    preUpdate(){
+    /*preUpdate(){
         if(this.scene.physics.overlap(this.scene.))
         
-    }
+    }*/
 }

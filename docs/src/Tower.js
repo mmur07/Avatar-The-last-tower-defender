@@ -8,8 +8,8 @@ export default class Tower extends Elemental{
         //this._spriteName = spriteName;
         this.aggroZone = new Phaser.GameObjects.Zone(scene, xPos, yPos);
         this.aggroZone.setCircleDropZone(range);
+        this.scene.physics.add.existing(this.aggroZone, true);
         
-
         this.scene.add.existing(this);
     }
 
@@ -18,13 +18,8 @@ export default class Tower extends Elemental{
         console.log(super.element);
     }
 
-    update(time, delta){
+    preUpdate(){
+        if(this.scene.physics.overlap(this.scene.))
         
-    }
-}
-
-Tower.prototype.checkEnemies = (target) => {
-    if (target){
-
     }
 }

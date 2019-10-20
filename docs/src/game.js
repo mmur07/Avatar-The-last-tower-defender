@@ -1,4 +1,5 @@
 import Tower from "./Tower.js"
+import Enemy from "./Enemy.js";
 
 export default class Game extends Phaser.Scene {
   
@@ -11,8 +12,20 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
-    let DIO = new Tower(this,1,400,400, 5, 2);
-    DIO.setScale(.2);
+    this.PoolEnemies = this.game.add.group();
+    this.PoolEnemies.add(new Enemy(this,'jojoSprite',elements.FIRE,400,400,150,20));
+    
+    let hpbug = DIO.hp;
+    console.log(hpbug);
+    DIO.ReceiveDMG(50,elements.FIRE);
+    hpbug = DIO.hp;
+    console.log(hpbug);
+    if(!DIO.ReceiveDMG(150,elements.WATER)){
+      console.log('MORIDO');
+      DIO.die();
+    hpbug = DIO.hp;
+    console.log(hpbug);
+
   }
 
   update(time, delta) {    

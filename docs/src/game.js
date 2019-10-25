@@ -1,5 +1,6 @@
-import Elemental from "./Elemental.js"
-import elements from "./enum.js"
+import Tower from "./Tower.js"
+import Enemy from "./Enemy.js";
+
 
 export default class Game extends Phaser.Scene {
   
@@ -11,16 +12,19 @@ export default class Game extends Phaser.Scene {
     this.load.image('jojoSprite','./img/jojoSprite.png');
   }
 
-  create() {
-    let bg = this.add.image(700,400,'jojoBG');
-    bg.setScale(.7);
-    let DIO = new Elemental(this,elements.FIRE,50,50);
-    let mul = DIO.dmgMultiplier(elements.WATER);
-    console.log(mul);
-  }
-
-  update(time, delta) {    
+    this.PoolEnemies = this.game.add.group();
+    this.PoolEnemies.add(new Enemy(this,'jojoSprite',elements.FIRE,400,400,150,20));
     
+    let hpbug = DIO.hp;
+    console.log(hpbug);
+    DIO.ReceiveDMG(50,elements.FIRE);
+    hpbug = DIO.hp;
+    console.log(hpbug);
+    if(!DIO.ReceiveDMG(150,elements.WATER)){
+      console.log('MORIDO');
+      DIO.die();
+    hpbug = DIO.hp;
+    console.log(hpbug);
+    }
   }
-  
 }

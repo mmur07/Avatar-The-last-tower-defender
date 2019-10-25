@@ -1,6 +1,7 @@
 import Tower from "./Tower.js"
 import Enemy from "./Enemy.js";
 
+
 export default class Game extends Phaser.Scene {
   
   constructor() {
@@ -11,7 +12,6 @@ export default class Game extends Phaser.Scene {
     this.load.image('jojoSprite','./img/jojoSprite.png');
   }
 
-  create() {
     this.PoolEnemies = this.game.add.group();
     this.PoolEnemies.add(new Enemy(this,'jojoSprite',elements.FIRE,400,400,150,20));
     

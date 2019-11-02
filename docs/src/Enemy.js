@@ -5,7 +5,11 @@ export default class Enemy extends Elemental{
         super(scene,spritename,element,xPos,yPos)
         this._speed = speed;
         this._hp = hp;
-        this.scene.add.existing(this);
+        this.scene.physics.add.existing(this);
+        this.body.setCollideWorldBounds();
+        this.scene.add.existing(this); 
+        this.xDir = 1;
+        this.yDir = 0;
         this.setScale(0.5);
     }
     get hp(){
@@ -14,13 +18,13 @@ export default class Enemy extends Elemental{
 }
 Enemy.prototype.ReceiveDMG = function (dmg,dmgType) {
     this._hp = this._hp - (this.dmgMultiplier(dmgType)*dmg);
-    if(this._hp <=0 ){
+    if(this._hp <= 0 ){
         this.die();
     }
     console.log(this._hp);
 }
 Enemy.prototype.update = function () {
-    
+    this.body.setVelocityX(this.xDir);
 }
 Enemy.prototype.spawn = function (xPos,yPos) {
     this.setActive(true);

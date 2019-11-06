@@ -8,7 +8,7 @@ export default class Tower extends Elemental{
         //this._spriteName = spriteName;
         //this.setOrigin(0.5,0.5);
         this.scene.physics.add.existing(this);
-        this.body.setCircle(range, 25 - range, 25 - range);
+        this.body.setCircle(range, 32 - range, 32 - range);
         if(this.body.isCircular) console.log("CIR CU LO");
         //zthis.body.setSize( [width] [height] [center])
         this.body.updateCenter()

@@ -38,11 +38,11 @@ export default class Game extends Phaser.Scene {
     console.log(this.EnemyPool.getLength() + "Enemigos en el pool");
   }
   create() {
-    
     //RINCON DE DEBUGEO DE ADRI, SI ME VES COMENTAME PORQUE ADRI ES GILIPOLLAS
-    // let iconito = new TowerIcon(this,'towerIconSprite',50,50);
-    // this.ActiveTowers = this.add.group();
-    // this.ActiveTowers.add(iconito);
+    let iconito = new TowerIcon(this,'towerIconSprite',50,50);
+  
+    this.ActiveTowers = this.add.group();
+    this.ActiveTowers.add(iconito);
     //this.delete(Adri)
     
     //Pooling de enemigos
@@ -67,8 +67,6 @@ export default class Game extends Phaser.Scene {
    // }
    // hpbug = DIO.hp;
     //console.log(hpbug);
-
-
   }
 
   update(time, delta) {    

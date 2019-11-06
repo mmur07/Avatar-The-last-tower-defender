@@ -6,11 +6,18 @@ export default class Tower extends Elemental{
         super(scene,'towerIconSprite', element, xPos, yPos);
         this._cdShoots = cdShoots;
         //this._spriteName = spriteName;
-        this.aggroZone = new Phaser.GameObjects.Zone(scene, xPos, yPos);
-        this.aggroZone.setCircleDropZone(range);
-        this.scene.physics.add.existing(this.aggroZone, true);
-        
+        //this.setOrigin(0.5,0.5);
+        this.scene.physics.add.existing(this);
+        this.body.setCircle(range, 25 - range, 25 - range);
+        if(this.body.isCircular) console.log("CIR CU LO");
+        //zthis.body.setSize( [width] [height] [center])
+        this.body.updateCenter()
+        // this.aggroZone = new Phaser.GameObjects.Zone(scene, xPos, yPos);
+        // this.aggroZone.setSize(range * 5, range * 5);
+        // this.scene.physics.add.existing(this.aggroZone, true);
+
         this.scene.add.existing(this);
+        //this.scene.debug.body(this.aggroZone);
     }
 
     changeColor() {

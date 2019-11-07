@@ -1,4 +1,3 @@
-'use strict'
 import Elemental from "./Elemental.js";
 import elements from "./enum.js";
 import Tower from "./Tower.js"
@@ -6,41 +5,58 @@ import Enemy from "./Enemy.js";
 
 
 export default class Game extends Phaser.Scene {
-  
+
   constructor() {
     super({ key: 'main' });
   }
-  preload() {  
-    let jojoBG =  this.load.image('jojoBG','./img/thunderSplit.png');
-    this.load.image('jojoSprite','./img/jojoSprite.png');
-    
+  preload() {
+    let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
+    this.load.image('jojoSprite', './img/jojoSprite.png');
+
   }
-  PoolEnemies(){
-    for(let i = 0;i<10;i++){
-    let basicEnem = new Enemy(this,'jojoSprite',elements.FIRE,0,0,150,20);
-    this.EnemyPool.add(basicEnem);
-    this.EnemyPool.killAndHide(basicEnem);
+  PoolEnemies() {
+    for (let i = 0; i < 10; i++) {
+      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 0, 0, 150, 20);
+      this.EnemyPool.add(basicEnem);
+      this.EnemyPool.killAndHide(basicEnem);
     }
     console.log("EnemyPool filled size: " + this.EnemyPool.getLength());
   }
-  SpawnEnemy(elem,x,y){
+  SpawnEnemy(elem, x, y) {
     let en
-    if(this.EnemyPool.getLength() > 0){
+    if (this.EnemyPool.getLength() > 0) {
       en = this.EnemyPool.getFirstDead();
-      en.spawn(x,y);
+      en.spawn(x, y);
     }
-    else{
-      en = new Enemy(this,'jojoSprite',elements.FIRE,x,y,150,20);
+    else {
+      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 150, 20);
     }
     this.ActiveEnemies.add(en);
     console.log(this.ActiveEnemies.getLength() + "Enemigos activos");
     console.log(this.EnemyPool.getLength() + "Enemigos en el pool");
   }
+  CreatePath() {
+    let graphics = this.add.graphics();
+    this.path = this.add.path(50,0)
+
+    this.path.lineTo(50,250); 
+    let a = this.path.getPoint(0.5);
+    console.log("init" + a.y);
+    this.path.lineTo(800,250);
+    this.path.lineTo(800,250); 
+    this.path.lineTo(800,1000);
+    graphics.lineStyle(3, 0xffffff, 1);
+    // visualize the path
+    this.path.draw(graphics);
+    // this.paths = this.add.group();
+  }
   create() {
+    this.CreatePath();
     //Pooling de enemigos
     this.EnemyPool = this.add.group();
     console.log("EnemyPool init size: " + this.EnemyPool.getLength());
     this.ActiveEnemies = this.add.group();
+    this.ActiveEnemies.runChildUpdate = true;
     this.PoolEnemies();
     this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
 
@@ -55,23 +71,26 @@ export default class Game extends Phaser.Scene {
     //console.log(hpbug);
     //if(!DIO.ReceiveDMG(150,elements.WATER)){
     //  console.log('MORIDO');
-   //   DIO.die();
-   // }
-   // hpbug = DIO.hp;
+    //   DIO.die();
+    // }
+    // hpbug = DIO.hp;
     //console.log(hpbug);
 
   }
 
-  update(time, delta) {    
-    if(Phaser.Input.Keyboard.JustDown(this.w)){
-      this.SpawnEnemy(elements.FIRE,20,20)
+  update(time, delta) {
+    if (Phaser.Input.Keyboard.JustDown(this.w)) {
+      this.SpawnEnemy(elements.FIRE, 20, 20)
     }
-    if(Phaser.Input.Keyboard.JustDown(this.d)){
-      if(this.ActiveEnemies.getLength() > 0){
+    if (Phaser.Input.Keyboard.JustDown(this.d)) {
+      if (this.ActiveEnemies.getLength() > 0) {
         let target = this.ActiveEnemies.getFirstAlive();
-        target.ReceiveDMG(100,elements.FIRE);
+        target.ReceiveDMG(100, elements.FIRE);
       }
     }
+    this.ActiveEnemies.getChildren().forEach(enem => {
+      enem.update(delta);
+    });
   }
-  
+    
 }

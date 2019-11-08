@@ -1,28 +1,29 @@
 import Elemental from "./Elemental.js";
 
+const reduceVal = 100000;
 export default class Enemy extends Elemental {
     constructor(scene, spritename, element, xPos, yPos, hp, speed) {
         super(scene, spritename, element, xPos, yPos)
         this._speed = speed;
+        this._reducedSpeed = speed / reduceVal;
         this._hp = hp;
         this.scene.add.existing(this);
         this.setScale(0.1);
-        this.gps = {ruta: 0, nodo: 0, dir: new Phaser.Math.Vector2()};
+        this.gps = {ruta: 0, nodo: 0, pos: new Phaser.Math.Vector2()};
         this.comienzaRuta();
     }
     comienzaRuta(){
-        console.log("TONTO");
         this.gps.nodo = 0;
-        this.scene.path.getPoint(this.gps.nodo,this.gps.dir);
-        this.setPosition(this.gps.dir.x,this.gps.dir.y);
+        this.scene.path.getPoint(this.gps.nodo,this.gps.pos);
+        this.setPosition(this.gps.pos.x,this.gps.pos.y);
     }
     sigueRuta(delta){
         //console.log(this.scene.path);
-        this.gps.nodo += this._speed * 1/100000;
-        console.log(this.gps.nodo);
-        this.scene.path.getPoint(this.gps.nodo,this.gps.dir);
+        this.gps.nodo += this._reducedSpeed;
+        //console.log(this.gps.nodo);
+        this.scene.path.getPoint(this.gps.nodo,this.gps.pos);
         // this.gps.dir = nextPt;
-        this.setPosition(this.gps.dir.x,this.gps.dir.y);
+        this.setPosition(this.gps.pos.x,this.gps.pos.y);
         if(this.gps.nodo >= 1){
             //aquí lo que pasa si llega al núcleo
         }

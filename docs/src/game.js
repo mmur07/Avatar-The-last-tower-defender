@@ -2,7 +2,7 @@ import Elemental from "./Elemental.js";
 import elements from "./enum.js";
 import Tower from "./Tower.js"
 import Enemy from "./Enemy.js";
-
+import Bullet from "./Bullet.js"
 
 export default class Game extends Phaser.Scene {
 
@@ -11,8 +11,9 @@ export default class Game extends Phaser.Scene {
   }
   preload() {
     let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
-    this.load.image('jojoSprite', './img/jojoSprite.png');
-
+    this.load.image('jojoSprite', './img/favicon.png');
+    this.load.image('bulletSprite', './img/rocketto.png');
+    
   }
   PoolEnemies() {
     for (let i = 0; i < 10; i++) {
@@ -21,6 +22,13 @@ export default class Game extends Phaser.Scene {
       this.EnemyPool.killAndHide(basicEnem);
     }
     console.log("EnemyPool filled size: " + this.EnemyPool.getLength());
+  }
+  PoolBullets() {
+    for (let i = 0; i < 200; i++) {
+      let bull = new Bullet(this, 50, 400, 90, 10, 100,elements.FIRE, 'bulletSprite');
+      this.BulletPool.add(bull);
+      this.BUlletPool.killAndHide(bull);
+    }
   }
   SpawnEnemy(elem, x, y) {
     let en
@@ -34,6 +42,17 @@ export default class Game extends Phaser.Scene {
     this.ActiveEnemies.add(en);
     console.log(this.ActiveEnemies.getLength() + "Enemigos activos");
     console.log(this.EnemyPool.getLength() + "Enemigos en el pool");
+  }
+  SpawnBullet(angle, x, y) {
+    let b;
+    if (this.BulletPool.getLength() > 0) {
+      b = this.BulletPool.getFirstDead();
+
+    }
+    else {
+      b = new Bullet(this, 50, 400, 90,1, 100, elements.FIRE, 'bulletSprite');
+    }
+    b.fire(x, y, angle);
   }
   CreatePath() {
     let graphics = this.add.graphics();
@@ -55,11 +74,15 @@ export default class Game extends Phaser.Scene {
     //Pooling de enemigos
     this.EnemyPool = this.add.group();
     console.log("EnemyPool init size: " + this.EnemyPool.getLength());
-    this.ActiveEnemies = this.add.group();
+    this.ActiveEnemies = this.physics.add.group();
     this.ActiveEnemies.runChildUpdate = true;
     this.PoolEnemies();
     this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
 
+    
+    this.BulletPool = this.add.group();
+    this.ActiveBullets = this.physics.add.group();
+    this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy)
     //input
     this.w = this.input.keyboard.addKey('W');
     this.d = this.input.keyboard.addKey('D');
@@ -91,6 +114,12 @@ export default class Game extends Phaser.Scene {
     this.ActiveEnemies.getChildren().forEach(enem => {
       enem.update(delta);
     });
+    this.ActiveBullets.getChildren().forEach(bullet => {
+      bullet.update(delta);
+    });
   }
     
+}
+function bulletHitEnemy(bullet,enemy) {
+    bullet.hitEnemy(enemy);
 }

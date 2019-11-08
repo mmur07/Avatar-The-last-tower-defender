@@ -19,7 +19,6 @@ export default class Enemy extends Elemental {
     sigueRuta(delta){
         //console.log(this.scene.path);
         this.gps.nodo += this._speed * 1/100000;
-        console.log(this.gps.nodo);
         this.scene.path.getPoint(this.gps.nodo,this.gps.dir);
         // this.gps.dir = nextPt;
         this.setPosition(this.gps.dir.x,this.gps.dir.y);
@@ -44,6 +43,7 @@ export default class Enemy extends Elemental {
 
     spawn(xPos, yPos) {
         this.scene.EnemyPool.remove(this);
+        this.scene.ActiveEnemies.add(this);
         this.setActive(true);
         this.setVisible(true);
         this.setPosition(xPos, yPos);

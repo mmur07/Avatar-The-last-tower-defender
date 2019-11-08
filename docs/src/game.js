@@ -15,6 +15,7 @@ export default class Game extends Phaser.Scene {
     let jojoBG =  this.load.image('jojoBG','./img/thunderSplit.png');
     this.load.image('jojoSprite','./img/jojoSprite.png');
     this.load.image('towerIconSprite','./img/towericon.png');
+    this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
   }
   PoolEnemies(){
     for(let i = 0;i<10;i++){
@@ -39,6 +40,11 @@ export default class Game extends Phaser.Scene {
   }
   create() {
     //RINCON DE DEBUGEO DE ADRI, SI ME VES COMENTAME PORQUE ADRI ES GILIPOLLAS
+    this.enemies = this.physics.add.group();
+    this.enemigo = new Enemy(this, 'hohoho', 0, 200, 200, 50, 2);
+    this.enemigo.setScale(0.2);
+    this.enemies.add(this.enemigo);
+ 
     let iconito = new TowerIcon(this,'towerIconSprite',50,50);
     //let newTower = new Tower(this.scene, 0, 50, 50, 150, 5);
     this.ActiveTowers = this.add.group();
@@ -73,11 +79,11 @@ export default class Game extends Phaser.Scene {
     // if(Phaser.Input.Keyboard.JustDown(this.w)){
     //   this.SpawnEnemy(elements.FIRE,20,20)
     // }
-    // if(Phaser.Input.Keyboard.JustDown(this.d)){
+     if(Phaser.Input.Keyboard.JustDown(this.d)){
     //   if(this.ActiveEnemies.getLength() > 0){
     //     let target = this.ActiveEnemies.getFirstAlive();
-    //     target.ReceiveDMG(100,elements.FIRE);
-    //   }
+         this.enemigo.ReceiveDMG(100,elements.FIRE);
+       }
     // }
     //RINCON DEL DEBUGEO DE ADRI, COMENTAME PORQUE ADRI ES GILIPOLLAS
 

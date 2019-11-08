@@ -5,19 +5,12 @@ export default class Tower extends Elemental{
     constructor(scene, element, xPos, yPos, range, cdShoots){
         super(scene,'towerIconSprite', element, xPos, yPos);
         this._cdShoots = cdShoots;
+        this.lockedEnemy = null;
         //this._spriteName = spriteName;
         //this.setOrigin(0.5,0.5);
         this.scene.physics.add.existing(this);
         this.body.setCircle(range, 32 - range, 32 - range);
-        if(this.body.isCircular) console.log("CIR CU LO");
-        //zthis.body.setSize( [width] [height] [center])
-        this.body.updateCenter()
-        // this.aggroZone = new Phaser.GameObjects.Zone(scene, xPos, yPos);
-        // this.aggroZone.setSize(range * 5, range * 5);
-        // this.scene.physics.add.existing(this.aggroZone, true);
-
-        this.scene.add.existing(this);
-        //this.scene.debug.body(this.aggroZone);
+        this.scene.physics.add.overlap(this, this.scene.enemies, this.onCollision);
     }
 
     changeColor() {
@@ -25,8 +18,12 @@ export default class Tower extends Elemental{
         console.log(super.element);
     }
 
-    /*preUpdate(){
-        if(this.scene.physics.overlap(this.scene.))
-        
-    }*/
+    onCollision(obj1, obj2){
+        if (this.lockedEnemy == null) this.lockedEnemy = obj2;
+        //console.log("Se besaron");
+    }
+
+    preUpdate(){
+        if(!this.scene.physics.collide(this, this.lockedEnemy)) this.lockedEnemy = null;
+    }
 }

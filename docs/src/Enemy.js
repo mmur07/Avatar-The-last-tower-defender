@@ -7,7 +7,7 @@ export default class Enemy extends Elemental{
         this._hp = hp;
         this.scene.physics.add.existing(this);
         this.body.setCollideWorldBounds();
-        this.scene.add.existing(this); 
+        this.scene.add.existing(this);
         this.xDir = 1;
         this.yDir = 0;
         this.setScale(0.5);
@@ -32,7 +32,8 @@ Enemy.prototype.spawn = function (xPos,yPos) {
     this.setPosition(xPos,yPos);
 }
 Enemy.prototype.die = function(){
-    this.scene.ActiveEnemies.killAndHide(this);
+    this.destroy();
+    /*this.scene.ActiveEnemies.killAndHide(this);
     this.scene.EnemyPool.add(this);
-    console.log("MUERO, quedan " + this.scene.ActiveEnemies.getLength()+ "enemigos");
+    console.log("MUERO, quedan " + this.scene.ActiveEnemies.getLength()+ "enemigos");*/
 }

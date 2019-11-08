@@ -10,10 +10,10 @@ export default class Game extends Phaser.Scene {
   constructor() {
     super({ key: 'main' });
   }
-  preload() {  
-    let jojoBG =  this.load.image('jojoBG','./img/thunderSplit.png');
-    this.load.image('jojoSprite','./img/jojoSprite.png');
-    this.load.image('towerIconSprite','./img/towericon.png');
+  preload() {
+    let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
+    this.load.image('jojoSprite', './img/favicon.png');
+    this.load.image('towerIconSprite', './img/towericon.png');
     this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
     this.load.image('bulletSprite', './img/rocketto.png');
   }
@@ -27,7 +27,7 @@ export default class Game extends Phaser.Scene {
   }
   PoolBullets() {
     for (let i = 0; i < 200; i++) {
-      let bull = new Bullet(this, 50, 400, 90, 10, 100,elements.FIRE, 'bulletSprite');
+      let bull = new Bullet(this, 50, 400, 90, 10, 100, elements.FIRE, 'bulletSprite');
       this.BulletPool.add(bull);
       this.BUlletPool.killAndHide(bull);
     }
@@ -52,20 +52,20 @@ export default class Game extends Phaser.Scene {
 
     }
     else {
-      b = new Bullet(this, 50, 400, 90,1, 100, elements.FIRE, 'bulletSprite');
+      b = new Bullet(this, 50, 400, 90, 1, 100, elements.FIRE, 'bulletSprite');
     }
     b.fire(x, y, angle);
   }
   CreatePath() {
     let graphics = this.add.graphics();
-    this.path = this.add.path(50,0)
+    this.path = this.add.path(50, 0)
 
-    this.path.lineTo(50,250); 
+    this.path.lineTo(50, 250);
     let a = this.path.getPoint(0.5);
     console.log("init" + a.y);
-    this.path.lineTo(800,250);
-    this.path.lineTo(800,250); 
-    this.path.lineTo(800,1000);
+    this.path.lineTo(800, 250);
+    this.path.lineTo(800, 250);
+    this.path.lineTo(800, 1000);
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
     this.path.draw(graphics);
@@ -73,30 +73,21 @@ export default class Game extends Phaser.Scene {
   }
   create() {
     this.CreatePath();
+    this.iconito = new TowerIcon(this, 'towerIconSprite', 1200, 700);
     //Pooling de enemigos
-    this.EnemyPool = this.add.group();
+    this.ActiveTowers = this.physics.add.group();
+    //this.EnemyPool = this.add.group();
     this.ActiveEnemies = this.physics.add.group();
-    this.ActiveEnemies.runChildUpdate = true;
-    this.PoolEnemies();
-    this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
+    //this.ActiveEnemies.runChildUpdate = true;
+    //this.PoolEnemies();
+    //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();
-    this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy)
+    // //this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy)
+    //this.physics.add.overlap(this.ActiveTowers, this.ActiveEnemies, towerDetectEnemy);
     //input
     this.w = this.input.keyboard.addKey('W');
     this.d = this.input.keyboard.addKey('D');
-    //let DIO = new Enemy(this,'jojoSprite',elements.FIRE,400,400,150,20);
-    //let hpbug = DIO.hp;
-    //console.log(hpbug);
-    //DIO.ReceiveDMG(50,elements.FIRE);
-    //hpbug = DIO.hp;
-    //console.log(hpbug);
-    //if(!DIO.ReceiveDMG(150,elements.WATER)){
-    //  console.log('MORIDO');
-    //   DIO.die();
-    // }
-    // hpbug = DIO.hp;
-    //console.log(hpbug);
   }
 
   update(time, delta) {
@@ -117,9 +108,13 @@ export default class Game extends Phaser.Scene {
     });
   }
 
-    
-  
+
+
 }
-function bulletHitEnemy(bullet,enemy) {
-    bullet.hitEnemy(enemy);
+function bulletHitEnemy(bullet, enemy) {
+  bullet.hitEnemy(enemy);
 }
+// function towerDetectEnemy(obj1, obj2) {
+//   if (obj1.lockedEnemy == null) obj1.lockedEnemy = obj2;
+//         console.log("Se besaron");
+// }

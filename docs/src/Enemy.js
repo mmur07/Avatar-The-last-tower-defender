@@ -8,11 +8,12 @@ export default class Enemy extends Elemental {
         this._reducedSpeed = speed / reduceVal;
         this._hp = hp;
         this.scene.physics.add.existing(this);
-        this.body.setCollideWorldBounds();
-        this.scene.add.existing(this);
-        this.comienzaRuta();
+        //this.body.setCollideWorldBounds();
+        this.scene.add.existing(this);       
         this.gps = {ruta: 0, nodo: 0, pos: new Phaser.Math.Vector2()};
-        this.setScale(0.1);
+       // this.setScale(0.1);
+        
+        this.comienzaRuta();
     }
     comienzaRuta(){
         this.gps.nodo = 0;
@@ -50,14 +51,15 @@ export default class Enemy extends Elemental {
         this.scene.ActiveEnemies.add(this);
         this.setActive(true);
         this.setVisible(true);
-        this.setPosition(xPos, yPos);
+       // this.setPosition(xPos, yPos);
+        this.comienzaRuta();
     }
 
     die() {
         this.scene.ActiveEnemies.killAndHide(this);
         this.scene.ActiveEnemies.remove(this);
         this.scene.EnemyPool.add(this);
-        //otras funcionalidades como 
+        //otras funcionalidades como MORIR
     }
 
 

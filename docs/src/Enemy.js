@@ -55,10 +55,11 @@ export default class Enemy extends Elemental {
         this.comienzaRuta();
     }
 
-    die() {
-        this.scene.ActiveEnemies.killAndHide(this);
+    die() {        
         this.scene.ActiveEnemies.remove(this);
         this.scene.EnemyPool.add(this);
+        this.setActive(false);
+        this.setVisible(false)
         //otras funcionalidades como MORIR
     }
 

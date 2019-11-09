@@ -3,13 +3,15 @@ import Elemental from "./Elemental.js";
 export default class Bullet extends Elemental{
     constructor(scene,xPos,yPos,angle, speed,damage,elto,spritename){
         super(scene,spritename, elto, xPos, yPos)
+        this.setScale(0.1);
+        this.scene.physics.add.existing(this).setScale(0.2);
         this._speed = speed;
         this._angle = angle;
         this._dmg = damage;
         this._dx = 0; this._dy = 0;
+        this.scene.add.existing(this);
     }
     fire(xPos,yPos,angle){
-        console.log("Hola");
         this.scene.ActiveBullets.add(this);
         this.scene.BulletPool.remove(this);
         this.setActive(true);

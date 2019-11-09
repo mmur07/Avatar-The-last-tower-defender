@@ -19,11 +19,10 @@ export default class Game extends Phaser.Scene {
   }
   PoolEnemies() {
     for (let i = 0; i < 10; i++) {
-      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 0, 0, 150, 20);
+      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE,400, 400, 150, 20);
       this.EnemyPool.add(basicEnem);
       this.EnemyPool.killAndHide(basicEnem);
     }
-    console.log("EnemyPool filled size: " + this.EnemyPool.getLength());
   }
   PoolBullets() {
     for (let i = 0; i < 200; i++) {
@@ -39,11 +38,9 @@ export default class Game extends Phaser.Scene {
       en.spawn(x, y);
     }
     else {
-      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 150, 20);
+      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400);
     }
     this.ActiveEnemies.add(en);
-    console.log(this.ActiveEnemies.getLength() + "Enemigos activos");
-    console.log(this.EnemyPool.getLength() + "Enemigos en el pool");
   }
   SpawnBullet(angle, x, y) {
     let b;
@@ -105,6 +102,9 @@ export default class Game extends Phaser.Scene {
     }
     this.ActiveEnemies.getChildren().forEach(enem => {
       enem.update(delta);
+    });
+    this.ActiveTowers.getChildren().forEach(tow => {
+      tow.update(time,delta);
     });
     this.ActiveBullets.getChildren().forEach(bullet => {
       bullet.update(delta);

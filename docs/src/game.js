@@ -75,24 +75,27 @@ export default class Game extends Phaser.Scene {
     this.CreatePath();
     this.iconito = new TowerIcon(this, 'towerIconSprite', 1200, 700);
     //Pooling de enemigos
-    this.ActiveTowers = this.physics.add.group();
-    //this.EnemyPool = this.add.group();
+    this.ActiveTowers = this.add.group();
+    this.EnemyPool = this.add.group();
     this.ActiveEnemies = this.physics.add.group();
-    //this.ActiveEnemies.runChildUpdate = true;
-    //this.PoolEnemies();
+    this.ActiveEnemies.runChildUpdate = true;
+    this.PoolEnemies();
     //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();
-    // //this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy)
-    //this.physics.add.overlap(this.ActiveTowers, this.ActiveEnemies, towerDetectEnemy);
+    this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy);
     //input
     this.w = this.input.keyboard.addKey('W');
     this.d = this.input.keyboard.addKey('D');
+    this.b = this.input.keyboard.addKey('B');
   }
 
   update(time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)
+    }
+    if (Phaser.Input.Keyboard.JustDown(this.b)) {
+      this.SpawnBullet(3/2*Math.PI,50,250);
     }
     if (Phaser.Input.Keyboard.JustDown(this.d)) {
       if (this.ActiveEnemies.getLength() > 0) {
@@ -107,14 +110,7 @@ export default class Game extends Phaser.Scene {
       bullet.update(delta);
     });
   }
-
-
-
 }
 function bulletHitEnemy(bullet, enemy) {
   bullet.hitEnemy(enemy);
 }
-// function towerDetectEnemy(obj1, obj2) {
-//   if (obj1.lockedEnemy == null) obj1.lockedEnemy = obj2;
-//         console.log("Se besaron");
-// }

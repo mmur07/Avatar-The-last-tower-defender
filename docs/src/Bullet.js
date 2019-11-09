@@ -25,7 +25,7 @@ export default class Bullet extends Elemental{
         en.ReceiveDMG(this._dmg,this._elem);
         this.scene.ActiveBullets.killAndHide(this);
         this.scene.ActiveBullets.remove(this);
-        this.scene.EnemyPool.add(this);
+        this.scene.BulletPool.add(this);
     }
     update(delta){
         this.x += this._dx * (this._speed * delta);

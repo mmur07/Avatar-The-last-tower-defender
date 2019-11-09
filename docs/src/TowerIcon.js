@@ -19,7 +19,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
 
     //Seleccionamos el objeto a mover y activamos los nuevos listeners
     addTower(pointer, target) {
-this._canAdd = true;
+        this._canAdd = true;
         this.dragObj = this.scene.add.image(50, 50, 'towerIconSprite'); //El objeto que arrastramos es un sprite
         //Activamos listeners para detectar la posicion del raton y cuando lo soltamos
         this.scene.input.on('pointermove', this.Drag, this); 
@@ -35,11 +35,8 @@ this._canAdd = true;
     stopDrag(pointer) {
         if (this._canAdd) {//si la posición es válida
             let newTower = new Tower(this.scene, 0, this.dragObj.x, this.dragObj.y, 50, 5);
-            this.scene.ActiveTowers.add(newTower);
-            this._canAdd = false;
         }
         //volvemos al estado inicial
-        this.container.on('pointerdown',this.addTower,this);
         this.scene.input.off('pointermove', this.Drag, this);
         this.scene.input.off('pointerup', this.stopDrag, this);
         this.dragObj.destroy();

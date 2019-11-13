@@ -34,7 +34,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
 
     stopDrag(pointer) {
         if (this._canAdd) {//si la posición es válida
-            let newTower = new Tower(this.scene, 0, this.dragObj.x, this.dragObj.y, 50, 5);
+            let newTower = new Tower(this.scene, 0, this.dragObj.x, this.dragObj.y,50, 1);
         }
         //volvemos al estado inicial
         this.scene.input.off('pointermove', this.Drag, this);

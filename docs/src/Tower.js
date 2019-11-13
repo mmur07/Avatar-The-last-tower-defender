@@ -5,7 +5,8 @@ export default class Tower extends Elemental{
     constructor(scene, element, xPos, yPos, range, cdShoots){
         super(scene,'towerIconSprite', element, xPos, yPos);
         this._scene = scene;
-        this._cdShoots = cdShoots;
+        this._cdShoots = cdShoots*1000;
+        this._nextShot = 0;//siempre puede disparar al ser creada
         this.lockedEnemy = null;
         //this._spriteName = spriteName;
         this.setOrigin(0.5,0.5);
@@ -22,8 +23,9 @@ export default class Tower extends Elemental{
 
     update(time, delta){
        // if(this.lockedEnemy == undefined) console.log('me vas a comer los cojone phaser de los cojones que eres mas tonto que unos cojones');
-        if (this.lockedEnemy != null ) {  
+        if (this.lockedEnemy != null && time >= this._nextShot) {  
             let angle = Phaser.Math.Angle.Between(this.x,this.y,this.lockedEnemy.x,this.lockedEnemy.y);
+            this._nextShot = time+=this._cdShoots;
             //console.log(angle);          
             this.shoot(angle);
         }

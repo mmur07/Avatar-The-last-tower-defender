@@ -4,6 +4,8 @@ import Tower from "./Tower.js"
 import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js"
 import TowerIcon from "./TowerIcon.js";
+import Pool from "./Pool.js";
+import Spawner from "./Spawner.js";
 
 export default class Game extends Phaser.Scene {
 
@@ -56,7 +58,7 @@ export default class Game extends Phaser.Scene {
   CreatePath() {
     let graphics = this.add.graphics();
     this.path = this.add.path(50, 0)
-
+    //let PiscinaDeEnemigos = new Pool(this,true,);
     this.path.lineTo(50, 250);
     let a = this.path.getPoint(0.5);
     console.log("init" + a.y);
@@ -70,6 +72,7 @@ export default class Game extends Phaser.Scene {
   }
   create() {
     this.CreatePath();
+    this._Spawner = new Spawner(this,{x: 0, y:50});
     this.iconito = new TowerIcon(this, 'towerIconSprite', 1200, 700);
     //Pooling de enemigos
     this.ActiveTowers = this.add.group();
@@ -109,6 +112,7 @@ export default class Game extends Phaser.Scene {
     this.ActiveBullets.getChildren().forEach(bullet => {
       bullet.update(delta);
     });
+    this._Spawner.update(time,delta);
   }
 }
 function bulletHitEnemy(bullet, enemy) {

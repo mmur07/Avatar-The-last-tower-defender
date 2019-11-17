@@ -3,6 +3,7 @@ import Elemental from "./Elemental.js";
 export default class Tower extends Elemental{
 
     constructor(scene, element, xPos, yPos, range, cdShoots){
+        console.log("a");
         super(scene,'towerIconSprite', element, xPos, yPos);
         this._scene = scene;
         this._cdShoots = cdShoots*1000;
@@ -31,7 +32,8 @@ export default class Tower extends Elemental{
         }
     }
 
-    preUpdate(){
+    preUpdate(time, delta){
+        super.preUpdate(time, delta)
         if(this.lockedEnemy != null)
         if(!this.scene.physics.collide(this, this.lockedEnemy)) 
             this.lockedEnemy = null;

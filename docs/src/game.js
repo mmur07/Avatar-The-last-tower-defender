@@ -5,12 +5,16 @@ import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js"
 import TowerIcon from "./TowerIcon.js";
 
+const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
+
 export default class Game extends Phaser.Scene {
 
   constructor() {
     super({ key: 'main' });
   }
   preload() {
+    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
+    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_Tilemap.json');  
     let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
     this.load.image('jojoSprite', './img/favicon.png');
     this.load.image('towerIconSprite', './img/towericon.png');
@@ -68,9 +72,35 @@ export default class Game extends Phaser.Scene {
     this.path.draw(graphics);
     // this.paths = this.add.group();
   }
+
+  CreateMap(){
+
+    //this.add.existing(this.map);
+    /*this.add.existing(this.nodes);
+    this.add.existing(this.default);
+    this.add.existing(this.can_place_towers);*/
+  }
   create() {
     this.CreatePath();
-    this.iconito = new TowerIcon(this, 'towerIconSprite', 1200, 700);
+    //Creación del mapa
+    //this.CreateMap();
+    this.map = this.make.tilemap({
+      key:'tilemap',
+      tileWidth: 64,
+      tileHeight: 64
+    });
+    this.tileset = this.map.addTilesetImage('towerDefense_tilesheet', 'patronesTilemap');
+    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0);
+    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
+    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
+    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
+
+    
+    //Modificación de la cámara principal para ajustarse al nuevo mapa
+    this.camera = this.cameras.main;
+    this.camera.setViewport(0,0, 1982, 1984);
+    this.iconito = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95);
+    this.iconito.setScale(3);
     //Pooling de enemigos
     this.ActiveTowers = this.add.group();
     this.EnemyPool = this.add.group();
@@ -80,11 +110,21 @@ export default class Game extends Phaser.Scene {
     //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();
-    this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy);
+    // function bulletHitEnemy(bullet, enemy) {
+    //   bullet.hitEnemy(enemy);
+    // }
+    // this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy);
+    this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,(bullet, enemy) =>  bullet.hitEnemy(enemy));
+    this.pointer = this.input.activePointer;
+
+    
+
     //input
     this.w = this.input.keyboard.addKey('W');
     this.d = this.input.keyboard.addKey('D');
     this.b = this.input.keyboard.addKey('B');
+
+    
   }
 
   update(time, delta) {
@@ -100,6 +140,11 @@ export default class Game extends Phaser.Scene {
         target.ReceiveDMG(100, elements.FIRE);
       }
     }
+    if (this.pointer.middleButtonDown()){
+      if (this.towers.getTileAtWorldXY(this.pointer.x, this.pointer.y) != null){
+        this.towers.removeTileAtWorldXY(this.pointer.x, this.pointer.y, true);
+      }
+    }
     this.ActiveEnemies.getChildren().forEach(enem => {
       enem.update(delta);
     });
@@ -110,7 +155,4 @@ export default class Game extends Phaser.Scene {
       bullet.update(delta);
     });
   }
-}
-function bulletHitEnemy(bullet, enemy) {
-  bullet.hitEnemy(enemy);
 }

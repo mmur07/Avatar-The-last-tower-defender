@@ -60,6 +60,7 @@ export default class Enemy extends Elemental {
         this.scene.EnemyPool.add(this);
         this.setActive(false);
         this.setVisible(false)
+        this.scene.EarnGold(this);
         this.destroy();
         //otras funcionalidades como MORIR
     }

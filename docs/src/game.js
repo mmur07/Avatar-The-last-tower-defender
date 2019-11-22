@@ -81,6 +81,13 @@ export default class Game extends Phaser.Scene {
     this.path.draw(graphics);
     // this.paths = this.add.group();
   }
+  EarnGold(enemy){
+    //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
+    if(enemy instanceof Enemy){
+      this.player.gold += 10;
+    }
+    console.log(this.player.gold);
+  }
 
   CreateMap() {
 
@@ -102,7 +109,7 @@ export default class Game extends Phaser.Scene {
     this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
     this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
     this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
-
+    this.player = {hp: 20, gold: 0};
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;

@@ -1,8 +1,8 @@
 //fire 0  water 1 earth 2
-export default class Elemental extends Phaser.GameObjects.Sprite{
+export default class Elemental extends Phaser.GameObjects.Sprite {
 
-    constructor(scene,spritename,element,xPos, yPos){
-        super(scene,xPos,yPos,spritename);
+    constructor(scene, spritename, element, xPos, yPos) {
+        super(scene, xPos, yPos, spritename);
         this._elem = element;
         //this.anchor.setTo(0.5,0.5);
         this.scene.add.existing(this);
@@ -28,9 +28,9 @@ export default class Elemental extends Phaser.GameObjects.Sprite{
 }
 Elemental.prototype.dmgMultiplier = function (dmgElement) {
     //let rel = ((dmgElement+1)%2) - this.elem;
-    let vul = (this._elem+1)%3;
-    let res = ((this._elem+2)%3)
-    switch(dmgElement){
+    let vul = (this._elem + 1) % 3;
+    let res = ((this._elem + 2) % 3)
+    switch (dmgElement) {
         case vul:
             return 1.5;
         case res:

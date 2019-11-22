@@ -9,25 +9,25 @@ export default class Enemy extends Elemental {
         this._hp = hp;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();
-        this.scene.add.existing(this);       
-        this.gps = {ruta: 0, nodo: 0, pos: new Phaser.Math.Vector2()};
-       // this.setScale(0.1);
-        
+        this.scene.add.existing(this);
+        this.gps = { ruta: 0, nodo: 0, pos: new Phaser.Math.Vector2() };
+        // this.setScale(0.1);
+
         this.comienzaRuta();
     }
-    comienzaRuta(){
+    comienzaRuta() {
         this.gps.nodo = 0;
-        this.scene.path.getPoint(this.gps.nodo,this.gps.pos);
-        this.setPosition(this.gps.pos.x,this.gps.pos.y);
+        this.scene.path.getPoint(this.gps.nodo, this.gps.pos);
+        this.setPosition(this.gps.pos.x, this.gps.pos.y);
     }
-    sigueRuta(delta){
+    sigueRuta(delta) {
         //console.log(this.scene.path);
         this.gps.nodo += this._reducedSpeed;
         //console.log(this.gps.nodo);
-        this.scene.path.getPoint(this.gps.nodo,this.gps.pos);
+        this.scene.path.getPoint(this.gps.nodo, this.gps.pos);
         // this.gps.dir = nextPt;
-        this.setPosition(this.gps.pos.x,this.gps.pos.y);
-        if(this.gps.nodo >= 1){
+        this.setPosition(this.gps.pos.x, this.gps.pos.y);
+        if (this.gps.nodo >= 1) {
             //aquí lo que pasa si llega al núcleo
         }
     }
@@ -51,15 +51,16 @@ export default class Enemy extends Elemental {
         this.scene.ActiveEnemies.add(this);
         this.setActive(true);
         this.setVisible(true);
-       // this.setPosition(xPos, yPos);
+        // this.setPosition(xPos, yPos);
         this.comienzaRuta();
     }
 
-    die() {        
+    die() {
         this.scene.ActiveEnemies.remove(this);
         this.scene.EnemyPool.add(this);
         this.setActive(false);
         this.setVisible(false)
+        this.destroy();
         //otras funcionalidades como MORIR
     }
 

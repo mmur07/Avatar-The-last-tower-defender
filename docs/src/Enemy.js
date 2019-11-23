@@ -56,10 +56,7 @@ export default class Enemy extends Elemental {
     }
 
     die() {
-        this.scene.ActiveEnemies.remove(this);
-        this.scene.EnemyPool.add(this);
-        this.setActive(false);
-        this.setVisible(false);
+        
         this.scene.OnEnemyDead(this);
         //this.destroy();
         //otras funcionalidades como MORIR

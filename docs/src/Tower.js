@@ -15,11 +15,29 @@ export default class Tower extends Elemental {
         this.scene.physics.add.existing(this);
         this.body.setCircle(range, 32 - range, 32 - range);
         this.scene.physics.add.overlap(this, this.scene.ActiveEnemies, onCollision);
+        this.createContainer();
     }
 
-    changeColor() {
-        super.element = (super.element + 1) % 3;
-        console.log(super.element);
+    createContainer(){
+        this.container = this.scene.add.container(this.x, this.y); //Crea el container. Es la hitbox para la acción
+        this.container.setSize(64, 64); //Importante definir el tamaño del container antes del setInteractive()
+        this.container.setInteractive();
+        this.scene.add.existing(this); //Añade el icono a la escena
+        this.container.on('pointerup', this.procesaInput, this); //Si el jugador hace click en el container, llama a addTower
+        
+    }
+
+    procesaInput(pointer){
+        console.log("CLIKIASTE LA TORRE WEY");
+        if(pointer.leftButtonReleased()){
+            this.rotateLeft();
+        }
+        else if(pointer.rightButtonReleased()){
+            this.rotateRight();
+        }
+        else if(pointer.middleButtonReleased()){
+            //this.sell();
+        }
     }
 
     update(time, delta) {

@@ -7,22 +7,15 @@ export default class Elemental extends Phaser.GameObjects.Sprite {
         //this.anchor.setTo(0.5,0.5);
         this.scene.add.existing(this);
     }
-    // dmgMultiplier(dmgElement){
-    //     let rel = ((dmgElement+1)%3) - this.elem;
-    //     switch(rel){
-    //         case 1://vulnerable
-    //             return 1.5;
-    //         case -1://resistente
-    //             return 0.5;
-    //         default://neutral
-    //             return 1;
-    //     }
-    //}
 
-    // getTOPO()  {
-
-    //     return this._element.FIRE;
-    // }
+    rotateRight() {
+        this._elem = (this._elem + 1) % 3;
+        console.log(this._elem);
+    }
+    rotateLeft() {
+        this._elem = (this._elem + 2) % 3;
+        console.log(this._elem);
+    }
 
 
 }

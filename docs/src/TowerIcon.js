@@ -1,4 +1,4 @@
-import Tower from "./Tower.js"
+    import Tower from "./Tower.js"
 
 export default class TowerIcon extends Phaser.GameObjects.Image {
 

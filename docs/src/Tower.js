@@ -36,12 +36,15 @@ export default class Tower extends Elemental {
         super.preUpdate(time, delta)
         if (this.lockedEnemy != null)
             if (!this.scene.physics.collide(this, this.lockedEnemy))
-                this.lockedEnemy = null;
+                this.looseTarget();
     }
 
     shoot(angle) {
         this.scene.SpawnBullet(angle, this.x, this.y);
     }
+
+    looseTarget(){this.lockedEnemy = null;}
+    getTarget() {return this.lockedEnemy}
 
 }
 function onCollision(obj1, obj2) {

@@ -6,6 +6,7 @@ import Bullet from "./Bullet.js"
 import TowerIcon from "./TowerIcon.js";
 import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
+import ShieldEnemy from "./ShieldEnemy.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
@@ -48,6 +49,9 @@ export default class Game extends Phaser.Scene {
       en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400);
     }
     this.ActiveEnemies.add(en);
+  }
+  SpawnShieldedEnemy(elem,x,y,shields){
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,shields))
   }
   SpawnBullet(angle, x, y) {
     let b;

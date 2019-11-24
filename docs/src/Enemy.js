@@ -1,11 +1,12 @@
 import Elemental from "./Elemental.js";
 
-const reduceVal = 100000;
 export default class Enemy extends Elemental {
+    
     constructor(scene, spritename, element, xPos, yPos, hp, speed) {
         super(scene, spritename, element, xPos, yPos)
+        this._reduceVal = 100000;
         this._speed = speed;
-        this._reducedSpeed = speed / reduceVal;
+        this._reducedSpeed = speed / this._reduceVal;
         this._hp = hp;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();

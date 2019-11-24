@@ -9,7 +9,7 @@ export default class Spawner {
         this._actWave = 0;
         this._waves = new Array();
         this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 },
-        { type: "normal", el: elements.FIRE, timer: 0.5 },
+        { type: "normal", el: elements.FIRE, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
         { type: "normal", el: elements.FIRE, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 0.5 }]));
     }
     update(time, delta) {
@@ -20,7 +20,14 @@ export default class Spawner {
         }
     }
     spawn(enemy) {
-        this._scene.SpawnEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y);
+        switch (enemy.type) {
+            case "normal":
+                this._scene.SpawnEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y);
+                break;
+            default:
+                this._scene.SpawnShieldedEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.shields);
+                break;
+        }
     }
     waveEnded() {
         console.log("Acabada la oleada " + this._actWave);

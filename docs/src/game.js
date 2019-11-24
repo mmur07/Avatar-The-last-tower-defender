@@ -151,11 +151,18 @@ export default class Game extends Phaser.Scene {
     this.w = this.input.keyboard.addKey('W');
     this.d = this.input.keyboard.addKey('D');
     this.b = this.input.keyboard.addKey('B');
+    this.e = this.input.keyboard.addKey('E');
+    this.q = this.input.keyboard.addKey('Q');
 
 
   }
 
   update(time, delta) {
+    if (Phaser.Input.Keyboard.JustDown(this.e)) {
+      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateRight()})
+    }if (Phaser.Input.Keyboard.JustDown(this.q)) {
+      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateLeft()})
+    }
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)
     }

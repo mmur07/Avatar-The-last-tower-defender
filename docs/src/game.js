@@ -27,7 +27,7 @@ export default class Game extends Phaser.Scene {
   }
   PoolEnemies() {
     for (let i = 0; i < 10; i++) {
-      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 400, 400, 150, 20);
+      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 400, 400, 150, 20,0);
       this.EnemyPool.add(basicEnem);
       this.EnemyPool.killAndHide(basicEnem);
     }
@@ -46,12 +46,12 @@ export default class Game extends Phaser.Scene {
       en.spawn(x, y);
     }
     else {
-      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400);
+      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,0);
     }
     this.ActiveEnemies.add(en);
   }
   SpawnShieldedEnemy(elem, x, y, shields) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20, shields))
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, shields))
   }
   SpawnBullet(angle, x, y) {
     let b;
@@ -65,6 +65,7 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, angle);
   }
   CreatePath() {
+    this._routes = new Array();
     let graphics = this.add.graphics();
     this.path = this.add.path(-50, 350)
     this.path.lineTo(50, 350)
@@ -79,10 +80,32 @@ export default class Game extends Phaser.Scene {
     this.path.lineTo(1650, 1575);
     this.path.lineTo(1700, 1075);
     this.path.lineTo(1850, 700);
+    this._routes.push(this.path);
+
+    var route2 =  this.add.path(-50, 350);
+    route2.lineTo(50, 350);
+    route2.lineTo(375, 750);
+    route2.lineTo(75,900);
+    route2.lineTo(75,1450);
+    route2.lineTo(225,1725);
+    route2.lineTo(500,1725);
+    route2.lineTo(575,1675);
+    route2.lineTo(575,1675);
+    route2.lineTo(875,1575);
+    route2.lineTo(1000, 1575);
+    route2.lineTo(1400, 1675);
+    route2.lineTo(1650, 1575);
+    route2.lineTo(1700, 1075);
+    route2.lineTo(1850, 700);
+    
+    this._routes.push(route2);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
     this._routes[0].draw(graphics);
+    graphics.lineStyle(3, 0xff0000,1);
+    this._routes[1].draw(graphics);
+
     // this.paths = this.add.group();
   }
 

@@ -50,8 +50,8 @@ export default class Game extends Phaser.Scene {
     }
     this.ActiveEnemies.add(en);
   }
-  SpawnShieldedEnemy(elem,x,y,shields){
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,shields))
+  SpawnShieldedEnemy(elem, x, y, shields) {
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20, shields))
   }
   SpawnBullet(angle, x, y) {
     let b;
@@ -82,10 +82,17 @@ export default class Game extends Phaser.Scene {
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
-    this.path.draw(graphics);
+    this._routes[0].draw(graphics);
     // this.paths = this.add.group();
   }
-  OnEnemyDead(enemy) {
+
+  getRoute(num) {
+    if (num >= this._routes.length)
+      return undefined
+    else
+      return this._routes[num];
+  }
+  OnEnemySlain(enemy) {
     this.ActiveEnemies.remove(enemy);
     this.EnemyPool.add(enemy);
     enemy.setActive(false);
@@ -95,6 +102,11 @@ export default class Game extends Phaser.Scene {
       if (tow.getTarget() === enemy)
         tow.looseTarget();
     });
+  }
+  OnEnemyAttack(enemy) {
+    this.player.hp--;
+    //actualizar el hud
+    //comprobar la moridira
   }
   EarnGold(enemy) {
     //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
@@ -163,9 +175,9 @@ export default class Game extends Phaser.Scene {
 
   update(time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.e)) {
-      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateRight()})
-    }if (Phaser.Input.Keyboard.JustDown(this.q)) {
-      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateLeft()})
+      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateRight() })
+    } if (Phaser.Input.Keyboard.JustDown(this.q)) {
+      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() })
     }
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)

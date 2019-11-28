@@ -24,7 +24,7 @@ export default class Spawner {
             case "normal":
                 this._scene.SpawnEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y);
                 break;
-            default:
+            case "shield":
                 this._scene.SpawnShieldedEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.shields);
                 break;
         }

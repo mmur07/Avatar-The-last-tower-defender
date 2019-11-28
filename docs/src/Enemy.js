@@ -30,6 +30,7 @@ export default class Enemy extends Elemental {
         this.setPosition(this.gps.pos.x, this.gps.pos.y);
         if (this.gps.nodo >= 1) {
             //aquí lo que pasa si llega al núcleo
+            this.attack();
         }
     }
     get hp() {
@@ -58,10 +59,14 @@ export default class Enemy extends Elemental {
 
     die() {
         
-        this.scene.OnEnemyDead(this);
+        this.scene.OnEnemySlain(this);
         //this.destroy();
         //otras funcionalidades como MORIR
     }
+    attack(){
+        this.scene.OnEnemyAttack(this);
+        this.destroy();    
+        }
+    }
 
 
-}

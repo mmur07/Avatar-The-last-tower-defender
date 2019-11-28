@@ -4,9 +4,9 @@ export default class Enemy extends Elemental {
 
     constructor(scene, spritename, element, xPos, yPos, hp, speed,route) {
         super(scene, spritename, element, xPos, yPos)
-        this._reduceVal = 100000;
+        this._reduceVal = 10;
         this._speed = speed;
-        this._reducedSpeed = speed / this._reduceVal;
+        
         this._hp = hp;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();
@@ -17,9 +17,12 @@ export default class Enemy extends Elemental {
         this.comienzaRuta();
     }
     comienzaRuta() {
-        this.gps.nodo = 0;
+        //nos situamos al inicio de la ruta
+        this.gps.nodo = 0; 
         this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
         this.setPosition(this.gps.pos.x, this.gps.pos.y);
+        //ajustamos la velocidad a la longitud de la ruta
+        this._reducedSpeed = this._speed / (this._reduceVal*this.gps.ruta.getLength());
     }
     sigueRuta(delta) {
         //console.log(this.gps.ruta);

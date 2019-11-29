@@ -20,16 +20,16 @@ export default class Game extends Phaser.Scene {
     super({ key: 'main' });
   }
   preload() {
-    this.load.image('patronesTilemap', './img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', './Tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
+    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_Tilemap.json');
     // this.load.json('waveData','./waves,json');  
-    let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
-    this.load.image('jojoSprite', './img/favicon.png');
-    this.load.image('towerIconSprite', './img/towericon.png');
-    this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
-    this.load.image('bulletSprite', './img/rocketto.png');
-    this.load.image('speedSprite', './img/bullethellIcon.png');
-    this.load.image('sniperSprite', './img/sniperIcon.png');
+    let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
+    this.load.image('jojoSprite', '/img/favicon.png');
+    this.load.image('towerIconSprite', '/img/towericon.png');
+    this.load.image('hohoho', '/img/HowManyBreadsHaveYouEatenInYourLifetime.png');
+    this.load.image('bulletSprite', '/img/rocketto.png');
+    this.load.image('speedSprite', '/img/bullethellIcon.png');
+    this.load.image('sniperSprite', '/img/sniperIcon.png');
 
   }
   PoolEnemies() {

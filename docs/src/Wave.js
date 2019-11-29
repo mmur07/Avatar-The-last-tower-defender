@@ -19,9 +19,6 @@ export default class Wave {
         }
         else this._spawner.waveEnded();
     }
-    spawnBatch() {
-        this._actBatch = this._batches.dequeue();
-    }
     finished() {
         return (this._enemies.length === 0);
     }

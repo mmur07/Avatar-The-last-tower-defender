@@ -1,34 +1,39 @@
 import Elemental from "./Elemental.js";
 
-const reduceVal = 100000;
 export default class Enemy extends Elemental {
-    constructor(scene, spritename, element, xPos, yPos, hp, speed) {
+
+    constructor(scene, spritename, element, xPos, yPos, hp, speed,route) {
         super(scene, spritename, element, xPos, yPos)
+        this._reduceVal = 10;
         this._speed = speed;
-        this._reducedSpeed = speed / reduceVal;
+        
         this._hp = hp;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();
         this.scene.add.existing(this);
-        this.gps = { ruta: 0, nodo: 0, pos: new Phaser.Math.Vector2() };
+        this.gps = { ruta: this.scene.getRoute(route), nodo: 0, pos: new Phaser.Math.Vector2() };
         // this.setScale(0.1);
 
         this.comienzaRuta();
     }
     comienzaRuta() {
-        this.gps.nodo = 0;
-        this.scene.path.getPoint(this.gps.nodo, this.gps.pos);
+        //nos situamos al inicio de la ruta
+        this.gps.nodo = 0; 
+        this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
         this.setPosition(this.gps.pos.x, this.gps.pos.y);
+        //ajustamos la velocidad a la longitud de la ruta
+        this._reducedSpeed = this._speed / (this._reduceVal*this.gps.ruta.getLength());
     }
     sigueRuta(delta) {
-        //console.log(this.scene.path);
+        //console.log(this.gps.ruta);
         this.gps.nodo += this._reducedSpeed;
         //console.log(this.gps.nodo);
-        this.scene.path.getPoint(this.gps.nodo, this.gps.pos);
+        this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
         // this.gps.dir = nextPt;
         this.setPosition(this.gps.pos.x, this.gps.pos.y);
         if (this.gps.nodo >= 1) {
             //aquí lo que pasa si llega al núcleo
+            this.attack();
         }
     }
     get hp() {
@@ -56,11 +61,15 @@ export default class Enemy extends Elemental {
     }
 
     die() {
-        
-        this.scene.OnEnemyDead(this);
+
+        this.scene.OnEnemySlain(this);
         //this.destroy();
         //otras funcionalidades como MORIR
     }
-
-
+    attack() {
+        this.scene.OnEnemyAttack(this);
+        this.destroy();
+    }
 }
+
+

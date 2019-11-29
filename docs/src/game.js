@@ -6,8 +6,13 @@ import Bullet from "./Bullet.js"
 import TowerIcon from "./TowerIcon.js";
 import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
+import ShieldEnemy from "./ShieldEnemy.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
+
+const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15,area:false},
+ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false}}; 
 
 export default class Game extends Phaser.Scene {
 
@@ -15,18 +20,21 @@ export default class Game extends Phaser.Scene {
     super({ key: 'main' });
   }
   preload() {
-    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', './img/towerDefense_tilesheet.png');
+    this.load.tilemapTiledJSON('tilemap', './tilemaps/TD_Tilemap.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
     this.load.image('jojoSprite', './img/favicon.png');
     this.load.image('towerIconSprite', './img/towericon.png');
     this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
     this.load.image('bulletSprite', './img/rocketto.png');
+    this.load.image('speedSprite', './img/bullethellIcon.png');
+    this.load.image('sniperSprite', './img/sniperIcon.png');
+
   }
   PoolEnemies() {
     for (let i = 0; i < 10; i++) {
-      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 400, 400, 150, 20);
+      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 400, 400, 150, 20,0);
       this.EnemyPool.add(basicEnem);
       this.EnemyPool.killAndHide(basicEnem);
     }
@@ -45,22 +53,26 @@ export default class Game extends Phaser.Scene {
       en.spawn(x, y);
     }
     else {
-      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400);
+      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,0);
     }
     this.ActiveEnemies.add(en);
   }
-  SpawnBullet(angle, x, y) {
+  SpawnShieldedEnemy(elem, x, y, shields) {
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, shields))
+  }
+  SpawnBullet(angle, x, y,damage) {
     let b;
     if (this.BulletPool.getLength() > 0) {
       b = this.BulletPool.getFirstDead();
-
+      b.setDmg(damage);
     }
     else {
-      b = new Bullet(this, 50, 400, 90, 1, 100, elements.FIRE, 'bulletSprite');
+      b = new Bullet(this, 50, 400, 90, 1, damage, elements.FIRE, 'bulletSprite');
     }
     b.fire(x, y, angle);
   }
   CreatePath() {
+    this._routes = new Array();
     let graphics = this.add.graphics();
     this.path = this.add.path(-50, 350)
     this.path.lineTo(50, 350)
@@ -75,13 +87,41 @@ export default class Game extends Phaser.Scene {
     this.path.lineTo(1650, 1575);
     this.path.lineTo(1700, 1075);
     this.path.lineTo(1850, 700);
+    this._routes.push(this.path);
+
+    var route2 =  this.add.path(-50, 350);
+    route2.lineTo(50, 350);
+    route2.lineTo(375, 750);
+    route2.lineTo(75,900);
+    route2.lineTo(75,1450);
+    route2.lineTo(225,1725);
+    route2.lineTo(500,1725);
+    route2.lineTo(575,1675);
+    route2.lineTo(575,1675);
+    route2.lineTo(875,1575);
+    route2.lineTo(1000, 1575);
+    route2.lineTo(1400, 1675);
+    route2.lineTo(1650, 1575);
+    route2.lineTo(1700, 1075);
+    route2.lineTo(1850, 700);
+    
+    this._routes.push(route2);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
-    this.path.draw(graphics);
+    this._routes[0].draw(graphics);
+    graphics.lineStyle(3, 0xff0000,1);
+    this._routes[1].draw(graphics);
+
     // this.paths = this.add.group();
   }
-  OnEnemyDead(enemy) {
+  getRoute(num) {
+    if (num >= this._routes.length)
+      return undefined
+    else
+      return this._routes[num];
+  }
+  OnEnemySlain(enemy) {
     this.ActiveEnemies.remove(enemy);
     this.EnemyPool.add(enemy);
     enemy.setActive(false);
@@ -92,11 +132,39 @@ export default class Game extends Phaser.Scene {
         tow.looseTarget();
     });
   }
+  OnEnemyAttack(enemy) {
+    this.player.hp--;
+    //actualizar el hud
+    //comprobar la moridira
+  }
   EarnGold(enemy) {
     //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
-    if (enemy instanceof Enemy) {
-      this.player.gold += 10;
+    let gain;
+    if (enemy instanceof ShieldEnemy) {
+      gain = 20;
     }
+    else{
+      gain = 10;
+    }
+    this.player.gold += gain;
+  }
+  addTower(pointer, target) {
+    this._canAdd = true;
+    this.dragObj = this.scene.add.image(64, 64, 'towerIconSprite'); //El objeto que arrastramos es un sprite
+    //Activamos listeners para detectar la posicion del raton y cuando lo soltamos
+    this.scene.input.on('pointermove', this.Drag, this);
+    this.scene.input.on('pointerup', this.stopDrag, this);
+
+}
+
+  CreateTowerIcons(){
+    let iconOffset = 20; //px
+    let w = WIN_WIDTH * 0.95;
+    let h = WIN_HEIGTH * 0.95;
+    this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
+    this._speedIcon = new TowerIcon(this, 'speedSprite', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon);
+    this._sniperIcon = new TowerIcon(this, 'sniperSprite', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt);
+
   }
 
   deleteTile(xPos, yPos){
@@ -130,8 +198,9 @@ export default class Game extends Phaser.Scene {
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;
     this.camera.setViewport(0, 0, 1982, 1984);
-    this.iconito = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95);
-    this.iconito.setScale(3);
+    
+    this.CreateTowerIcons();
+    
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');
     this._Spawner = new Spawner(this, { x: 0, y: 50 });
@@ -165,9 +234,9 @@ export default class Game extends Phaser.Scene {
 
   update(time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.e)) {
-      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateRight()})
-    }if (Phaser.Input.Keyboard.JustDown(this.q)) {
-      this.ActiveTowers.getChildren().forEach(tower => {tower.rotateLeft()})
+      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateRight() })
+    } if (Phaser.Input.Keyboard.JustDown(this.q)) {
+      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() })
     }
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)

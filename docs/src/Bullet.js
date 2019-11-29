@@ -33,5 +33,8 @@ export default class Bullet extends Elemental {
         this.x += this._dx * (this._speed * delta);
         this.y += this._dy * (this._speed * delta);
     }
+    setDmg(newDmg){
+        this._dmg = newDmg;
+    }
 
 }

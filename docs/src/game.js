@@ -10,6 +10,10 @@ import ShieldEnemy from "./ShieldEnemy.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
+const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15},
+ratt:{cost: 100,range:300,cadencia:2,dmg:500}}; 
+
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -53,14 +57,14 @@ export default class Game extends Phaser.Scene {
   SpawnShieldedEnemy(elem, x, y, shields) {
     this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, shields))
   }
-  SpawnBullet(angle, x, y) {
+  SpawnBullet(angle, x, y,damage) {
     let b;
     if (this.BulletPool.getLength() > 0) {
       b = this.BulletPool.getFirstDead();
-
+      b.setDmg(damage);
     }
     else {
-      b = new Bullet(this, 50, 400, 90, 1, 100, elements.FIRE, 'bulletSprite');
+      b = new Bullet(this, 50, 400, 90, 1, damage, elements.FIRE, 'bulletSprite');
     }
     b.fire(x, y, angle);
   }
@@ -108,7 +112,6 @@ export default class Game extends Phaser.Scene {
 
     // this.paths = this.add.group();
   }
-
   getRoute(num) {
     if (num >= this._routes.length)
       return undefined
@@ -137,6 +140,18 @@ export default class Game extends Phaser.Scene {
       this.player.gold += 10;
     }
   }
+  addTower(pointer, target) {
+    this._canAdd = true;
+    this.dragObj = this.scene.add.image(64, 64, 'towerIconSprite'); //El objeto que arrastramos es un sprite
+    //Activamos listeners para detectar la posicion del raton y cuando lo soltamos
+    this.scene.input.on('pointermove', this.Drag, this);
+    this.scene.input.on('pointerup', this.stopDrag, this);
+
+}
+
+  CreateTowerIcons(){
+    this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
+  }
 
   CreateMap() {
 
@@ -163,8 +178,9 @@ export default class Game extends Phaser.Scene {
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;
     this.camera.setViewport(0, 0, 1982, 1984);
-    this.iconito = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95);
-    this.iconito.setScale(3);
+    
+    this.CreateTowerIcons();
+    
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');
     this._Spawner = new Spawner(this, { x: 0, y: 50 });

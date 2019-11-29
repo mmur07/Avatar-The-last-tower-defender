@@ -2,13 +2,14 @@ import Elemental from "./Elemental.js";
 
 export default class Tower extends Elemental {
 
-    constructor(scene, element, xPos, yPos, range, cdShoots) {
+    constructor(scene, element, xPos, yPos, range, cdShoots,dmg) {
         console.log("a");
         super(scene, 'towerIconSprite', element, xPos, yPos);
         this._scene = scene;
         this._cdShoots = cdShoots * 1000;
         this._nextShot = 0;//siempre puede disparar al ser creada
         this.lockedEnemy = null;
+        this._dmg = dmg;
         //this._spriteName = spriteName;
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
@@ -58,7 +59,7 @@ export default class Tower extends Elemental {
     }
 
     shoot(angle) {
-        this.scene.SpawnBullet(angle, this.x, this.y);
+        this.scene.SpawnBullet(angle, this.x, this.y,this._dmg);
     }
 
     looseTarget(){this.lockedEnemy = null;}

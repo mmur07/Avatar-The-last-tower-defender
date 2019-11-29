@@ -21,7 +21,7 @@ export default class Game extends Phaser.Scene {
   }
   preload() {
     this.load.image('patronesTilemap', './img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', './tilemaps/TD_Tilemap.json');
+    this.load.tilemapTiledJSON('tilemap', './Tilemaps/TD_Tilemap.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
     this.load.image('jojoSprite', './img/favicon.png');

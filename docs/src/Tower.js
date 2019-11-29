@@ -32,11 +32,16 @@ export default class Tower extends Elemental {
         if(pointer.leftButtonReleased()){
             this.rotateLeft();
         }
-        else if(pointer.rightButtonReleased()){
+        else if(pointer.rightButtonDown()){
             this.rotateRight();
         }
         else if(pointer.middleButtonReleased()){
-            //this.sell();
+            this.scene.ActiveTowers.remove(this);
+            this.scene.deleteTile(this.originX, this.originY);
+            this.setActive(false);
+            this.setVisible(false);
+            this.lockedEnemy = null;
+            this.destroy();
         }
     }
 

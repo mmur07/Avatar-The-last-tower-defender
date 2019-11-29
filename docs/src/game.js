@@ -99,6 +99,12 @@ export default class Game extends Phaser.Scene {
     }
   }
 
+  deleteTile(xPos, yPos){
+    if (this.towers.getTileAtWorldXY(this.pointer.x, this.pointer.y) != null) {
+      this.towers.removeTileAtWorldXY(this.pointer.x, this.pointer.y, true);
+    }
+  }
+
   CreateMap() {
 
     //this.add.existing(this.map);

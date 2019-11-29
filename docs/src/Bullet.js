@@ -25,13 +25,16 @@ export default class Bullet extends Elemental {
     }
     hitEnemy(en) {
         en.ReceiveDMG(this._dmg, this._elem);
-        this.scene.ActiveBullets.killAndHide(this);
-        this.scene.ActiveBullets.remove(this);
-        this.scene.BulletPool.add(this);
+        this.destroyBullet();
     }
     update(delta) {
         this.x += this._dx * (this._speed * delta);
         this.y += this._dy * (this._speed * delta);
+        if (this.body.checkWorldBounds()) this.destroyBullet();
     }
-
+    destroyBullet(){
+        this.scene.ActiveBullets.killAndHide(this);
+        this.scene.ActiveBullets.remove(this);
+        this.scene.BulletPool.add(this);
+    }
 }

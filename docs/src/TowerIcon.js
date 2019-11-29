@@ -4,6 +4,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
 
     constructor(scene, spritename, xPos, yPos,size,towerData) {
         super(scene, xPos, yPos, spritename)
+        this._spriteKey = spritename
         this.originX = xPos;
         this.originY = yPos;
         this.inputEnabled = true;
@@ -25,7 +26,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
     //Seleccionamos el objeto a mover y activamos los nuevos listeners
     addTower(pointer, target) {
         this._canAdd = true;
-        this.dragObj = this.scene.add.image(64, 64, 'towerIconSprite'); //El objeto que arrastramos es un sprite
+        this.dragObj = this.scene.add.image(64, 64, this._spriteKey); //El objeto que arrastramos es un sprite
         //Activamos listeners para detectar la posicion del raton y cuando lo soltamos
         this.scene.input.on('pointermove', this.Drag, this);
         this.scene.input.on('pointerup', this.stopDrag, this);
@@ -42,7 +43,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
         let tile_towers = this.scene.towers.getTileAtWorldXY(pointer.x, pointer.y);
         if (tile_canAdd != null && tile_towers == null) {//si la posición es válida
             this.scene.towers.putTileAtWorldXY(this.sample_Tile, pointer.x, pointer.y);
-            let t = new Tower(this.scene, 0, tile_canAdd.getCenterX(), tile_canAdd.getCenterY(), this._tD.range, this._tD.cadencia,this._tD.dmg);
+            let t = new Tower(this.scene,this._spriteKey, 0, tile_canAdd.getCenterX(), tile_canAdd.getCenterY(), this._tD.range, this._tD.cadencia,this._tD.dmg);
             this.scene.ActiveTowers.add(t);
         }
         //volvemos al estado inicial

@@ -10,9 +10,9 @@ import ShieldEnemy from "./ShieldEnemy.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
-const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15},
-ratt:{cost: 100,range:300,cadencia:2,dmg:500}}; 
+const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15,area:false},
+ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false}}; 
 
 export default class Game extends Phaser.Scene {
 
@@ -20,14 +20,17 @@ export default class Game extends Phaser.Scene {
     super({ key: 'main' });
   }
   preload() {
-    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', './img/towerDefense_tilesheet.png');
+    this.load.tilemapTiledJSON('tilemap', './tilemaps/TD_Tilemap.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
     this.load.image('jojoSprite', './img/favicon.png');
     this.load.image('towerIconSprite', './img/towericon.png');
     this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
     this.load.image('bulletSprite', './img/rocketto.png');
+    this.load.image('speedSprite', './img/bullethellIcon.png');
+    this.load.image('sniperSprite', './img/sniperIcon.png');
+
   }
   PoolEnemies() {
     for (let i = 0; i < 10; i++) {
@@ -136,9 +139,14 @@ export default class Game extends Phaser.Scene {
   }
   EarnGold(enemy) {
     //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
-    if (enemy instanceof Enemy) {
-      this.player.gold += 10;
+    let gain;
+    if (enemy instanceof ShieldEnemy) {
+      gain = 20;
     }
+    else{
+      gain = 10;
+    }
+    this.player.gold += gain;
   }
   addTower(pointer, target) {
     this._canAdd = true;
@@ -150,7 +158,13 @@ export default class Game extends Phaser.Scene {
 }
 
   CreateTowerIcons(){
+    let iconOffset = 20; //px
+    let w = WIN_WIDTH * 0.95;
+    let h = WIN_HEIGTH * 0.95;
     this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
+    this._speedIcon = new TowerIcon(this, 'speedSprite', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon);
+    this._sniperIcon = new TowerIcon(this, 'sniperSprite', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt);
+
   }
 
   CreateMap() {

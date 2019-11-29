@@ -7,6 +7,7 @@ import TowerIcon from "./TowerIcon.js";
 import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
+import TankyEnemy from "./TankyEnemy.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
@@ -30,6 +31,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('bulletSprite', './img/rocketto.png');
     this.load.image('speedSprite', './img/bullethellIcon.png');
     this.load.image('sniperSprite', './img/sniperIcon.png');
+    this.load.image('tankySprite', './img/ovaisthevestjojoversion.png');
 
   }
   PoolEnemies() {
@@ -59,6 +61,9 @@ export default class Game extends Phaser.Scene {
   }
   SpawnShieldedEnemy(elem, x, y, shields) {
     this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, shields))
+  }
+  SpawnTankyEnemy(elem, x, y, hpregen) {
+    this.ActiveEnemies.add(new TankyEnemy(this, 'tankySprite', elem, x, y, 250, 20, 1, 50));
   }
   SpawnBullet(angle, x, y,damage) {
     let b;

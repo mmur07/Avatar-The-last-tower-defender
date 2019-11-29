@@ -8,7 +8,7 @@ export default class Spawner {
         this._spawnPos = spawnPos;
         this._actWave = 0;
         this._waves = new Array();
-        this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 },
+        this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 }, {type: "tanky", el: elements.WATER, timer: 0.5, hpRegen: 20},
         { type: "normal", el: elements.FIRE, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
         { type: "normal", el: elements.FIRE, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 0.5 }]));
     }
@@ -27,6 +27,8 @@ export default class Spawner {
             case "shield":
                 this._scene.SpawnShieldedEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.shields);
                 break;
+            case "tanky":
+                this._scene.SpawnTankyEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y, enemy.hpRegen);
         }
     }
     waveEnded() {

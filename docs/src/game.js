@@ -20,8 +20,8 @@ export default class Game extends Phaser.Scene {
     super({ key: 'main' });
   }
   preload() {
-    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', '/tilemaps/modded_colored.png');
+    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
     this.load.image('jojoSprite', '/img/favicon.png');
@@ -185,14 +185,17 @@ export default class Game extends Phaser.Scene {
     //this.CreateMap();
     this.map = this.make.tilemap({
       key: 'tilemap',
-      tileWidth: 64,
-      tileHeight: 64
+      tileWidth: 16,
+      tileHeight: 16
     });
-    this.tileset = this.map.addTilesetImage('towerDefense_tilesheet', 'patronesTilemap');
+    this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap');
     this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0);
     this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
     this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
     this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
+
+    this.map.setBaseTileSize(64, 64);
+
     this.player = { hp: 20, gold: 0 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa

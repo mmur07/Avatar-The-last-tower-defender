@@ -222,7 +222,6 @@ export default class Game extends Phaser.Scene {
     //Creación del mapa
     this.CreateMap();
 
-   this._HUD = new HUD(this,WIN_WIDTH,WIN_HEIGTH);
 
     this.player = { hp: 20, gold: 0 };
 
@@ -234,7 +233,7 @@ export default class Game extends Phaser.Scene {
     
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');
-    this._Spawner = new Spawner(this, { x: 0, y: 50 });
+
     //Pooling de enemigos
     this.ActiveTowers = this.add.group();
     this.EnemyPool = this.add.group();
@@ -260,7 +259,8 @@ export default class Game extends Phaser.Scene {
     this.e = this.input.keyboard.addKey('E');
     this.q = this.input.keyboard.addKey('Q');
 
-
+    this._HUD = new HUD(this,WIN_WIDTH,WIN_HEIGTH);
+    this._Spawner = new Spawner(this, { x: 0, y: 50 });
   }
 
   update(time, delta) {

@@ -72,40 +72,49 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, angle);
   }
   CreatePath() {
+
     this._routes = new Array();
     let graphics = this.add.graphics();
-    this.path = this.add.path(-50, 400)
+    //inicio
+    this.path = this.add.path(-50, 400);
     this.path.lineTo(50, 400)
-    //let PiscinaDeEnemigos = new Pool(this,true,);
-    this.path.lineTo(375, 750);
-    // let a = this.path.getPoint(0.5);
-    // console.log("init" + a.y);
-    this.path.lineTo(575, 850);
-    this.path.lineTo(800, 1450);
-    this.path.lineTo(1000, 1575);
-    this.path.lineTo(1400, 1675);
-    this.path.lineTo(1650, 1575);
-    this.path.lineTo(1700, 1075);
+    //bif1
+    this.path.lineTo(375, 550);
+    //bifurcacion dcha
+    this.path.lineTo(550,525);
+    this.path.lineTo(850, 850);
+    this.path.lineTo(875, 1100);
+    //cruce
+    this.path.lineTo(1100, 1175);
+    //bifurcacion dcha
+    this.path.lineTo(1450, 1500);
+    this.path.lineTo(1650, 1500);
+    this.path.lineTo(1775, 1075);
     this.path.lineTo(1850, 700);
     this._routes.push(this.path);
 
-    var route2 =  this.add.path(-50, 400);
-    route2.lineTo(50, 400);
-    route2.lineTo(375, 750);
-    route2.lineTo(75,900);
-    route2.lineTo(75,1450);
-    route2.lineTo(225,1725);
-    route2.lineTo(500,1725);
-    route2.lineTo(575,1675);
-    route2.lineTo(575,1675);
-    route2.lineTo(875,1575);
-    route2.lineTo(1000, 1575);
-    route2.lineTo(1400, 1675);
-    route2.lineTo(1650, 1575);
-    route2.lineTo(1700, 1075);
-    route2.lineTo(1850, 700);
+    //inicio
+    var ruta2 =  this.add.path(-50, 400);
+    ruta2.lineTo(50, 400);
+    //bif1
+    ruta2.lineTo(375, 550);
+  //bifurcaion izq
+  ruta2.lineTo(175,700);
+    ruta2.lineTo(125,900);
+    ruta2.lineTo(150,1250);
+    ruta2.lineTo(225,1475);
+    ruta2.lineTo(700,1475);
+    ruta2.lineTo(750,1400);
+    ruta2.lineTo(800,1400);
+    //cruce
+    ruta2.lineTo(1100, 1175);
+    //bifurcacion dcha
+    ruta2.lineTo(1450, 1500);
+    ruta2.lineTo(1650, 1500);
+    ruta2.lineTo(1775, 1075);
+    ruta2.lineTo(1850, 700);
     
-    this._routes.push(route2);
+    this._routes.push(ruta2);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path

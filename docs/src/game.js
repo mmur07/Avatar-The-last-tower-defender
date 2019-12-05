@@ -7,11 +7,12 @@ import TowerIcon from "./TowerIcon.js";
 import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
+import HUD from "./HUD.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
 const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15,area:false},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:1000000000,area:false},
 ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false}}; 
 
 export default class Game extends Phaser.Scene {
@@ -30,6 +31,8 @@ export default class Game extends Phaser.Scene {
     this.load.image('bulletSprite', '/img/rocketto.png');
     this.load.image('speedSprite', '/img/bullethellIcon.png');
     this.load.image('sniperSprite', '/img/sniperIcon.png');
+
+    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
   }
   PoolEnemies() {
@@ -156,6 +159,8 @@ export default class Game extends Phaser.Scene {
       gain = 10;
     }
     this.player.gold += gain;
+    this._HUD.updateGold(this.player.gold);
+    console.log(this.player.gold)
   }
   addTower(pointer, target) {
     this._canAdd = true;
@@ -197,9 +202,27 @@ export default class Game extends Phaser.Scene {
     this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0).setScale(4);
     this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0).setScale(4);
   }
+  CreateHUD(){
+    let self = this;
+    WebFont.load({
+      google: {
+          families: [ 'Freckle Face', 'Finger Paint', 'VT323' ]
+      },
+      active: function () // se llama a esta función cuando está cargada
+      {
+          let nuevoTexto = 
+              self.add.text(900, WIN_HEIGTH-200, 
+                  'g', 
+                  { fontFamily: 'VT323', fontSize: 90, color: '#ffffff' })
+          nuevoTexto.setShadow(2, 2, "#FFD700", 2, false, true);
+      }
+  });
+  }
   create() {
     //Creación del mapa
     this.CreateMap();
+
+   this._HUD = new HUD(this,WIN_WIDTH,WIN_HEIGTH);
 
     this.player = { hp: 20, gold: 0 };
 

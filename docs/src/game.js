@@ -21,7 +21,7 @@ export default class Game extends Phaser.Scene {
   }
   preload() {
     this.load.image('patronesTilemap', '/tilemaps/modded_colored.png');
-    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_TilemapBit.json');
+    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
     this.load.image('jojoSprite', '/img/favicon.png');
@@ -74,8 +74,8 @@ export default class Game extends Phaser.Scene {
   CreatePath() {
     this._routes = new Array();
     let graphics = this.add.graphics();
-    this.path = this.add.path(-50, 350)
-    this.path.lineTo(50, 350)
+    this.path = this.add.path(-50, 400)
+    this.path.lineTo(50, 400)
     //let PiscinaDeEnemigos = new Pool(this,true,);
     this.path.lineTo(375, 750);
     // let a = this.path.getPoint(0.5);
@@ -89,8 +89,8 @@ export default class Game extends Phaser.Scene {
     this.path.lineTo(1850, 700);
     this._routes.push(this.path);
 
-    var route2 =  this.add.path(-50, 350);
-    route2.lineTo(50, 350);
+    var route2 =  this.add.path(-50, 400);
+    route2.lineTo(50, 400);
     route2.lineTo(375, 750);
     route2.lineTo(75,900);
     route2.lineTo(75,1450);
@@ -175,26 +175,22 @@ export default class Game extends Phaser.Scene {
 
   CreateMap() {
 
-    //this.add.existing(this.map);
-    /*this.add.existing(this.nodes);
-    this.add.existing(this.default);
-    this.add.existing(this.can_place_towers);*/
-  }
-  create() {
-    //Creación del mapa
-    //this.CreateMap();
     this.map = this.make.tilemap({
       key: 'tilemap',
       tileWidth: 16,
       tileHeight: 16
     });
-    this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap');
-    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0);
-    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
-    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
-    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
-
-    this.map.setBaseTileSize(64, 64);
+    this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap'); 
+    this._bgMap = this.map.createStaticLayer('Background',this.tileset,0,0).setScale(4);
+    this._hud =this.map.createStaticLayer('HUD',this.tileset,0,0).setScale(4);  
+    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0).setScale(4);
+    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0).setScale(4);
+    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0).setScale(4);
+    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0).setScale(4);
+  }
+  create() {
+    //Creación del mapa
+    this.CreateMap();
 
     this.player = { hp: 20, gold: 0 };
 

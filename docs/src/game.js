@@ -20,8 +20,8 @@ export default class Game extends Phaser.Scene {
     super({ key: 'main' });
   }
   preload() {
-    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', '/tilemaps/modded_colored.png');
+    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
     this.load.image('jojoSprite', '/img/favicon.png');
@@ -72,40 +72,49 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, angle);
   }
   CreatePath() {
+
     this._routes = new Array();
     let graphics = this.add.graphics();
-    this.path = this.add.path(-50, 350)
-    this.path.lineTo(50, 350)
-    //let PiscinaDeEnemigos = new Pool(this,true,);
-    this.path.lineTo(375, 750);
-    // let a = this.path.getPoint(0.5);
-    // console.log("init" + a.y);
-    this.path.lineTo(575, 850);
-    this.path.lineTo(800, 1450);
-    this.path.lineTo(1000, 1575);
-    this.path.lineTo(1400, 1675);
-    this.path.lineTo(1650, 1575);
-    this.path.lineTo(1700, 1075);
+    //inicio
+    this.path = this.add.path(-50, 400);
+    this.path.lineTo(50, 400)
+    //bif1
+    this.path.lineTo(375, 550);
+    //bifurcacion dcha
+    this.path.lineTo(550,525);
+    this.path.lineTo(850, 850);
+    this.path.lineTo(875, 1100);
+    //cruce
+    this.path.lineTo(1100, 1175);
+    //bifurcacion dcha
+    this.path.lineTo(1450, 1500);
+    this.path.lineTo(1650, 1500);
+    this.path.lineTo(1775, 1075);
     this.path.lineTo(1850, 700);
     this._routes.push(this.path);
 
-    var route2 =  this.add.path(-50, 350);
-    route2.lineTo(50, 350);
-    route2.lineTo(375, 750);
-    route2.lineTo(75,900);
-    route2.lineTo(75,1450);
-    route2.lineTo(225,1725);
-    route2.lineTo(500,1725);
-    route2.lineTo(575,1675);
-    route2.lineTo(575,1675);
-    route2.lineTo(875,1575);
-    route2.lineTo(1000, 1575);
-    route2.lineTo(1400, 1675);
-    route2.lineTo(1650, 1575);
-    route2.lineTo(1700, 1075);
-    route2.lineTo(1850, 700);
+    //inicio
+    var ruta2 =  this.add.path(-50, 400);
+    ruta2.lineTo(50, 400);
+    //bif1
+    ruta2.lineTo(375, 550);
+  //bifurcaion izq
+  ruta2.lineTo(175,700);
+    ruta2.lineTo(125,900);
+    ruta2.lineTo(150,1250);
+    ruta2.lineTo(225,1475);
+    ruta2.lineTo(700,1475);
+    ruta2.lineTo(750,1400);
+    ruta2.lineTo(800,1400);
+    //cruce
+    ruta2.lineTo(1100, 1175);
+    //bifurcacion dcha
+    ruta2.lineTo(1450, 1500);
+    ruta2.lineTo(1650, 1500);
+    ruta2.lineTo(1775, 1075);
+    ruta2.lineTo(1850, 700);
     
-    this._routes.push(route2);
+    this._routes.push(ruta2);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
@@ -175,24 +184,23 @@ export default class Game extends Phaser.Scene {
 
   CreateMap() {
 
-    //this.add.existing(this.map);
-    /*this.add.existing(this.nodes);
-    this.add.existing(this.default);
-    this.add.existing(this.can_place_towers);*/
+    this.map = this.make.tilemap({
+      key: 'tilemap',
+      tileWidth: 16,
+      tileHeight: 16
+    });
+    this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap'); 
+    this._bgMap = this.map.createStaticLayer('Background',this.tileset,0,0).setScale(4);
+    this._hud =this.map.createStaticLayer('HUD',this.tileset,0,0).setScale(4);  
+    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0).setScale(4);
+    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0).setScale(4);
+    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0).setScale(4);
+    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0).setScale(4);
   }
   create() {
     //Creación del mapa
-    //this.CreateMap();
-    this.map = this.make.tilemap({
-      key: 'tilemap',
-      tileWidth: 64,
-      tileHeight: 64
-    });
-    this.tileset = this.map.addTilesetImage('towerDefense_tilesheet', 'patronesTilemap');
-    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0);
-    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
-    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
-    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
+    this.CreateMap();
+
     this.player = { hp: 20, gold: 0 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa

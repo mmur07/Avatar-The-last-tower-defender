@@ -9,7 +9,8 @@ export default class Tower extends Elemental {
         this._nextShot = 0;//siempre puede disparar al ser creada
         this.lockedEnemy = null;
         this._dmg = dmg;
-        this._areadmg = false;
+        this._areadmg = area;
+        this._range = range;
         //this._spriteName = spriteName;
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
@@ -68,9 +69,9 @@ export default class Tower extends Elemental {
             this.scene.SpawnBullet(angle, this.x, this.y,this._dmg);
         else
         {
-            //dispara areas
+            this.scene.SpawnAoeBullet(this.x, this.y, this._dmg, this._range);
         }
-        }
+    }
 
     looseTarget(){this.lockedEnemy = null;}
     getTarget() {return this.lockedEnemy}

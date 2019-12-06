@@ -2,11 +2,11 @@ import Elemental from "./Elemental.js";
 
 export default class Enemy extends Elemental {
 
-    constructor(scene, spritename, element, xPos, yPos, hp, speed,route) {
+    constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id) {
         super(scene, spritename, element, xPos, yPos)
         this._reduceVal = 10;
         this._speed = speed;
-        
+        this._id = id;
         this._hp = hp;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();
@@ -51,13 +51,14 @@ export default class Enemy extends Elemental {
         }
     }
 
-    spawn(xPos, yPos) {
+    spawn(xPos, yPos, id) {
         this.scene.EnemyPool.remove(this);
         this.scene.ActiveEnemies.add(this);
         this.setActive(true);
         this.setVisible(true);
         // this.setPosition(xPos, yPos);
         this.comienzaRuta();
+        this._id = id;
     }
 
     die() {
@@ -69,6 +70,10 @@ export default class Enemy extends Elemental {
     attack() {
         this.scene.OnEnemyAttack(this);
         this.destroy();
+    }
+
+    returnId(){
+        return this._id;
     }
 }
 

@@ -7,17 +7,20 @@ import TowerIcon from "./TowerIcon.js";
 import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
+import AoeBullet from "./AoeBullet.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
 const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false},
 speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15,area:false},
-ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false}}; 
+ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false},
+aoe:{cost: 125, range:150, cadencia: 1.5, dmg: 100, area: true}};
 
 export default class Game extends Phaser.Scene {
 
   constructor() {
     super({ key: 'main' });
+    this._idCount = 0;
   }
   preload() {
     this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
@@ -30,6 +33,8 @@ export default class Game extends Phaser.Scene {
     this.load.image('bulletSprite', '/img/rocketto.png');
     this.load.image('speedSprite', '/img/bullethellIcon.png');
     this.load.image('sniperSprite', '/img/sniperIcon.png');
+    this.load.image('aoeSprite', '/img/aoeIcon.png');
+    this.load.image('aoeBullet', '/img/aoeBullet.png');
 
   }
   PoolEnemies() {
@@ -46,20 +51,37 @@ export default class Game extends Phaser.Scene {
       this.BUlletPool.killAndHide(bull);
     }
   }
+  PoolAoeBullets(){
+    for (let i = 0; i < 150; i++){
+      let bull = new AoeBullet(this, 400, 90, 1.25, 100, 100,  elements.FIRE, 'aoeBullet');
+    }
+  }
   SpawnEnemy(elem, x, y) {
     let en
     if (this.EnemyPool.getLength() > 0) {
       en = this.EnemyPool.getFirstDead();
-      en.spawn(x, y);
+      en.spawn(x, y, this._idCount);
     }
     else {
       en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,0);
     }
     this.ActiveEnemies.add(en);
+    this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, shields))
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, this._idCount, shields));
+    this._idCount++;
   }
+  SpawnAoeBullet(x, y, damage, range){
+    let b;
+    if (this.aoeBulletPool.getLength() > 0){
+    b = this.aoeBulletPool.getFirstDead();
+      b.setDmg(damage);
+    }
+    else b = new AoeBullet(this, 400, 90, 1.25, 100, 100, elements.FIRE, 'aoeBullet');
+    b.fire(x, y, range);
+  }
+
   SpawnBullet(angle, x, y,damage) {
     let b;
     if (this.BulletPool.getLength() > 0) {
@@ -164,6 +186,7 @@ export default class Game extends Phaser.Scene {
     this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
     this._speedIcon = new TowerIcon(this, 'speedSprite', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon);
     this._sniperIcon = new TowerIcon(this, 'sniperSprite', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt);
+    this.aoeIcon = new TowerIcon(this, 'aoeSprite', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
 
   }
 
@@ -213,11 +236,10 @@ export default class Game extends Phaser.Scene {
     //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();
-    // function bulletHitEnemy(bullet, enemy) {
-    //   bullet.hitEnemy(enemy);
-    // }
-    // this.physics.add.overlap(this.ActiveBullets,this.ActiveEnemies,bulletHitEnemy);
     this.physics.add.overlap(this.ActiveBullets, this.ActiveEnemies, (bullet, enemy) => bullet.hitEnemy(enemy));
+    this.aoeBulletPool = this.add.group();
+    this.activeAoeBullets = this.physics.add.group();
+    this.physics.add.overlap(this.activeAoeBullets, this.ActiveEnemies, (bullet, enemy) => bullet.hitEnemy(enemy));
     this.pointer = this.input.activePointer;
 
 

@@ -11,9 +11,9 @@ import HUD from "./HUD.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
-const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false,name: "NT"},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:1000000000,area:false, name: "QT"},
-ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "AT"}}; 
+const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:1000000000,area:false, name: "QuickT"},
+ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"}}; 
 
 export default class Game extends Phaser.Scene {
 
@@ -32,8 +32,8 @@ export default class Game extends Phaser.Scene {
     this.load.image('speedSprite', '/img/bullethellIcon.png');
     this.load.image('sniperSprite', '/img/sniperIcon.png');
 
-    let towerFrameInfo = {frameWidth: 16,frameHeight:16,margin: 1};
-    this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
+    let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
+    let NT = this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('QuickT',"/img/towers/QT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('CannonT',"/img/towers/CT_Spritesheet.png",towerFrameInfo);
 
@@ -180,9 +180,9 @@ export default class Game extends Phaser.Scene {
     let iconOffset = 20; //px
     let w = WIN_WIDTH * 0.95;
     let h = WIN_HEIGTH * 0.95;
-    this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
-    this._speedIcon = new TowerIcon(this, 'speedSprite', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon);
-    this._sniperIcon = new TowerIcon(this, 'sniperSprite', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt);
+    this._normalIcon = new TowerIcon(this, 'NormalT', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal,0);
+    this._speedIcon = new TowerIcon(this, 'QuickT', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon,0);
+    this._sniperIcon = new TowerIcon(this, 'CannonT', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt,0);
 
   }
 
@@ -270,7 +270,8 @@ export default class Game extends Phaser.Scene {
 
   update(time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.e)) {
-      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateRight() })
+      this.ActiveTowers.getChildren().forEach(tower => { 
+        tower.rotateRight();})
     } if (Phaser.Input.Keyboard.JustDown(this.q)) {
       this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() })
     }

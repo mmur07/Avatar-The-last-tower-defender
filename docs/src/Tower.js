@@ -2,8 +2,9 @@ import Elemental from "./Elemental.js";
 
 export default class Tower extends Elemental {
 
-    constructor(scene,sprite, element, xPos, yPos, range, cdShoots,dmg,area) {
-        super(scene, sprite, element, xPos, yPos);
+    constructor(scene, spriteKey, element, xPos, yPos, range, cdShoots, dmg, area) {
+        super(scene, spriteKey, element, xPos, yPos,element); 
+        let upscaleFactor = 4;
         this._scene = scene;
         this._cdShoots = cdShoots * 1000;
         this._nextShot = 0;//siempre puede disparar al ser creada
@@ -15,29 +16,32 @@ export default class Tower extends Elemental {
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
         this.scene.physics.add.existing(this);
-        this.body.setCircle(range, 32 - range, 32 - range);
+        this.body.setCircle(range/upscaleFactor, (32 - range)/upscaleFactor, (32 - range)/upscaleFactor);
         this.scene.physics.add.overlap(this, this.scene.ActiveEnemies, onCollision);
         this.createContainer();
+        this.setScale(upscaleFactor);
+        
     }
 
-    createContainer(){
+    createContainer() {
         this.container = this.scene.add.container(this.x, this.y); //Crea el container. Es la hitbox para la acción
         this.container.setSize(64, 64); //Importante definir el tamaño del container antes del setInteractive()
         this.container.setInteractive();
         this.scene.add.existing(this); //Añade el icono a la escena
         this.container.on('pointerup', this.procesaInput, this); //Si el jugador hace click en el container, llama a addTower
-        
+
     }
 
-    procesaInput(pointer){
-        console.log("CLIKIASTE LA TORRE WEY");
-        if(pointer.leftButtonReleased()){
+    procesaInput(pointer) {
+        if (pointer.leftButtonReleased()) {
             this.rotateLeft();
+            this.setFrame(this._elem);
         }
-        else if(pointer.rightButtonDown()){
+        else if (pointer.rightButtonDown()) {
             this.rotateRight();
+            this.setFrame(this._elem);          
         }
-        else if(pointer.middleButtonReleased()){
+        else if (pointer.middleButtonReleased()) {
             this.scene.ActiveTowers.remove(this);
             this.scene.deleteTile(this.originX, this.originY);
             this.setActive(false);
@@ -63,6 +67,14 @@ export default class Tower extends Elemental {
             if (!this.scene.physics.collide(this, this.lockedEnemy))
                 this.looseTarget();
     }
+    rotateRight(){
+        super.rotateRight();
+        this.setFrame(this._elem);
+    }
+    rotateLeft(){
+        super.rotateLeft();
+        this.setFrame(this._elem);
+    }
 
     shoot(angle) {
         if(!this._areadmg)
@@ -73,8 +85,8 @@ export default class Tower extends Elemental {
         }
     }
 
-    looseTarget(){this.lockedEnemy = null;}
-    getTarget() {return this.lockedEnemy}
+    looseTarget() { this.lockedEnemy = null; }
+    getTarget() { return this.lockedEnemy }
 
 }
 function onCollision(obj1, obj2) {

@@ -9,15 +9,16 @@ export default class Wave {
 
     }
     update(time, delta) {
-        if (!this.finished()) {
-            if (time >= this._nextEn) {
+        if (time >= this._nextEn) {
+            if (!this.finished()) {
                 let en = this._enemies.shift();
                 //console.log("Quedan " + this._enemies.length + "en la oleada" + this._spawner._actWave);
                 this._spawner.spawn(en);
                 this._nextEn = time + (en.timer * 1000);
             }
+            else this._spawner.waveEnded();
         }
-        else this._spawner.waveEnded();
+       
     }
     finished() {
         return (this._enemies.length === 0);

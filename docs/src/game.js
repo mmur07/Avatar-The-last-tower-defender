@@ -8,13 +8,14 @@ import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
 import AoeBullet from "./AoeBullet.js";
+import HUD from "./HUD.js"
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
-const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:15,area:false},
-ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false},
-aoe:{cost: 125, range:150, cadencia: 1.5, dmg: 100, area: true}};
+const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:1000000000,area:false, name: "QuickT"},
+ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"},
+aoe:{cost: 125, range:150, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
 
 export default class Game extends Phaser.Scene {
 
@@ -23,8 +24,8 @@ export default class Game extends Phaser.Scene {
     this._idCount = 0;
   }
   preload() {
-    this.load.image('patronesTilemap', '/img/towerDefense_tilesheet.png');
-    this.load.tilemapTiledJSON('tilemap', '/Tilemaps/TD_Tilemap.json');
+    this.load.image('patronesTilemap', '/tilemaps/modded_colored.png');
+    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
     this.load.image('jojoSprite', '/img/favicon.png');
@@ -35,6 +36,13 @@ export default class Game extends Phaser.Scene {
     this.load.image('sniperSprite', '/img/sniperIcon.png');
     this.load.image('aoeSprite', '/img/aoeIcon.png');
     this.load.image('aoeBullet', '/img/aoeBullet.png');
+
+    let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
+    let NT = this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('QuickT',"/img/towers/QT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('CannonT',"/img/towers/CT_Spritesheet.png",towerFrameInfo);
+
+    this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
   }
   PoolEnemies() {
@@ -94,40 +102,49 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, angle);
   }
   CreatePath() {
+
     this._routes = new Array();
     let graphics = this.add.graphics();
-    this.path = this.add.path(-50, 350)
-    this.path.lineTo(50, 350)
-    //let PiscinaDeEnemigos = new Pool(this,true,);
-    this.path.lineTo(375, 750);
-    // let a = this.path.getPoint(0.5);
-    // console.log("init" + a.y);
-    this.path.lineTo(575, 850);
-    this.path.lineTo(800, 1450);
-    this.path.lineTo(1000, 1575);
-    this.path.lineTo(1400, 1675);
-    this.path.lineTo(1650, 1575);
-    this.path.lineTo(1700, 1075);
+    //inicio
+    this.path = this.add.path(-50, 400);
+    this.path.lineTo(50, 400)
+    //bif1
+    this.path.lineTo(375, 550);
+    //bifurcacion dcha
+    this.path.lineTo(550,525);
+    this.path.lineTo(850, 850);
+    this.path.lineTo(875, 1100);
+    //cruce
+    this.path.lineTo(1100, 1175);
+    //bifurcacion dcha
+    this.path.lineTo(1450, 1500);
+    this.path.lineTo(1650, 1500);
+    this.path.lineTo(1775, 1075);
     this.path.lineTo(1850, 700);
     this._routes.push(this.path);
 
-    var route2 =  this.add.path(-50, 350);
-    route2.lineTo(50, 350);
-    route2.lineTo(375, 750);
-    route2.lineTo(75,900);
-    route2.lineTo(75,1450);
-    route2.lineTo(225,1725);
-    route2.lineTo(500,1725);
-    route2.lineTo(575,1675);
-    route2.lineTo(575,1675);
-    route2.lineTo(875,1575);
-    route2.lineTo(1000, 1575);
-    route2.lineTo(1400, 1675);
-    route2.lineTo(1650, 1575);
-    route2.lineTo(1700, 1075);
-    route2.lineTo(1850, 700);
+    //inicio
+    var ruta2 =  this.add.path(-50, 400);
+    ruta2.lineTo(50, 400);
+    //bif1
+    ruta2.lineTo(375, 550);
+  //bifurcaion izq
+  ruta2.lineTo(175,700);
+    ruta2.lineTo(125,900);
+    ruta2.lineTo(150,1250);
+    ruta2.lineTo(225,1475);
+    ruta2.lineTo(700,1475);
+    ruta2.lineTo(750,1400);
+    ruta2.lineTo(800,1400);
+    //cruce
+    ruta2.lineTo(1100, 1175);
+    //bifurcacion dcha
+    ruta2.lineTo(1450, 1500);
+    ruta2.lineTo(1650, 1500);
+    ruta2.lineTo(1775, 1075);
+    ruta2.lineTo(1850, 700);
     
-    this._routes.push(route2);
+    this._routes.push(ruta2);
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
@@ -169,6 +186,8 @@ export default class Game extends Phaser.Scene {
       gain = 10;
     }
     this.player.gold += gain;
+    this._HUD.updateGold(this.player.gold);
+    console.log(this.player.gold)
   }
   addTower(pointer, target) {
     this._canAdd = true;
@@ -183,11 +202,10 @@ export default class Game extends Phaser.Scene {
     let iconOffset = 20; //px
     let w = WIN_WIDTH * 0.95;
     let h = WIN_HEIGTH * 0.95;
-    this._normalIcon = new TowerIcon(this, 'towerIconSprite', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal);
-    this._speedIcon = new TowerIcon(this, 'speedSprite', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon);
-    this._sniperIcon = new TowerIcon(this, 'sniperSprite', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt);
+    this._normalIcon = new TowerIcon(this, 'NormalT', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal,0);
+    this._speedIcon = new TowerIcon(this, 'QuickT', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon,0);
+    this._sniperIcon = new TowerIcon(this, 'CannonT', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt,0);
     this.aoeIcon = new TowerIcon(this, 'aoeSprite', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
-
   }
 
   deleteTile(xPos, yPos){
@@ -198,24 +216,40 @@ export default class Game extends Phaser.Scene {
 
   CreateMap() {
 
-    //this.add.existing(this.map);
-    /*this.add.existing(this.nodes);
-    this.add.existing(this.default);
-    this.add.existing(this.can_place_towers);*/
+    this.map = this.make.tilemap({
+      key: 'tilemap',
+      tileWidth: 16,
+      tileHeight: 16
+    });
+    this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap'); 
+    this._bgMap = this.map.createStaticLayer('Background',this.tileset,0,0).setScale(4);
+    this._hud =this.map.createStaticLayer('HUD',this.tileset,0,0).setScale(4);  
+    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0).setScale(4);
+    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0).setScale(4);
+    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0).setScale(4);
+    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0).setScale(4);
+  }
+  CreateHUD(){
+    let self = this;
+    WebFont.load({
+      google: {
+          families: [ 'Freckle Face', 'Finger Paint', 'VT323' ]
+      },
+      active: function () // se llama a esta función cuando está cargada
+      {
+          let nuevoTexto = 
+              self.add.text(900, WIN_HEIGTH-200, 
+                  'g', 
+                  { fontFamily: 'VT323', fontSize: 90, color: '#ffffff' })
+          nuevoTexto.setShadow(2, 2, "#FFD700", 2, false, true);
+      }
+  });
   }
   create() {
     //Creación del mapa
-    //this.CreateMap();
-    this.map = this.make.tilemap({
-      key: 'tilemap',
-      tileWidth: 64,
-      tileHeight: 64
-    });
-    this.tileset = this.map.addTilesetImage('towerDefense_tilesheet', 'patronesTilemap');
-    this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0);
-    this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0);
-    this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0);
-    this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0);
+    this.CreateMap();
+
+
     this.player = { hp: 20, gold: 0 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
@@ -226,7 +260,7 @@ export default class Game extends Phaser.Scene {
     
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');
-    this._Spawner = new Spawner(this, { x: 0, y: 50 });
+
     //Pooling de enemigos
     this.ActiveTowers = this.add.group();
     this.EnemyPool = this.add.group();
@@ -251,12 +285,14 @@ export default class Game extends Phaser.Scene {
     this.e = this.input.keyboard.addKey('E');
     this.q = this.input.keyboard.addKey('Q');
 
-
+    this._HUD = new HUD(this,WIN_WIDTH,WIN_HEIGTH);
+    this._Spawner = new Spawner(this, { x: 0, y: 50 });
   }
 
   update(time, delta) {
     if (Phaser.Input.Keyboard.JustDown(this.e)) {
-      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateRight() })
+      this.ActiveTowers.getChildren().forEach(tower => { 
+        tower.rotateRight();})
     } if (Phaser.Input.Keyboard.JustDown(this.q)) {
       this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() })
     }

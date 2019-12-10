@@ -2,8 +2,8 @@
 
 export default class TowerIcon extends Phaser.GameObjects.Image {
 
-    constructor(scene, spritename, xPos, yPos,size,towerData) {
-        super(scene, xPos, yPos, spritename)
+    constructor(scene, spritename, xPos, yPos,size,towerData,fr) {
+        super(scene, xPos, yPos, spritename,fr)
         this._spriteKey = spritename
         this.originX = xPos;
         this.originY = yPos;
@@ -43,7 +43,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
         let tile_towers = this.scene.towers.getTileAtWorldXY(pointer.x, pointer.y);
         if (tile_canAdd != null && tile_towers == null) {//si la posición es válida
             this.scene.towers.putTileAtWorldXY(this.sample_Tile, pointer.x, pointer.y);
-            let t = new Tower(this.scene,this._spriteKey, 0, tile_canAdd.getCenterX(), tile_canAdd.getCenterY(), this._tD.range, this._tD.cadencia,this._tD.dmg, this._tD.area);
+                let t = new Tower(this.scene,this._spriteKey, 0, tile_canAdd.getCenterX(), tile_canAdd.getCenterY(), this._tD.range, this._tD.cadencia,this._tD.dmg, this._tD.area);
             this.scene.ActiveTowers.add(t);
         }
         //volvemos al estado inicial

@@ -10,7 +10,7 @@ export default class Spawner {
         this._waves = new Array();
         this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 },
         { type: "normal", el: elements.FIRE, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
-        { type: "normal", el: elements.FIRE, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 0.5 }]));
+        { type: "normal", el: elements.FIRE, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 2 }]),new Wave(this,[{ type: "shields", el: elements.FIRE, timer: 0.5 }]));
     }
     update(time, delta) {
         //console.log("Spawner actualizándose");
@@ -30,7 +30,7 @@ export default class Spawner {
         }
     }
     waveEnded() {
-        console.log("Acabada la oleada " + this._actWave);
         this._actWave++;
+        this._scene._HUD.updateWave(this._actWave);
     }
 }

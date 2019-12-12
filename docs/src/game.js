@@ -41,6 +41,7 @@ export default class Game extends Phaser.Scene {
     let NT = this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('QuickT',"/img/towers/QT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('CannonT',"/img/towers/CT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('AreaT',"/img/towers/AT_Spritesheet.png",towerFrameInfo);
 
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
@@ -205,7 +206,7 @@ export default class Game extends Phaser.Scene {
     this._normalIcon = new TowerIcon(this, 'NormalT', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal,0);
     this._speedIcon = new TowerIcon(this, 'QuickT', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon,0);
     this._sniperIcon = new TowerIcon(this, 'CannonT', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt,0);
-    this.aoeIcon = new TowerIcon(this, 'aoeSprite', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
+    this.aoeIcon = new TowerIcon(this, 'AreaT', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
   }
 
   deleteTile(xPos, yPos){

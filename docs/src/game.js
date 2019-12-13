@@ -24,12 +24,12 @@ export default class Game extends Phaser.Scene {
     this._idCount = 0;
   }
   preload() {
-    this.load.image('patronesTilemap', 'tilemaps/modded_colored.png');
-    this.load.tilemapTiledJSON('tilemap', 'tilemaps/TD_TilemapBit.json');
+    this.load.image('patronesTilemap', 'Tilemaps/modded_colored.png');
+    this.load.tilemapTiledJSON('tilemap', 'Tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
     let jojoBG = this.load.image('jojoBG', 'img/thunderSplit.png');
     this.load.image('jojoSprite', 'img/favicon.png');
-    this.load.image('towerIconSprite', 'img/towericon.png');
+    this.load.image('towerIconSprite', 'img/towerIcon.png');
     this.load.image('hohoho', 'img/HowManyBreadsHaveYouEatenInYourLifetime.png');
     this.load.image('bulletSprite', 'img/rocketto.png');
     this.load.image('speedSprite', 'img/bullethellIcon.png');
@@ -224,11 +224,11 @@ export default class Game extends Phaser.Scene {
     });
     this.tileset = this.map.addTilesetImage('modded_colored', 'patronesTilemap'); 
     this._bgMap = this.map.createStaticLayer('Background',this.tileset,0,0).setScale(4);
-    this._hud =this.map.createStaticLayer('HUD',this.tileset,0,0).setScale(4);  
     this._nodes = this.map.createStaticLayer('Nodes', this.tileset, 0, 0).setScale(4);
     this.towers = this.map.createDynamicLayer('Towers', this.tileset, 0, 0).setScale(4);
     this._default = this.map.createStaticLayer('Default', this.tileset, 0, 0).setScale(4);
     this.can_place_towers = this.map.createStaticLayer('Can_place_towers', this.tileset, 0, 0).setScale(4);
+    this._hud =this.map.createStaticLayer('HUD',this.tileset,0,0).setScale(4);  
   }
   CreateHUD(){
     let self = this;

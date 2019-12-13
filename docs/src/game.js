@@ -24,24 +24,24 @@ export default class Game extends Phaser.Scene {
     this._idCount = 0;
   }
   preload() {
-    this.load.image('patronesTilemap', '/tilemaps/modded_colored.png');
-    this.load.tilemapTiledJSON('tilemap', '/tilemaps/TD_TilemapBit.json');
+    this.load.image('patronesTilemap', './tilemaps/modded_colored.png');
+    this.load.tilemapTiledJSON('tilemap', './tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
-    let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
-    this.load.image('jojoSprite', '/img/favicon.png');
-    this.load.image('towerIconSprite', '/img/towericon.png');
-    this.load.image('hohoho', '/img/HowManyBreadsHaveYouEatenInYourLifetime.png');
-    this.load.image('bulletSprite', '/img/rocketto.png');
-    this.load.image('speedSprite', '/img/bullethellIcon.png');
-    this.load.image('sniperSprite', '/img/sniperIcon.png');
-    this.load.image('aoeSprite', '/img/aoeIcon.png');
-    this.load.image('aoeBullet', '/img/aoeBullet.png');
+    let jojoBG = this.load.image('jojoBG', './img/thunderSplit.png');
+    this.load.image('jojoSprite', './img/favicon.png');
+    this.load.image('towerIconSprite', './img/towericon.png');
+    this.load.image('hohoho', './img/HowManyBreadsHaveYouEatenInYourLifetime.png');
+    this.load.image('bulletSprite', './img/rocketto.png');
+    this.load.image('speedSprite', './img/bullethellIcon.png');
+    this.load.image('sniperSprite', './img/sniperIcon.png');
+    this.load.image('aoeSprite', './img/aoeIcon.png');
+    this.load.image('aoeBullet', './img/aoeBullet.png');
 
     let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
-    let NT = this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
-    this.load.spritesheet('QuickT',"/img/towers/QT_Spritesheet.png",towerFrameInfo);
-    this.load.spritesheet('CannonT',"/img/towers/CT_Spritesheet.png",towerFrameInfo);
-    this.load.spritesheet('AreaT',"/img/towers/AT_Spritesheet.png",towerFrameInfo);
+    let NT = this.load.spritesheet('NormalT',"./img/towers/NT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('QuickT',"./img/towers/QT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('CannonT',"./img/towers/CT_Spritesheet.png",towerFrameInfo);
+    this.load.spritesheet('AreaT',"./img/towers/AT_Spritesheet.png",towerFrameInfo);
 
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 

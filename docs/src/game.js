@@ -36,6 +36,10 @@ export default class Game extends Phaser.Scene {
     this.load.image('sniperSprite', 'img/sniperIcon.png');
     this.load.image('aoeSprite', 'img/aoeIcon.png');
     this.load.image('aoeBullet', 'img/aoeBullet.png');
+    this.load.image('CTbuy', 'img/CT_buyIcon.png');
+    this.load.image('ATbuy', 'img/AT_buyIcon.png');
+    this.load.image('QTbuy', 'img/QT_buyIcon.png');
+    this.load.image('NTbuy', 'img/NT_buyIcon.png');
 
     let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
     let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);
@@ -200,13 +204,13 @@ export default class Game extends Phaser.Scene {
 }
 
   CreateTowerIcons(){
-    let iconOffset = 20; //px
-    let w = WIN_WIDTH * 0.95;
-    let h = WIN_HEIGTH * 0.95;
-    this._normalIcon = new TowerIcon(this, 'NormalT', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal,0);
-    this._speedIcon = new TowerIcon(this, 'QuickT', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon,0);
-    this._sniperIcon = new TowerIcon(this, 'CannonT', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt,0);
-    this.aoeIcon = new TowerIcon(this, 'AreaT', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
+    let iconOffset = 0.1;
+    let centerH = 0.92;
+    let w = 0.95;
+    this._normalIcon = new TowerIcon(this, 'NTbuy', WIN_WIDTH * (w-iconOffset*0), WIN_HEIGTH * centerH,5,towerData.normal,'NormalT');
+    this._speedIcon = new TowerIcon(this, 'QTbuy', WIN_WIDTH * (w-iconOffset*1), (WIN_HEIGTH * centerH),5,towerData.speedWagon,'QuickT');
+    this._sniperIcon = new TowerIcon(this, 'CTbuy', WIN_WIDTH *(w-iconOffset*2), WIN_HEIGTH * centerH,5,towerData.ratt,'CannonT');
+    this.aoeIcon = new TowerIcon(this, 'ATbuy', WIN_WIDTH * (w-iconOffset*3), WIN_HEIGTH * centerH ,5,towerData.aoe,'AreaT');
   }
 
   deleteTile(xPos, yPos){

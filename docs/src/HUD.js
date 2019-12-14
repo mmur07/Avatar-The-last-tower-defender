@@ -16,6 +16,8 @@ export default class HUD {
         this._gold = 0;
         this._wave = 0;
 
+        this._hp = this._scene.player.hp;
+
         let self = this;
         WebFont.load({
             google: {
@@ -23,15 +25,14 @@ export default class HUD {
             },
             active: function () // se llama a esta función cuando está cargada
             {
-                let goldText =
-                    self._scene.add.text(self._width * 0.55, self._height * 0.95,
-                        'g',
-                        { fontFamily: 'VT323', fontSize: 90, color: '#ffffff' })
-                goldText.setShadow(2, 2, "#FFD700", 2, false, true);
 
-                self._goldText = self._scene.add.text(self._width * 0.45, self._height * 0.90,
+                self._goldText = self._scene.add.text(self._width * 0.5, self._height * 0.925,
                     self._gold,
-                    { fontFamily: 'VT323', fontSize: 180, color: '#ffffff' })
+                    { fontFamily: 'VT323', fontSize: 100, color: '#f4b41b' })
+
+                self._healthText = self._scene.add.text(self._width * 0.49, self._height * 0.855,
+                    self._hp,
+                    { fontFamily: 'VT323', fontSize: 100, color: '#e6482e' })
 
                 let waveText =
                     self._scene.add.text(self._width * 0.25, self._height * 0.87,
@@ -47,6 +48,7 @@ export default class HUD {
         this.CreateTowerIcons();
 
     }
+    //el metodo es muy extenso y con muchas literales, pero consideramos exagerado hacer un sistema de formateo y escalado
     CreateTowerIcons() {
         let iconSize = 16 * 5;
         let iconOffset = 0.1;
@@ -112,12 +114,21 @@ export default class HUD {
 
     updateGold(cant) {
         this._gold = cant;
+        let cifras = 1;
+        while (cant >= 10) { cant = cant % 10; cifras++ }
+        this._goldText.setPosition(this._width * 0.5 - (30 * cifras), this._height * 0.925)
         this._goldText.setText(this._gold);
     }
     updateWave(w) {
         this._wave = w;
         //if(this._waveText ==! undefined)
         this._waveText.setText(this._wave);
+        // this.a.setText(this._wave);
+    }
+    updateWave(h) {
+        this._hp = h;
+        //if(this._waveText ==! undefined)
+        this._healthText.setText(this._hp);
         // this.a.setText(this._wave);
     }
     printGold() {

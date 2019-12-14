@@ -13,7 +13,7 @@ export default class HUD {
         this._width = width;
         this._height = height;
 
-        this._gold = 0;
+        this._gold = this._scene.player.gold;
         this._wave = 0;
 
         this._hp = this._scene.player.hp;
@@ -25,8 +25,7 @@ export default class HUD {
             },
             active: function () // se llama a esta función cuando está cargada
             {
-
-                self._goldText = self._scene.add.text(self._width * 0.5, self._height * 0.925,
+                self._goldText = self._scene.add.text(self._width * 0.47, self._height * 0.925,
                     self._gold,
                     { fontFamily: 'VT323', fontSize: 100, color: '#f4b41b' })
 

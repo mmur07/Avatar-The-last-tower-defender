@@ -1,4 +1,5 @@
     import Tower from "./Tower.js"
+import Game from "./game.js";
 
 export default class TowerIcon extends Phaser.GameObjects.Image {
 
@@ -10,7 +11,6 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
         this.inputEnabled = true;
         this._canAdd = false;
         this._tD = towerData;
-        
 
         this.container = this.scene.add.container(this.originX, this.originY); //Crea el container. Es la hitbox para la acción
         this.container.setSize(32*size, 32*size); //Importante definir el tamaño del container antes del setInteractive()
@@ -42,10 +42,11 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
     stopDrag(pointer) {
         let tile_canAdd = this.scene.can_place_towers.getTileAtWorldXY(pointer.x, pointer.y);
         let tile_towers = this.scene.towers.getTileAtWorldXY(pointer.x, pointer.y);
-        if (tile_canAdd != null && tile_towers == null) {//si la posición es válida
+        if (tile_canAdd != null && tile_towers == null && this.scene.getCurrentGold() >= this._tD.cost) {//si la posición es válida
             this.scene.towers.putTileAtWorldXY(this.sample_Tile, pointer.x, pointer.y);
                 let t = new Tower(this.scene,this._spriteKey, 0, tile_canAdd.getCenterX(), tile_canAdd.getCenterY(), this._tD.range, this._tD.cadencia,this._tD.dmg, this._tD.area);
             this.scene.ActiveTowers.add(t);
+            this.scene.loseGold(this._tD.cost);
         }
         //volvemos al estado inicial
         this.scene.input.off('pointermove', this.Drag, this);

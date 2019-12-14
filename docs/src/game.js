@@ -13,6 +13,7 @@ import TankyEnemy from "./TankyEnemy.js";
 import RotationButton from "./RotationButton.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
+const MAX_GOLD = 9999;
 
 const towerData = {normal:{cost: 70,range:200,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
 speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:20,area:false, name: "QuickT"},
@@ -172,6 +173,10 @@ export default class Game extends Phaser.Scene {
     else
       return this._routes[num];
   }
+  getCurrentGold(){
+    return this.player.gold;
+  }
+
   OnEnemySlain(enemy) {
     this.ActiveEnemies.remove(enemy);
     this.EnemyPool.add(enemy);
@@ -198,8 +203,13 @@ export default class Game extends Phaser.Scene {
       gain = 10;
     }
     this.player.gold += gain;
+    if (this.player.gold > MAX_GOLD) this.player.gold = MAX_GOLD;
     this._HUD.updateGold(this.player.gold);
     console.log(this.player.gold)
+  }
+  loseGold(sub){
+    this.player.gold-= sub;
+    this._HUD.updateGold(this.player.gold);
   }
   addTower(pointer, target) {
     this._canAdd = true;
@@ -218,7 +228,6 @@ export default class Game extends Phaser.Scene {
   }
 
   CreateMap() {
-
     this.map = this.make.tilemap({
       key: 'tilemap',
       tileWidth: 16,
@@ -257,7 +266,7 @@ export default class Game extends Phaser.Scene {
     this.CreateMap();
 
 
-    this.player = { hp: 20, gold: 0 };
+    this.player = { hp: 20, gold: 2000 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;
@@ -282,7 +291,6 @@ export default class Game extends Phaser.Scene {
     this.physics.add.overlap(this.activeAoeBullets, this.ActiveEnemies, (bullet, enemy) => bullet.hitEnemy(enemy));
     this.pointer = this.input.activePointer;
     this.button = new RotationButton(this, 'rotationButton', 0, WIN_HEIGTH, 1000);
-
 
     //input
     this.w = this.input.keyboard.addKey('W');

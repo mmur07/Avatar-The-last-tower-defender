@@ -29,7 +29,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('patronesTilemap', 'Tilemaps/modded_colored.png');
     this.load.tilemapTiledJSON('tilemap', 'Tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
-    let jojoBG = this.load.image('jojoBG', 'img/thunderSplit.png');
+    let jojoBG = this.load.image('jojoBG', '  img/thunderSplit.png');
     this.load.image('jojoSprite', 'img/favicon.png');
     this.load.image('towerIconSprite', 'img/towericon.png');
     this.load.image('hohoho', 'img/HowManyBreadsHaveYouEatenInYourLifetime.png');
@@ -50,6 +50,8 @@ export default class Game extends Phaser.Scene {
     this.load.spritesheet('QuickT',"img/towers/QT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('CannonT',"img/towers/CT_Spritesheet.png",towerFrameInfo);
     this.load.spritesheet('AreaT',"img/towers/AT_Spritesheet.png",towerFrameInfo);
+
+    this.load.spritesheet('BasicEn',"img/BasicEnemy_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
 
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 

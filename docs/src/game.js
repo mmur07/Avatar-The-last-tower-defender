@@ -203,15 +203,6 @@ export default class Game extends Phaser.Scene {
 
 }
 
-  CreateTowerIcons(){
-    let iconOffset = 0.1;
-    let centerH = 0.92;
-    let w = 0.95;
-    this._normalIcon = new TowerIcon(this, 'NTbuy', WIN_WIDTH * (w-iconOffset*0), WIN_HEIGTH * centerH,5,towerData.normal,'NormalT');
-    this._speedIcon = new TowerIcon(this, 'QTbuy', WIN_WIDTH * (w-iconOffset*1), (WIN_HEIGTH * centerH),5,towerData.speedWagon,'QuickT');
-    this._sniperIcon = new TowerIcon(this, 'CTbuy', WIN_WIDTH *(w-iconOffset*2), WIN_HEIGTH * centerH,5,towerData.ratt,'CannonT');
-    this.aoeIcon = new TowerIcon(this, 'ATbuy', WIN_WIDTH * (w-iconOffset*3), WIN_HEIGTH * centerH ,5,towerData.aoe,'AreaT');
-  }
 
   deleteTile(xPos, yPos){
     if (this.towers.getTileAtWorldXY(this.pointer.x, this.pointer.y) != null) {
@@ -261,7 +252,6 @@ export default class Game extends Phaser.Scene {
     this.camera = this.cameras.main;
     this.camera.setViewport(0, 0, 1982, 1984);
     
-    this.CreateTowerIcons();
     
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');

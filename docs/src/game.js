@@ -29,16 +29,16 @@ export default class Game extends Phaser.Scene {
     this.load.image('patronesTilemap', 'Tilemaps/modded_colored.png');
     this.load.tilemapTiledJSON('tilemap', 'Tilemaps/TD_TilemapBit.json');
     // this.load.json('waveData','./waves,json');  
-    let jojoBG = this.load.image('jojoBG', '/img/thunderSplit.png');
-    this.load.image('jojoSprite', '/img/favicon.png');
-    this.load.image('towerIconSprite', '/img/towericon.png');
-    this.load.image('hohoho', '/img/HowManyBreadsHaveYouEatenInYourLifetime.png');
-    this.load.image('bulletSprite', '/img/rocketto.png');
-    this.load.image('speedSprite', '/img/bullethellIcon.png');
-    this.load.image('sniperSprite', '/img/sniperIcon.png');
-    this.load.image('aoeSprite', '/img/aoeIcon.png');
-    this.load.image('aoeBullet', '/img/aoeBullet.png');
-    this.load.image('rotationButton', '/img/rotationButton.png');
+    let jojoBG = this.load.image('jojoBG', 'img/thunderSplit.png');
+    this.load.image('jojoSprite', 'img/favicon.png');
+    this.load.image('towerIconSprite', 'img/towericon.png');
+    this.load.image('hohoho', 'img/HowManyBreadsHaveYouEatenInYourLifetime.png');
+    this.load.image('bulletSprite', 'img/rocketto.png');
+    this.load.image('speedSprite', 'img/bullethellIcon.png');
+    this.load.image('sniperSprite', 'img/sniperIcon.png');
+    this.load.image('aoeSprite', 'img/aoeIcon.png');
+    this.load.image('aoeBullet', 'img/aoeBullet.png');
+    this.load.image('rotationButton', 'img/rotationButton.png');
     this.load.image('tankySprite', 'img/ovaisthevestjojoversion.png');
     this.load.image('NTbuy', 'img/NT_buyIcon.png');
     this.load.image('QTbuy', 'img/QT_buyIcon.png');
@@ -185,7 +185,7 @@ export default class Game extends Phaser.Scene {
   }
   OnEnemyAttack(enemy) {
     this.player.hp--;
-    //actualizar el hud
+    this._HUD.updateHealth(this.player.hp);
     //comprobar la moridira
   }
   EarnGold(enemy) {

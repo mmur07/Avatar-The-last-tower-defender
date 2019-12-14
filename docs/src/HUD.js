@@ -125,7 +125,7 @@ export default class HUD {
         this._waveText.setText(this._wave);
         // this.a.setText(this._wave);
     }
-    updateWave(h) {
+    updateHealth(h) {
         this._hp = h;
         //if(this._waveText ==! undefined)
         this._healthText.setText(this._hp);

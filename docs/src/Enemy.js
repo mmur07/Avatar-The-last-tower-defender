@@ -36,8 +36,10 @@ export default class Enemy extends Elemental {
             this.attack();
         }
     }
-    get hp() {
-        return this._hp;
+
+    healEnemy (val) {
+        this._hp += val;
+        console.log("omnomnom" + this._hp);
     }
 
     update(delta) {

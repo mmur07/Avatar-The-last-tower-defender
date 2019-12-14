@@ -9,6 +9,7 @@ import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
 import AoeBullet from "./AoeBullet.js";
 import HUD from "./HUD.js"
+import TankyEnemy from "./TankyEnemy.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
@@ -36,6 +37,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('sniperSprite', 'img/sniperIcon.png');
     this.load.image('aoeSprite', 'img/aoeIcon.png');
     this.load.image('aoeBullet', 'img/aoeBullet.png');
+    this.load.image('tankySprite', 'img/ovaisthevestjojoversion.png');
 
     let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
     let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);
@@ -91,6 +93,9 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, range);
   }
 
+  SpawnTankyEnemy(elem, x, y, hpregen) {
+    this.ActiveEnemies.add(new TankyEnemy(this, 'tankySprite', elem, x, y, 250, 20, 1, 50));
+  }
   SpawnBullet(angle, x, y,damage) {
     let b;
     if (this.BulletPool.getLength() > 0) {

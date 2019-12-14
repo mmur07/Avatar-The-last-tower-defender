@@ -1,3 +1,5 @@
+document.addEventListener('contextmenu', event => event.preventDefault());
+
 import Elemental from "./Elemental.js";
 import elements from "./enum.js";
 import Tower from "./Tower.js"
@@ -52,6 +54,10 @@ export default class Game extends Phaser.Scene {
     this.load.spritesheet('AreaT',"img/towers/AT_Spritesheet.png",towerFrameInfo);
 
     this.load.spritesheet('BasicEn',"img/BasicEnemy_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+    this.anims.create({
+      key:"walk_anim"
+      
+    })
 
     this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 

@@ -27,6 +27,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
     addTower(pointer, target) {
         this._canAdd = true;
         this.dragObj = this.scene.add.image(64, 64, this._spriteKey); //El objeto que arrastramos es un sprite
+        this.dragObj.setScale(4);
         //Activamos listeners para detectar la posicion del raton y cuando lo soltamos
         this.scene.input.on('pointermove', this.Drag, this);
         this.scene.input.on('pointerup', this.stopDrag, this);

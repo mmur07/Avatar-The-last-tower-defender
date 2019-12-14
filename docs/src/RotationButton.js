@@ -11,7 +11,7 @@ export default class RotationButton extends Phaser.GameObjects.Image {
         this.canClick = false;
         this.cd = coolDown;
         this.timeToReset = this.cd;
-        this.setScale(3);
+        this.setScale(3.5);
         this._createHitbox();
         this.rotationObjective = 0;
         this.rotateVals = [0, 120, -120];

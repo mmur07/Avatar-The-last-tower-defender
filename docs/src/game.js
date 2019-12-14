@@ -14,10 +14,10 @@ import RotationButton from "./RotationButton.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
-const towerData = {normal:{cost: 70,range:150,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:1000000000,area:false, name: "QuickT"},
+const towerData = {normal:{cost: 70,range:200,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
+speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:20,area:false, name: "QuickT"},
 ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"},
-aoe:{cost: 125, range:150, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
+aoe:{cost: 125, range:200, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
 
 export default class Game extends Phaser.Scene {
 
@@ -105,7 +105,7 @@ export default class Game extends Phaser.Scene {
       b.setDmg(damage);
     }
     else {
-      b = new Bullet(this, 50, 400, 90, 1, damage, elements.FIRE, 'bulletSprite');
+      b = new Bullet(this, 50, 400, 90, 2, damage, elements.FIRE, 'bulletSprite');
     }
     b.fire(x, y, angle);
   }

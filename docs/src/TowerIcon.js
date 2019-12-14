@@ -2,9 +2,9 @@
 
 export default class TowerIcon extends Phaser.GameObjects.Image {
 
-    constructor(scene, spritename, xPos, yPos,size,towerData,fr) {
-        super(scene, xPos, yPos, spritename,fr)
-        this._spriteKey = spritename
+    constructor(scene, spritename, xPos, yPos,size,towerData,spriteKey) {
+        super(scene, xPos, yPos, spritename)
+        this._spriteKey = spriteKey
         this.originX = xPos;
         this.originY = yPos;
         this.inputEnabled = true;
@@ -13,7 +13,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
         
 
         this.container = this.scene.add.container(this.originX, this.originY); //Crea el container. Es la hitbox para la acción
-        this.container.setSize(64, 64); //Importante definir el tamaño del container antes del setInteractive()
+        this.container.setSize(32*size, 32*size); //Importante definir el tamaño del container antes del setInteractive()
         this.container.setInteractive();
         this.scene.add.existing(this); //Añade el icono a la escena
         this.container.on('pointerdown', this.addTower, this); //Si el jugador hace click en el container, llama a addTower

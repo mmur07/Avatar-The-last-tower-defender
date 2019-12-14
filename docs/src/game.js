@@ -40,6 +40,10 @@ export default class Game extends Phaser.Scene {
     this.load.image('aoeBullet', '/img/aoeBullet.png');
     this.load.image('rotationButton', '/img/rotationButton.png');
     this.load.image('tankySprite', 'img/ovaisthevestjojoversion.png');
+    this.load.image('NTbuy', 'img/NT_buyIcon.png');
+    this.load.image('QTbuy', 'img/QT_buyIcon.png');
+    this.load.image('ATbuy', 'img/AT_buyIcon.png');
+    this.load.image('CTbuy', 'img/CT_buyIcon.png');
 
     let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
     let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);
@@ -206,15 +210,6 @@ export default class Game extends Phaser.Scene {
 
 }
 
-  CreateTowerIcons(){
-    let iconOffset = 20; //px
-    let w = WIN_WIDTH * 0.95;
-    let h = WIN_HEIGTH * 0.95;
-    this._normalIcon = new TowerIcon(this, 'NormalT', WIN_WIDTH * 0.95, WIN_HEIGTH * 0.95,3,towerData.normal,0);
-    this._speedIcon = new TowerIcon(this, 'QuickT', (WIN_WIDTH * 0.85), (WIN_HEIGTH * 0.95),3,towerData.speedWagon,0);
-    this._sniperIcon = new TowerIcon(this, 'CannonT', (WIN_WIDTH * 0.80), WIN_HEIGTH * 0.95,3,towerData.ratt,0);
-    this.aoeIcon = new TowerIcon(this, 'AreaT', (WIN_WIDTH * 0.75), WIN_HEIGTH * 0.95,3,towerData.aoe);
-  }
 
   deleteTile(xPos, yPos){
     if (this.towers.getTileAtWorldXY(this.pointer.x, this.pointer.y) != null) {
@@ -268,7 +263,6 @@ export default class Game extends Phaser.Scene {
     this.camera = this.cameras.main;
     this.camera.setViewport(0, 0, 1982, 1984);
     
-    this.CreateTowerIcons();
     
     this.CreatePath();
     //let wD = this.cache.json.get('waveData');

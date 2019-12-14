@@ -7,7 +7,7 @@ export default class Tower extends Elemental {
         let upscaleFactor = 4;
         this._scene = scene;
         this._cdShoots = cdShoots * 1000;
-        this._nextShot = 0;//siempre puede disparar al ser creada
+        this._nextShot = 0; //siempre puede disparar al ser creada
         this.lockedEnemy = null;
         this._dmg = dmg;
         this._areadmg = area;

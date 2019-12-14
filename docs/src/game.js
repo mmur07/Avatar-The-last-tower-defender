@@ -55,8 +55,18 @@ export default class Game extends Phaser.Scene {
 
     // this.load.spritesheet('BasicEn',"img/BasicEnemy_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
     this.anims.create({
-      key:'walk_anim',
-      frames: this.anims.generateFrameNumbers('BasicEn', { start: 0, end: 4 }),
+      key:'basic_walk_1',
+      frames: this.anims.generateFrameNumbers('BasicEnW', { start: 0, end: 4 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'basic_walk_2',
+      frames: this.anims.generateFrameNumbers('BasicEnE', { start: 0, end: 4 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'basic_walk_0',
+      frames: this.anims.generateFrameNumbers('BasicEnF', { start: 0, end: 4 }),
       frameRate: 5, repeat: -1
     });
 
@@ -83,14 +93,7 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y) {
-    let en
-    if (this.EnemyPool.getLength() > 0) {
-      en = this.EnemyPool.getFirstDead();
-      en.spawn(x, y, this._idCount);
-    }
-    else {
-      en = new Enemy(this, 'jojoSprite', elements.FIRE, x, y, 400, 400,0);
-    }
+    let en = new Enemy(this, 'jojoSprite', elem, x, y, 400, 400,0);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }

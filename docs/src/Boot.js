@@ -28,7 +28,9 @@ export default class Boot extends Phaser.Scene{
         this.load.spritesheet('CannonT',"img/towers/CT_Spritesheet.png",towerFrameInfo);
         this.load.spritesheet('AreaT',"img/towers/AT_Spritesheet.png",towerFrameInfo);
     
-        this.load.spritesheet('BasicEn',"img/BasicEnemy_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+        this.load.spritesheet('BasicEnW',"img/BasicEnemyWater_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+        this.load.spritesheet('BasicEnF',"img/BasicEnemyFire_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+        this.load.spritesheet('BasicEnE',"img/BasicEnemyEarth_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
 
     
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');

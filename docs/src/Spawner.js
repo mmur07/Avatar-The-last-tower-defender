@@ -9,8 +9,8 @@ export default class Spawner {
         this._actWave = 0;
         this._waves = new Array();
         this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 }, {type: "tanky", el: elements.WATER, timer: 0.5, hpRegen: 20},
-        { type: "normal", el: elements.FIRE, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
-        { type: "normal", el: elements.FIRE, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 2 }]),new Wave(this,[{ type: "shields", el: elements.FIRE, timer: 0.5 }]));
+        { type: "normal", el: elements.WATER, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
+        { type: "normal", el: elements.EARTH, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 2 }]),new Wave(this,[{ type: "shields", el: elements.FIRE, timer: 0.5 }]));
     }
     update(time, delta) {
         //console.log("Spawner actualizándose");

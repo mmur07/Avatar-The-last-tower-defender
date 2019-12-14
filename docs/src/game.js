@@ -9,6 +9,7 @@ import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
 import AoeBullet from "./AoeBullet.js";
 import HUD from "./HUD.js"
+import RotationButton from "./RotationButton.js";
 
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 
@@ -36,6 +37,7 @@ export default class Game extends Phaser.Scene {
     this.load.image('sniperSprite', '/img/sniperIcon.png');
     this.load.image('aoeSprite', '/img/aoeIcon.png');
     this.load.image('aoeBullet', '/img/aoeBullet.png');
+    this.load.image('rotationButton', '/img/rotationButton.png');
 
     let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
     let NT = this.load.spritesheet('NormalT',"/img/towers/NT_Spritesheet.png",towerFrameInfo);
@@ -245,6 +247,10 @@ export default class Game extends Phaser.Scene {
       }
   });
   }
+  rotateAllTowers(){
+    this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() });
+  }
+
   create() {
     //Creación del mapa
     this.CreateMap();
@@ -275,7 +281,7 @@ export default class Game extends Phaser.Scene {
     this.activeAoeBullets = this.physics.add.group();
     this.physics.add.overlap(this.activeAoeBullets, this.ActiveEnemies, (bullet, enemy) => bullet.hitEnemy(enemy));
     this.pointer = this.input.activePointer;
-
+    this.button = new RotationButton(this, 'rotationButton', 0, WIN_HEIGTH, 1000);
 
 
     //input
@@ -294,7 +300,7 @@ export default class Game extends Phaser.Scene {
       this.ActiveTowers.getChildren().forEach(tower => { 
         tower.rotateRight();})
     } if (Phaser.Input.Keyboard.JustDown(this.q)) {
-      this.ActiveTowers.getChildren().forEach(tower => { tower.rotateLeft() })
+      this.rotateAllTowers();
     }
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)

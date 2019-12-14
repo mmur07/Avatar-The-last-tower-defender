@@ -18,6 +18,7 @@ export default class Enemy extends Elemental {
     }
     comienzaRuta() {
         this.anims.play('basic_walk_'+this._elem);
+        // this.anims.play('shield_walk_0');
         //nos situamos al inicio de la ruta
         this.gps.nodo = 0; 
         this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
@@ -40,7 +41,6 @@ export default class Enemy extends Elemental {
 
     healEnemy (val) {
         this._hp += val;
-        console.log("omnomnom" + this._hp);
     }
 
     preUpdate(time,delta) {

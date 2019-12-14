@@ -69,6 +69,11 @@ export default class Game extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('BasicEnF', { start: 0, end: 4 }),
       frameRate: 5, repeat: -1
     });
+    this.anims.create({
+      key:'shield_walk_0',
+      frames: this.anims.generateFrameNumbers('ShieldEnF', { start: 0, end: 4 }),
+      frameRate: 5, repeat: -1
+    });
 
     // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
@@ -93,7 +98,7 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y) {
-    let en = new Enemy(this, 'jojoSprite', elem, x, y, 400, 400,0);
+    let en = new Enemy(this, 'jojoSprite', elem, x, y, 400, 20,0);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }

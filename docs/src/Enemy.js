@@ -12,7 +12,7 @@ export default class Enemy extends Elemental {
         //this.body.setCollideWorldBounds();
         this.scene.add.existing(this);
         this.gps = { ruta: this.scene.getRoute(route), nodo: 0, pos: new Phaser.Math.Vector2() };
-        // this.setScale(0.1);
+        this.setScale(4);
 
         this.comienzaRuta();
     }
@@ -42,7 +42,8 @@ export default class Enemy extends Elemental {
         console.log("omnomnom" + this._hp);
     }
 
-    update(delta) {
+    preUpdate(time,delta) {
+        super.preUpdate(time,delta);
         this.sigueRuta(delta);
     }
 
@@ -61,6 +62,7 @@ export default class Enemy extends Elemental {
         // this.setPosition(xPos, yPos);
         this.comienzaRuta();
         this._id = id;
+        this.anims.play('walk_anim');
     }
 
     die() {

@@ -12,11 +12,14 @@ export default class Enemy extends Elemental {
         //this.body.setCollideWorldBounds();
         this.scene.add.existing(this);
         this.gps = { ruta: this.scene.getRoute(route), nodo: 0, pos: new Phaser.Math.Vector2() };
-        // this.setScale(0.1);
-
+        this.setScale(4);
+        this.scene.ActiveEnemies.add(this);
         this.comienzaRuta();
+        this.play('basic_walk_'+this._elem);
+        // this.anims.play('shield_walk_0');
     }
     comienzaRuta() {
+        
         //nos situamos al inicio de la ruta
         this.gps.nodo = 0; 
         this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
@@ -39,10 +42,10 @@ export default class Enemy extends Elemental {
 
     healEnemy (val) {
         this._hp += val;
-        console.log("omnomnom" + this._hp);
     }
 
-    update(delta) {
+    preUpdate(time,delta) {
+        super.preUpdate(time,delta);
         this.sigueRuta(delta);
     }
 
@@ -52,17 +55,6 @@ export default class Enemy extends Elemental {
             this.die();
         }
     }
-
-    spawn(xPos, yPos, id) {
-        this.scene.EnemyPool.remove(this);
-        this.scene.ActiveEnemies.add(this);
-        this.setActive(true);
-        this.setVisible(true);
-        // this.setPosition(xPos, yPos);
-        this.comienzaRuta();
-        this._id = id;
-    }
-
     die() {
 
         this.scene.OnEnemySlain(this);

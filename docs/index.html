@@ -14,8 +14,8 @@
 <body>
     <h1>Juego con YOU FELL FOR IT</h1>
     <script type="module">
-        import Game from './src/game.js';
-
+        import game from './src/game.js';
+        import Boot from './src/Boot.js'
 
         var config = {
             type: Phaser.AUTO,
@@ -29,8 +29,8 @@
                 mode: Phaser.Scale.FIT,
                 autoCenter: Phaser.Scale.CENTER_BOTH
             },
-            scene: [ Game ],
-            physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } }
+            physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
+            scene: [Boot,game]
         };
         new Phaser.Game(config);
     </script>

@@ -37,7 +37,7 @@ export default class Tower extends Elemental {
             this.rotateLeft();
             this.setFrame(this._elem);
         }
-        else if (pointer.rightButtonDown()) {
+        else if (pointer.rightButtonReleased()) {
             this.rotateRight();
             this.setFrame(this._elem);          
         }

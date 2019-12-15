@@ -19,6 +19,9 @@ export default class Elemental extends Phaser.GameObjects.Sprite {
     getElem(){
         return this._elem;
     }
+    preUpdate(time,delta){
+        super.preUpdate(time,delta);
+    }
 
 
 }

@@ -22,6 +22,14 @@ speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:20,area:false, name: "QuickT"},
 ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"},
 aoe:{cost: 125, range:200, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
 
+const pathData = {'start':{x:-50,y:400},
+'begin':[{x:50,y:400},{x:375,y:550},],
+'up0':[{x:550,y:525},{x:850,y:850},{x:875,y:1100},{x:1100,y:1175}],
+'down0':[{x:175,y:700},{x:125,y:900},{x:150,y:1250},{x:225,y:1475},{x:750,y:1400},{x:800,y:1400},{x:1100,y:1175}],
+'up1':[],
+'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1850,y:700}],
+'end':[]}
+
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -124,27 +132,42 @@ export default class Game extends Phaser.Scene {
     }
     b.fire(x, y, angle);
   }
-  CreatePath() {
+  CreatePath(start,route){
+    let ruta = this.add.path(start.x,start.y);
+    route.forEach(part => {
+      part.forEach(p => {
+        ruta.lineTo(p.x,p.y);
+      });
+    });
+    return ruta;
+  }
+  CreatePaths() {
 
+    // let init = [{x:-50,y:400},{x:50,y:400},{x:375,y:550}];
+    // let camino = this.CreatePath(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
     this._routes = new Array();
     let graphics = this.add.graphics();
-    //inicio
-    this.path = this.add.path(-50, 400);
-    this.path.lineTo(50, 400)
-    //bif1
-    this.path.lineTo(375, 550);
+    // this.path = this.add.path(pathData.start.x,pathData.start.y);
+    // pathData.begin.forEach(p => {
+    //   this.path.lineTo(p.x,p.y);
+    // });
+    // //inicio
+    // this.path = this.add.path(-50, 400);
+    // this.path.lineTo(50, 400)
+    // //bif1
+    // this.path.lineTo(375, 550);
     //bifurcacion dcha
-    this.path.lineTo(550,525);
-    this.path.lineTo(850, 850);
-    this.path.lineTo(875, 1100);
-    //cruce
-    this.path.lineTo(1100, 1175);
-    //bifurcacion dcha
-    this.path.lineTo(1450, 1500);
-    this.path.lineTo(1650, 1500);
-    this.path.lineTo(1775, 1075);
-    this.path.lineTo(1850, 700);
-    this._routes.push(this.path);
+    // this.path.lineTo(550,525);
+    // this.path.lineTo(850, 850);
+    // this.path.lineTo(875, 1100);
+    // //cruce
+    // this.path.lineTo(1100, 1175);
+    // //bifurcacion dcha
+    // this.path.lineTo(1450, 1500);
+    // this.path.lineTo(1650, 1500);
+    // this.path.lineTo(1775, 1075);
+    // this.path.lineTo(1850, 700);
+    this._routes.push(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
 
     //inicio
     var ruta2 =  this.add.path(-50, 400);
@@ -166,6 +189,8 @@ export default class Game extends Phaser.Scene {
     ruta2.lineTo(1650, 1500);
     ruta2.lineTo(1775, 1075);
     ruta2.lineTo(1850, 700);
+
+    let jsonData = ruta2.toJSON();
     
     this._routes.push(ruta2);
 
@@ -283,7 +308,7 @@ export default class Game extends Phaser.Scene {
     this.camera.setViewport(0, 0, 1982, 1984);
     
     
-    this.CreatePath();
+    this.CreatePaths();
     //let wD = this.cache.json.get('waveData');
 
     //Pooling de enemigos

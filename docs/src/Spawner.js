@@ -8,9 +8,9 @@ export default class Spawner {
         this._spawnPos = spawnPos;
         this._actWave = 0;
         this._waves = new Array();
-        this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE, timer: 0.5 }, {type: "tanky", el: elements.WATER, timer: 0.5, hpRegen: 20},
-        { type: "normal", el: elements.WATER, timer: 0.5 },{type: "shield", el: elements.FIRE, timer:0.5, shields: 3},
-        { type: "normal", el: elements.EARTH, timer: 2 }, { type: "normal", el: elements.FIRE, timer: 2 }]),new Wave(this,[{ type: "shields", el: elements.FIRE, timer: 0.5 }]));
+        this._waves.push(new Wave(this, [{ type: "normal", el: elements.FIRE,route:0, timer: 0.5 }, {type: "tanky", el: elements.WATER,route:0, timer: 0.5, hpRegen: 20},
+        { type: "normal", el: elements.WATER,route:1, timer: 0.5 },{type: "shield", el: elements.FIRE,route:0, timer:0.5, shields: 3},
+        { type: "normal", el: elements.EARTH,route:2, timer: 2 }, { type: "normal", el: elements.FIRE,route:3, timer: 2 }]),new Wave(this,[{ type: "shields", el: elements.FIRE,route:0, timer: 0.5 }]));
     }
     update(time, delta) {
         //console.log("Spawner actualizándose");
@@ -22,13 +22,13 @@ export default class Spawner {
     spawn(enemy) {
         switch (enemy.type) {
             case "normal":
-                this._scene.SpawnEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y);
+                this._scene.SpawnEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.route);
                 break;
             case "shield":
-                this._scene.SpawnShieldedEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.shields);
+                this._scene.SpawnShieldedEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y,enemy.shields,enemy.route);
                 break;
             case "tanky":
-                this._scene.SpawnTankyEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y, enemy.hpRegen);
+                this._scene.SpawnTankyEnemy(enemy.el, this._spawnPos.x, this._spawnPos.y, enemy.hpRegen,enemy.route);
         }
     }
     waveEnded() {

@@ -50,6 +50,7 @@ export default class Enemy extends Elemental {
     }
 
     ReceiveDMG(dmg, dmgType) {
+        console.log('Yo, de tipo ' + this._elem + ' recibo daño de tipo ' + dmgType + '. Bonus: ' + this.dmgMultiplier(dmgType))
         this._hp = this._hp - (this.dmgMultiplier(dmgType) * dmg);
         if (this._hp <= 0) {
             this.die();

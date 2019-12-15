@@ -22,6 +22,14 @@ speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:20,area:false, name: "QuickT"},
 ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"},
 aoe:{cost: 125, range:200, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
 
+const PATHDATA = {'start':{x:-50,y:400},
+'begin':[{x:50,y:400},{x:375,y:550},],
+'up0':[{x:550,y:525},{x:850,y:850},{x:875,y:1100},{x:1100,y:1175}],
+'down0':[{x:175,y:700},{x:125,y:900},{x:150,y:1250},{x:225,y:1475},{x:750,y:1400},{x:800,y:1400},{x:1100,y:1175}],
+'up1':[{x:1300,y:1000},{x:1400,y:850},{x:1800,y:800}],
+'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
+'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
+
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -91,13 +99,13 @@ export default class Game extends Phaser.Scene {
       let bull = new AoeBullet(this, 400, 90, 1.25, 100, 100,  elements.FIRE, 'aoeBullet');
     }
   }
-  SpawnEnemy(elem, x, y) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,0, this._idCount);
+  SpawnEnemy(elem, x, y,route) {
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,route,this._idCount);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
-  SpawnShieldedEnemy(elem, x, y, shields) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 400, 20,1, this._idCount, shields));
+  SpawnShieldedEnemy(elem, x, y, shields,route) {
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 400, 20,route, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){
@@ -110,8 +118,8 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, range);
   }
 
-  SpawnTankyEnemy(elem, x, y, hpregen) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, 1, 50, this._idCount));
+  SpawnTankyEnemy(elem, x, y, hpregen,route) {
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, route, hpregen,this._idCount));
     this._idCount++;
   }
   SpawnBullet(angle, x, y,damage,elem) {
@@ -125,56 +133,36 @@ export default class Game extends Phaser.Scene {
     }
     b.fire(x, y, angle);
   }
-  CreatePath() {
+  CreatePath(start,route){
+    let ruta = this.add.path(start.x,start.y);
+    route.forEach(part => {
+      part.forEach(p => {
+        ruta.lineTo(p.x,p.y);
+      });
+    });
+    return ruta;
+  }
+  CreatePaths() {
 
+    // let init = [{x:-50,y:400},{x:50,y:400},{x:375,y:550}];
+    // let camino = this.CreatePath(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
     this._routes = new Array();
     let graphics = this.add.graphics();
-    //inicio
-    this.path = this.add.path(-50, 400);
-    this.path.lineTo(50, 400)
-    //bif1
-    this.path.lineTo(375, 550);
-    //bifurcacion dcha
-    this.path.lineTo(550,525);
-    this.path.lineTo(850, 850);
-    this.path.lineTo(875, 1100);
-    //cruce
-    this.path.lineTo(1100, 1175);
-    //bifurcacion dcha
-    this.path.lineTo(1450, 1500);
-    this.path.lineTo(1650, 1500);
-    this.path.lineTo(1775, 1075);
-    this.path.lineTo(1850, 700);
-    this._routes.push(this.path);
-
-    //inicio
-    var ruta2 =  this.add.path(-50, 400);
-    ruta2.lineTo(50, 400);
-    //bif1
-    ruta2.lineTo(375, 550);
-  //bifurcaion izq
-    ruta2.lineTo(175,700);
-    ruta2.lineTo(125,900);
-    ruta2.lineTo(150,1250);
-    ruta2.lineTo(225,1475);
-    ruta2.lineTo(700,1475);
-    ruta2.lineTo(750,1400);
-    ruta2.lineTo(800,1400);
-    //cruce
-    ruta2.lineTo(1100, 1175);
-    //bifurcacion dcha
-    ruta2.lineTo(1450, 1500);
-    ruta2.lineTo(1650, 1500);
-    ruta2.lineTo(1775, 1075);
-    ruta2.lineTo(1850, 700);
-    
-    this._routes.push(ruta2);
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.down1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.down1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.up1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.up1,PATHDATA.end]));
 
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
     this._routes[0].draw(graphics);
     graphics.lineStyle(3, 0xff0000,1);
     this._routes[1].draw(graphics);
+    graphics.lineStyle(3, 0xe49213, 1);
+    // visualize the path
+    this._routes[2].draw(graphics);
+    graphics.lineStyle(3, 0x1d13e4,1);
+    this._routes[3].draw(graphics);
 
     // this.paths = this.add.group();
   }
@@ -284,7 +272,7 @@ export default class Game extends Phaser.Scene {
     this.camera.setViewport(0, 0, 1982, 1984);
     
     
-    this.CreatePath();
+    this.CreatePaths();
     //let wD = this.cache.json.get('waveData');
 
     //Pooling de enemigos

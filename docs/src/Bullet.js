@@ -9,9 +9,11 @@ export default class Bullet extends Elemental {
         this._angle = angle;
         this._dmg = damage;
         this._dx = 0; this._dy = 0;
+        this.setScale(4);
         this.scene.add.existing(this);
     }
-    fire(xPos, yPos, angle) {
+    fire(xPos, yPos, newAngle) {
+
         this.scene.ActiveBullets.add(this);
         this.scene.BulletPool.remove(this);
         this.setActive(true);
@@ -19,9 +21,12 @@ export default class Bullet extends Elemental {
         this.x = xPos;
         this.y = yPos
         this.setPosition(this.x, this.y);
-        this._angle = angle;
-        this._dx = Math.cos(this._angle);
-        this._dy = Math.sin(this._angle);
+        console.log("pium " + newAngle);
+        this._dx = Math.cos(newAngle);
+        this._dy = Math.sin(newAngle);
+        this.angle = 90 + (60 * newAngle);
+        console.log(newAngle);
+        
     }
     hitEnemy(en) {
         en.ReceiveDMG(this._dmg, this._elem);
@@ -36,5 +41,4 @@ export default class Bullet extends Elemental {
     setDmg(newDmg){
         this._dmg = newDmg;
     }
-
 }

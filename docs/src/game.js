@@ -59,6 +59,22 @@ export default class Game extends Phaser.Scene {
       frameRate: 5, repeat: -1
     });
 
+    this.anims.create({
+      key:'tank_walk_0',
+      frames: this.anims.generateFrameNumbers('TankEnF', { start: 0, end: 3 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'tank_walk_1',
+      frames: this.anims.generateFrameNumbers('TankEnW', { start: 0, end: 3 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'tank_walk_2',
+      frames: this.anims.generateFrameNumbers('TankEnE', { start: 0, end: 3 }),
+      frameRate: 5, repeat: -1
+    });
+
     // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
   }

@@ -2,7 +2,7 @@ import Elemental from "./Elemental.js";
 
 export default class Tower extends Elemental {
 
-    constructor(scene, spriteKey, element, xPos, yPos, range, cdShoots, dmg, area) {
+    constructor(scene, spriteKey, element, xPos, yPos, range, cdShoots, dmg, area, sellCost) {
         super(scene, spriteKey, element, xPos, yPos,element); 
         let upscaleFactor = 4;
         this._scene = scene;
@@ -12,6 +12,7 @@ export default class Tower extends Elemental {
         this._dmg = dmg;
         this._areadmg = area;
         this._range = range;
+        this._sellCost = sellCost;
         //this._spriteName = spriteName;
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
@@ -29,7 +30,6 @@ export default class Tower extends Elemental {
         this.container.setInteractive();
         this.scene.add.existing(this); //Añade el icono a la escena
         this.container.on('pointerup', this.procesaInput, this); //Si el jugador hace click en el container, llama a addTower
-
     }
 
     procesaInput(pointer) {
@@ -42,12 +42,14 @@ export default class Tower extends Elemental {
             this.setFrame(this._elem);          
         }
         else if (pointer.middleButtonReleased()) {
-            this.scene.ActiveTowers.remove(this);
-            this.scene.deleteTile(this.originX, this.originY);
+            this._scene.ActiveTowers.remove(this);
+            this._scene.deleteTile(this.originX, this.originY);
             this.setActive(false);
             this.setVisible(false);
             this.lockedEnemy = null;
             this.destroy();
+
+            this._scene.modifyGold(this._sellCost);
         }
     }
 

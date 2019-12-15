@@ -142,7 +142,7 @@ export default class Game extends Phaser.Scene {
     //bif1
     ruta2.lineTo(375, 550);
   //bifurcaion izq
-  ruta2.lineTo(175,700);
+    ruta2.lineTo(175,700);
     ruta2.lineTo(125,900);
     ruta2.lineTo(150,1250);
     ruta2.lineTo(225,1475);
@@ -182,7 +182,7 @@ export default class Game extends Phaser.Scene {
     this.EnemyPool.add(enemy);
     enemy.setActive(false);
     enemy.setVisible(false);
-    this.EarnGold(enemy);
+    this.earnGoldEnemy(enemy);
     this.ActiveTowers.getChildren().forEach(tow => {
       if (tow.getTarget() === enemy)
         tow.looseTarget();
@@ -193,7 +193,7 @@ export default class Game extends Phaser.Scene {
     //actualizar el hud
     //comprobar la moridira
   }
-  EarnGold(enemy) {
+  earnGoldEnemy(enemy) {
     //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
     let gain;
     if (enemy instanceof ShieldEnemy) {
@@ -207,8 +207,9 @@ export default class Game extends Phaser.Scene {
     this._HUD.updateGold(this.player.gold);
     console.log(this.player.gold)
   }
-  loseGold(sub){
-    this.player.gold-= sub;
+  modifyGold(gain){
+    this.player.gold+= gain;
+    if (this.player.gold > MAX_GOLD) this.player.gold = MAX_GOLD;
     this._HUD.updateGold(this.player.gold);
   }
   addTower(pointer, target) {
@@ -265,8 +266,7 @@ export default class Game extends Phaser.Scene {
     //Creación del mapa
     this.CreateMap();
 
-
-    this.player = { hp: 20, gold: 2000 };
+    this.player = { hp: 20, gold: 9999 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;

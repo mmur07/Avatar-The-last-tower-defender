@@ -99,12 +99,12 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y) {
-    let en = new Enemy(this, 'jojoSprite', elem, x, y, 400, 20,0);
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,0);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elem, x, y, 400, 20,1, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 400, 20,1, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range){
@@ -118,7 +118,7 @@ export default class Game extends Phaser.Scene {
   }
 
   SpawnTankyEnemy(elem, x, y, hpregen) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'tankySprite', elem, x, y, 250, 20, 1, 50));
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, 1, 50));
   }
   SpawnBullet(angle, x, y,damage) {
     let b;

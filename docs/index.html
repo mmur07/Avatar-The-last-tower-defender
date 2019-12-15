@@ -1,39 +1,284 @@
 <!DOCTYPE html>
-<html lang="es">
-
+<html  >
 <head>
-    <meta charset="UTF-8">
-    <link rel="shortcut icon" href="./img/favicon.png" type="image/png" />
-    <meta name="viewport" content="width=device-width, initial-scale=2.0">
-    <link rel="stylesheet" href="./src/game.css">
-    <script src="./src/phaser.min.js"></script>
-
-    <title>¡Juego con Juanjos!</title>
+  <!-- Site made with Mobirise Website Builder v4.11.6, https://mobirise.com -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v4.11.6, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <meta name="description" content="">
+  
+  <title>Home</title>
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/tether/tether.min.css">
+  <link rel="stylesheet" href="assets/animatecss/animate.min.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <script src="./src/phaser.min.js"></script>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+  
+  
+  
 </head>
-
 <body>
-    <h1>Juego con YOU FELL FOR IT</h1>
-    <script type="module">
-        import game from './src/game.js';
-        import Boot from './src/Boot.js'
+  <section class="header1 cid-rKJgOvyItC" id="header16-1">
 
-        var config = {
-            type: Phaser.AUTO,
-            width: 1984,
-            height: 1984,
-            pixelArt: true,
-            input: {
-                gamepad: true
-            },
-            scale: {
-                mode: Phaser.Scale.FIT,
-                autoCenter: Phaser.Scale.CENTER_BOTH
-            },
-            physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
-            scene: [Boot,game]
-        };
-        new Phaser.Game(config);
-    </script>
-</body>
+    
 
+    
+
+    <div class="container">
+        <div class="row justify-content-md-center">
+            <div class="col-md-10 align-center">
+                <h1 class="mbr-section-title mbr-bold pb-3 mbr-fonts-style display-1">
+                    TRI-TOWERS</h1>
+                
+                <p class="mbr-text pb-3 mbr-fonts-style display-7">
+                    A brand new Tower Defense game with a twist. Defend your village using four types of towers and your vast knowledge of the elements.</p>
+                <div class="mbr-section-btn"><a class="btn btn-md btn-black display-4" href="index.html#team1-5">Learn about us</a> <a class="btn btn-md btn-success display-4" href="https://mobirise.co">PLAY THE GAME</a> <a class="btn btn-md btn-black display-4" href="index.html#content14-c">Learn the game</a></div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<section class="engine"><a href="https://mobirise.info/e">how to make a website for free</a></section><section class="cid-rKJli2zKX0" id="image3-4">
+    <!--Creditos a Andrés Ruiz por decirnos cómo meter el juego en la plantilla-->
+    <figure class="mbr-figure container">
+            <div class="image-block" style="width: 10%;" id='gameDiv'>
+                <script type="module">
+                    import game from './src/game.js';
+                    import Boot from './src/Boot.js'
+                    var config = {
+                        type: Phaser.AUTO,
+                        width: 1984,
+                        height: 1984,
+                        parent: 'gameDiv',
+                        pixelArt: true,
+                        input: {
+                            gamepad: true
+                        },
+                        scale: {
+                            mode: Phaser.Scale.FIT,
+                            autoCenter: Phaser.Scale.CENTER_BOTH
+                        },
+                        physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
+                        scene: [Boot,game]
+                    };
+                    new Phaser.Game(config);
+                </script>
+            </div>
+    </figure>
+</section>
+
+<section class="mbr-section article content14 cid-rKJvGS6DUw" id="content14-c">
+      
+     
+
+    <div class="container">
+        <div class="media-container-row">
+            <div class="row col-12 col-md-12">
+                <div class="col-12 mbr-text mbr-fonts-style col-md-4 display-7">
+                     <p class="p-3"><strong>We know about three elemental natures.</strong></p><p class="p-3"> Each tower and enemy has an elemental nature: <strong><em>FIRE, WATER or EARTH.</em></strong> Fire towers deal extra damage against earth foes, but are weak against water ones.</p>
+                </div>
+                <div class="col-12 mbr-text mbr-fonts-style display-7 col-md-4">
+                     <p class="p-3"><strong>YOU have four tower types</strong></p><p class="p-3"><em><strong>Basic Tower:</strong></em> All-rounder. Has average fire speed and damage.<br><em><strong>Cannon Tower:</strong></em> Devastating. Fires very damaging bullets, but is very slow.<br><em><strong>Haste Tower: </strong></em>Nimble. Incredible fire rate, but low damage output.<br><em><strong>Area Tower:</strong></em> You shall not pass. Low damage and speed, but hits every enemy in range!</p>
+                </div>
+                <div class="col-12 col-md-4 mbr-text mbr-fonts-style display-7">
+                     <p class="p-3"><strong>They are three types of enemies.</strong></p><p class="p-3"><em><strong>Minion:</strong></em> horde. They aren't special, but they come in big groups and can overwhelm your targeting towers.<br><em><strong>Skeleton:</strong></em> Undead soldier. No matter how hard you hit them, they have shields! You will need many shots instead of powerful ones.<br><em><strong>Golem:</strong> </em>Healing Relict. Hit them hard, hit them fast. These monsters can heal over time!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features1 cid-rKJzYpxcoC" id="features1-f">
+    
+    
+
+    
+    <div class="container">
+        <div class="media-container-row">
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-img pb-3">
+                    <span class="mbr-iconfont mbri-cash" style="color: rgb(56, 217, 115); fill: rgb(56, 217, 115);"></span>
+                </div>
+                <div class="card-box">
+                    <h4 class="card-title py-3 mbr-fonts-style display-5">
+                        Place towers</h4>
+                    <p class="mbr-text mbr-fonts-style display-7">If you have enough gold, you can place a tower by left-clicking and dragging the icons on screen. To sell a tower, click it with your mouse-wheel and recover half of cost .</p>
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-img pb-3">
+                    <span class="mbr-iconfont mbri-update"></span>
+                </div>
+                <div class="card-box">
+                    <h4 class="card-title py-3 mbr-fonts-style display-5">
+                        Dominate the elements</h4>
+                    <p class="mbr-text mbr-fonts-style display-7">
+                        All sites you make with Mobirise are mobile-friendly. You don't have to create a special mobile version of your site.
+                    </p>
+                </div>
+            </div>
+
+            <div class="card p-3 col-12 col-md-6 col-lg-4">
+                <div class="card-img pb-3">
+                    <span class="mbr-iconfont mbri-hearth" style="color: rgb(230, 72, 46); fill: rgb(230, 72, 46);"></span>
+                </div>
+                <div class="card-box">
+                    <h4 class="card-title py-3 mbr-fonts-style display-5">
+                        Survive!</h4>
+                    <p class="mbr-text mbr-fonts-style display-7">
+                        Mobirise offers many site blocks in several themes, and though these blocks are pre-made, they are flexible.
+                    </p>
+                </div>
+            </div>
+
+            
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="team1 cid-rKJn3FvhAr" id="team1-5">
+    
+    
+    
+    <div class="container align-center">
+        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2">Our JoJo's</h2>
+        <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5">
+            This game was developed buy two students from Universidad Complutense de Madrid del Reino de España on 2019.</h3>
+        <div class="row media-row">
+            
+        <div class="team-item col-lg-3 col-md-6">
+                <div class="item-image">
+                    <img src="assets/images/dasuisa-510x287.jpeg" alt="" title="">
+                </div>
+                <div class="item-caption py-3">
+                    <div class="item-name px-2">
+                        <p class="mbr-fonts-style display-5">Adrián Álvarez</p>
+                    </div>
+                    
+                    <div class="item-social pt-2">
+                        <a href="https://github.com/AdriAlvarez00" target="_blank">
+                            <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-github"></span>
+                        </a>
+                        <a href="mailto:adralv01@ucm.es">
+                            <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-letter"></span>
+                        </a>
+                        <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.linkedin.com/in/mobirise" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.instagram.com/mobirise/" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCt_tncVAetpK5JeM8L-8jyw" target="_blank">    
+                            
+                        </a>
+                    </div>
+                </div>
+            </div><div class="team-item col-lg-3 col-md-6">
+                <div class="item-image">
+                    <img src="assets/images/face2.jpg" alt="" title="">
+                </div>
+                <div class="item-caption py-3">
+                    <div class="item-name px-2">
+                        <p class="mbr-fonts-style display-5">
+                           Miguel Mmur</p>
+                    </div>
+                    
+                    <div class="item-social pt-2">
+                        <a href="https://github.com/mmur07" target="_blank">
+                            <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-github"></span>
+                        </a>
+                        <a href="mailto:mmur@ucm.es">
+                            <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-letter"></span>
+                        </a>
+                        <a href="https://plus.google.com/u/0/+Mobirise" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.linkedin.com/in/mobirise" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.instagram.com/mobirise/" target="_blank">
+                            
+                        </a>
+                        <a href="https://www.youtube.com/channel/UCt_tncVAetpK5JeM8L-8jyw" target="_blank">    
+                            
+                        </a>
+                    </div>
+                </div>
+            </div></div>    
+    </div>
+</section>
+
+<section class="cid-rKJo4mfilI" id="footer1-6">
+
+    
+
+    
+
+    <div class="container">
+        <div class="media-container-row content text-white">
+            <div class="col-12 col-md-3">
+                <div class="media-wrap">
+                    <a href="https://mobirise.co/">
+                        <img src="assets/images/logo2.png" alt="Mobirise">
+                    </a>
+                </div>
+            </div>
+            <div class="col-12 col-md-3 mbr-fonts-style display-7">
+                <h5 class="pb-3">
+                    Address
+                </h5>
+                <p class="mbr-text">
+                    1234 Street Name
+                    <br>City, AA 99999
+                </p>
+            </div>
+            <div class="col-12 col-md-3 mbr-fonts-style display-7">
+                <h5 class="pb-3">
+                    Contacts
+                </h5>
+                <p class="mbr-text">
+                    Email: support@mobirise.com
+                    <br>Phone: +1 (0) 000 0000 001
+                    <br>Fax: +1 (0) 000 0000 002
+                </p>
+            </div>
+            <div class="col-12 col-md-3 mbr-fonts-style display-7">
+                <h5 class="pb-3">
+                    Links
+                </h5>
+                <p class="mbr-text">Project Repo</p>
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+
+  <script src="assets/web/assets/jquery/jquery.min.js"></script>
+  <script src="assets/popper/popper.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/tether/tether.min.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/viewportchecker/jquery.viewportchecker.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  
+  
+  <input name="animation" type="hidden">
+  </body>
 </html>

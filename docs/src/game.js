@@ -92,7 +92,7 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,0);
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,0, this._idCount);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
@@ -111,7 +111,8 @@ export default class Game extends Phaser.Scene {
   }
 
   SpawnTankyEnemy(elem, x, y, hpregen) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, 1, 50));
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, 1, 50, this._idCount));
+    this._idCount++;
   }
   SpawnBullet(angle, x, y,damage,elem) {
     let b;

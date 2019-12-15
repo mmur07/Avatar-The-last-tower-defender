@@ -15,10 +15,11 @@ export default class Enemy extends Elemental {
         this.setScale(4);
         this.scene.ActiveEnemies.add(this);
         this.comienzaRuta();
+        this.play('basic_walk_'+this._elem);
+        // this.anims.play('shield_walk_0');
     }
     comienzaRuta() {
-        this.anims.play('basic_walk_'+this._elem);
-        // this.anims.play('shield_walk_0');
+        
         //nos situamos al inicio de la ruta
         this.gps.nodo = 0; 
         this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);

@@ -9,8 +9,8 @@ export default class TankyEnemy extends Enemy {
 
         this._nextCycleHeal = 0;
     }
-    update(time, delta){
-        super.update(time, delta);
+    preUpdate(time, delta){
+        super.preUpdate(time, delta);
         if (time >= this._nextCycleHeal){
             super.healEnemy(this._hpRegen);
             this._nextCycleHeal = time += this._cdHeal;

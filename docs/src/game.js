@@ -28,32 +28,6 @@ export default class Game extends Phaser.Scene {
     this._idCount = 0;
   }
   preload() {
-    // this.load.image('patronesTilemap', 'Tilemaps/modded_colored.png');
-    // this.load.tilemapTiledJSON('tilemap', 'Tilemaps/TD_TilemapBit.json');
-    // // this.load.json('waveData','./waves,json');  
-    // let jojoBG = this.load.image('jojoBG', '  img/thunderSplit.png');
-    // this.load.image('jojoSprite', 'img/favicon.png');
-    // this.load.image('towerIconSprite', 'img/towericon.png');
-    // this.load.image('hohoho', 'img/HowManyBreadsHaveYouEatenInYourLifetime.png');
-    // this.load.image('bulletSprite', 'img/rocketto.png');
-    // this.load.image('speedSprite', 'img/bullethellIcon.png');
-    // this.load.image('sniperSprite', 'img/sniperIcon.png');
-    // this.load.image('aoeSprite', 'img/aoeIcon.png');
-    // this.load.image('aoeBullet', 'img/aoeBullet.png');
-    // this.load.image('rotationButton', 'img/rotationButton.png');
-    // this.load.image('tankySprite', 'img/ovaisthevestjojoversion.png');
-    // this.load.image('NTbuy', 'img/NT_buyIcon.png');
-    // this.load.image('QTbuy', 'img/QT_buyIcon.png');
-    // this.load.image('ATbuy', 'img/AT_buyIcon.png');
-    // this.load.image('CTbuy', 'img/CT_buyIcon.png');
-
-    // let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
-    // let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);
-    // this.load.spritesheet('QuickT',"img/towers/QT_Spritesheet.png",towerFrameInfo);
-    // this.load.spritesheet('CannonT',"img/towers/CT_Spritesheet.png",towerFrameInfo);
-    // this.load.spritesheet('AreaT',"img/towers/AT_Spritesheet.png",towerFrameInfo);
-
-    // this.load.spritesheet('BasicEn',"img/BasicEnemy_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
     this.anims.create({
       key:'basic_walk_1',
       frames: this.anims.generateFrameNumbers('BasicEnW', { start: 0, end: 4 }),
@@ -71,7 +45,17 @@ export default class Game extends Phaser.Scene {
     });
     this.anims.create({
       key:'shield_walk_0',
-      frames: this.anims.generateFrameNumbers('ShieldEnF', { start: 0, end: 4 }),
+      frames: this.anims.generateFrameNumbers('ShieldEnF', { start: 0, end: 2 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'shield_walk_1',
+      frames: this.anims.generateFrameNumbers('ShieldEnW', { start: 0, end: 2 }),
+      frameRate: 5, repeat: -1
+    });
+    this.anims.create({
+      key:'shield_walk_2',
+      frames: this.anims.generateFrameNumbers('ShieldEnE', { start: 0, end: 2 }),
       frameRate: 5, repeat: -1
     });
 
@@ -103,7 +87,7 @@ export default class Game extends Phaser.Scene {
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elements.FIRE, x, y, 400, 20,1, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'hohoho', elem, x, y, 400, 20,1, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range){
@@ -289,7 +273,7 @@ export default class Game extends Phaser.Scene {
     this.EnemyPool = this.add.group();
     this.ActiveEnemies = this.physics.add.group();
     this.ActiveEnemies.runChildUpdate = true;
-    this.PoolEnemies();
+    //this.PoolEnemies();
     //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();

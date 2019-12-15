@@ -32,7 +32,10 @@ export default class Boot extends Phaser.Scene{
         this.load.spritesheet('BasicEnF',"img/BasicEnemyFire_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
         this.load.spritesheet('BasicEnE',"img/BasicEnemyEarth_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
 
+        this.load.spritesheet('ShieldEnW',"img/ShieldEnemyWater_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
         this.load.spritesheet('ShieldEnF',"img/ShieldEnemyFire_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+        this.load.spritesheet('ShieldEnE',"img/ShieldEnemyEarth_Spritesheet.png",{frameWidth: 16,frameHeight:16,margin: 1})
+
 
         this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
     

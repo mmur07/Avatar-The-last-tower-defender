@@ -42,8 +42,9 @@ export default class AoeBullet extends Elemental {
             this.arrayEnemiesID = [];
         }
     }
-    setDmg(newDmg){
+    setDmg(newDmg,elem){
         this._dmg = newDmg;
+        this._elem = elem;
     }
     searchIDEnemy(id){
         let found = false;

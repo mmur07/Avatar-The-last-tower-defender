@@ -79,13 +79,6 @@ export default class Game extends Phaser.Scene {
     // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
 
   }
-  PoolEnemies() {
-    for (let i = 0; i < 10; i++) {
-      let basicEnem = new Enemy(this, 'jojoSprite', elements.FIRE, 400, 400, 150, 20,0);
-      this.EnemyPool.add(basicEnem);
-      this.EnemyPool.killAndHide(basicEnem);
-    }
-  }
   PoolBullets() {
     for (let i = 0; i < 200; i++) {
       let bull = new Bullet(this, 50, 400, 90, 10, 100, elements.FIRE, 'bulletSprite');
@@ -107,27 +100,27 @@ export default class Game extends Phaser.Scene {
     this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 400, 20,1, this._idCount, shields));
     this._idCount++;
   }
-  SpawnAoeBullet(x, y, damage, range){
+  SpawnAoeBullet(x, y, damage, range,elem){
     let b;
     if (this.aoeBulletPool.getLength() > 0){
     b = this.aoeBulletPool.getFirstDead();
-      b.setDmg(damage);
+      b.setDmg(damage,elem);
     }
-    else b = new AoeBullet(this, 400, 90, 1.25, 100, 100, elements.FIRE, 'aoeBullet');
+    else b = new AoeBullet(this, 400, 90, 1.25, 100, 100, elem, 'aoeBullet');
     b.fire(x, y, range);
   }
 
   SpawnTankyEnemy(elem, x, y, hpregen) {
     this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, 1, 50));
   }
-  SpawnBullet(angle, x, y,damage) {
+  SpawnBullet(angle, x, y,damage,elem) {
     let b;
     if (this.BulletPool.getLength() > 0) {
       b = this.BulletPool.getFirstDead();
-      b.setDmg(damage);
+      b.setDmg(damage,elem);
     }
     else {
-      b = new Bullet(this, 50, 400, 90, 2, damage, elements.FIRE, 'bulletSprite');
+      b = new Bullet(this, 50, 400, 90, 2, damage, elem, 'bulletSprite');
     }
     b.fire(x, y, angle);
   }

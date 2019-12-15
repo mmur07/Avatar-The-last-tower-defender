@@ -21,11 +21,9 @@ export default class Bullet extends Elemental {
         this.x = xPos;
         this.y = yPos
         this.setPosition(this.x, this.y);
-        console.log("pium " + newAngle);
         this._dx = Math.cos(newAngle);
         this._dy = Math.sin(newAngle);
         this.angle = 90 + (60 * newAngle);
-        console.log(newAngle);
         
     }
     hitEnemy(en) {
@@ -38,7 +36,8 @@ export default class Bullet extends Elemental {
         this.x += this._dx * (this._speed * delta);
         this.y += this._dy * (this._speed * delta);
     }
-    setDmg(newDmg){
+    setDmg(newDmg,elem){
         this._dmg = newDmg;
+        this._elem = elem;
     }
 }

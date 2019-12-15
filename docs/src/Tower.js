@@ -80,10 +80,10 @@ export default class Tower extends Elemental {
 
     shoot(angle) {
         if(!this._areadmg)
-            this.scene.SpawnBullet(angle, this.x, this.y,this._dmg);
+            this.scene.SpawnBullet(angle, this.x, this.y,this._dmg,this._elem);
         else
         {
-            this.scene.SpawnAoeBullet(this.x, this.y, this._dmg, this._range);
+            this.scene.SpawnAoeBullet(this.x, this.y, this._dmg, this._range,this._elem);
         }
     }
 

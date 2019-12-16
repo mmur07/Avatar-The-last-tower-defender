@@ -21,6 +21,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('QTbuy', 'img/QT_buyIcon.png');
         this.load.image('ATbuy', 'img/AT_buyIcon.png');
         this.load.image('CTbuy', 'img/CT_buyIcon.png');
+        this.load.image('startButton','img/StartButton.png')
     
         let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
         let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);

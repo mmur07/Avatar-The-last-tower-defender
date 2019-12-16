@@ -25,6 +25,7 @@ const PATHDATA = {'start':{x:-50,y:400},
 'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
 'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
 const ENEMYGOLD = {'normal':15,'shield':30,'tank':50};
+const BASEGOLD = 100;
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -264,7 +265,7 @@ export default class Game extends Phaser.Scene {
     //Creación del mapa
     this.CreateMap();
 
-    this.player = { hp: 20, gold: 100 };
+    this.player = { hp: 20, gold: 0 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;
@@ -304,6 +305,8 @@ export default class Game extends Phaser.Scene {
       self._Spawner = new Spawner(this, { x: 0, y: 50 });
       console.log(this);
       self._startButton.destroy();
+      self.player.gold = BASEGOLD;
+     self._HUD.updateGold(this.player.gold);
     })
     this.add.existing(this._startButton);
   }

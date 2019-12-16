@@ -19,13 +19,14 @@ const MAX_GOLD = 9999;
 
 const PATHDATA = {'start':{x:-50,y:400},
 'begin':[{x:50,y:400},{x:375,y:550},],
-'up0':[{x:550,y:525},{x:850,y:850},{x:875,y:1100},{x:1100,y:1175}],
+'up0':[{x:550,y:525},{x:850,y:850},{x:925,y:1100},{x:1100,y:1175}],
 'down0':[{x:175,y:700},{x:125,y:900},{x:150,y:1250},{x:225,y:1475},{x:750,y:1400},{x:800,y:1400},{x:1100,y:1175}],
 'up1':[{x:1300,y:1000},{x:1400,y:850},{x:1800,y:800}],
 'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
 'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
 const ENEMYGOLD = {'normal':15,'shield':30,'tank':50};
 const BASEGOLD = 100;
+const ENEMYSPEED = 12;
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -96,12 +97,12 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y,route,hp) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, 20,route,this._idCount);
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, ENEMYSPEED,route,this._idCount);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields,route) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, 20,route, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, ENEMYSPEED,route, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){
@@ -115,7 +116,7 @@ export default class Game extends Phaser.Scene {
   }
 
   SpawnTankyEnemy(elem, x, y, hpregen,route) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, 20, route, hpregen,this._idCount));
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, ENEMYSPEED, route, hpregen,this._idCount));
     this._idCount++;
   }
   SpawnBullet(angle, x, y,damage,elem) {
@@ -139,6 +140,8 @@ export default class Game extends Phaser.Scene {
     return ruta;
   }
   ShowPathsDebug(){
+    let graphics = this.add.graphics();
+
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
     this._routes[0].draw(graphics);
@@ -157,11 +160,12 @@ export default class Game extends Phaser.Scene {
     // let init = [{x:-50,y:400},{x:50,y:400},{x:375,y:550}];
     // let camino = this.CreatePath(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
     this._routes = new Array();
-    let graphics = this.add.graphics();
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.down1,PATHDATA.end]));
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.down1,PATHDATA.end]));
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.up1,PATHDATA.end]));
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.up1,PATHDATA.end]));
+
+    this.ShowPathsDebug();
   }
   getRoute(num) {
     if (num >= this._routes.length)

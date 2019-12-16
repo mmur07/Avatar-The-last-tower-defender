@@ -10,6 +10,9 @@
   <meta name="description" content="">
   
   <title>Home</title>
+
+  <script src="./src/phaser.min.js"></script>
+
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons/mobirise-icons.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
@@ -18,7 +21,6 @@
   <link rel="stylesheet" href="assets/animatecss/animate.min.css">
   <link rel="stylesheet" href="assets/socicon/css/styles.css">
   <link rel="stylesheet" href="assets/theme/css/style.css">
-  <script src="./src/phaser.min.js"></script>
   <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
   
   
@@ -39,39 +41,41 @@
                 
                 <p class="mbr-text pb-3 mbr-fonts-style display-7">
                     A brand new Tower Defense game with a twist. Defend your village using four types of towers and your vast knowledge of the elements.</p>
-                <div class="mbr-section-btn"><a class="btn btn-md btn-black display-4" href="index.html#team1-5">Learn about us</a> <a class="btn btn-md btn-success display-4" href="https://mobirise.co">PLAY THE GAME</a> <a class="btn btn-md btn-black display-4" href="index.html#content14-c">Learn the game</a></div>
+                <div class="mbr-section-btn"><a class="btn btn-md btn-black display-4" href="index.html#team1-5">Learn about us</a> <a class="btn btn-md btn-success display-4" href="index.html#image3-4">PLAY THE GAME</a> <a class="btn btn-md btn-black display-4" href="index.html#content14-c">Learn the game</a></div>
             </div>
         </div>
     </div>
 
 </section>
 
-<section class="engine"><a href="https://mobirise.info/e">how to make a website for free</a></section><section class="cid-rKJli2zKX0" id="image3-4">
-    <!--Creditos a Andrés Ruiz por decirnos cómo meter el juego en la plantilla-->
+<section class="engine"><a href="https://mobirise.info/q">responsive web templates</a></section><section class="cid-rKJli2zKX0" id="image3-4">
+
+    
+
     <figure class="mbr-figure container">
-            <div class="image-block" style="width: 10%;" id='gameDiv'>
-                <script type="module">
-                    import game from './src/game.js';
-                    import Boot from './src/Boot.js'
-                    var config = {
-                        type: Phaser.AUTO,
-                        width: 1984,
-                        height: 1984,
-                        parent: 'gameDiv',
-                        pixelArt: true,
-                        input: {
-                            gamepad: true
-                        },
-                        scale: {
-                            mode: Phaser.Scale.FIT,
-                            autoCenter: Phaser.Scale.CENTER_BOTH
-                        },
-                        physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
-                        scene: [Boot,game]
-                    };
-                    new Phaser.Game(config);
-                </script>
-            </div>
+        <div class="image-block" style="width: 10%;" id='gameDiv'>
+            <script type="module">
+                import game from './src/game.js';
+                import Boot from './src/Boot.js'
+                var config = {
+                    type: Phaser.AUTO,
+                    width: 1984,
+                    height: 1984,
+                    parent: 'gameDiv',
+                    pixelArt: true,
+                    input: {
+                        gamepad: true
+                    },
+                    scale: {
+                        mode: Phaser.Scale.FIT,
+                        autoCenter: Phaser.Scale.CENTER_BOTH
+                    },
+                    physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
+                    scene: [Boot,game]
+                };
+                new Phaser.Game(config);
+            </script>
+        </div>
     </figure>
 </section>
 
@@ -106,7 +110,7 @@
 
             <div class="card p-3 col-12 col-md-6 col-lg-4">
                 <div class="card-img pb-3">
-                    <span class="mbr-iconfont mbri-cash" style="color: rgb(56, 217, 115); fill: rgb(56, 217, 115);"></span>
+                    <span class="mbr-iconfont mbri-cash" style="color: rgb(244, 180, 27); fill: rgb(244, 180, 27);"></span>
                 </div>
                 <div class="card-box">
                     <h4 class="card-title py-3 mbr-fonts-style display-5">
@@ -154,20 +158,22 @@
     
     
     <div class="container align-center">
-        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2">Our JoJo's</h2>
+        <h2 class="pb-3 mbr-fonts-style mbr-section-title display-2">Our Team</h2>
         <h3 class="pb-5 mbr-section-subtitle mbr-fonts-style mbr-light display-5">
-            This game was developed buy two students from Universidad Complutense de Madrid del Reino de España on 2019.</h3>
+            This game was developed buy two students from Universidad Complutense de Madrid on 2019.</h3>
         <div class="row media-row">
             
         <div class="team-item col-lg-3 col-md-6">
                 <div class="item-image">
-                    <img src="assets/images/dasuisa-510x287.jpeg" alt="" title="">
+                    <img src="assets/images/img-9793-510x340.jpeg" alt="" title="">
                 </div>
                 <div class="item-caption py-3">
                     <div class="item-name px-2">
                         <p class="mbr-fonts-style display-5">Adrián Álvarez</p>
                     </div>
-                    
+                    <div class="item-role px-2">
+                        <p>Developer</p>
+                    </div>
                     <div class="item-social pt-2">
                         <a href="https://github.com/AdriAlvarez00" target="_blank">
                             <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-github"></span>
@@ -191,14 +197,16 @@
                 </div>
             </div><div class="team-item col-lg-3 col-md-6">
                 <div class="item-image">
-                    <img src="assets/images/face2.jpg" alt="" title="">
+                    <img src="assets/images/mmur-1-510x681.jpeg" alt="" title="">
                 </div>
                 <div class="item-caption py-3">
                     <div class="item-name px-2">
                         <p class="mbr-fonts-style display-5">
-                           Miguel Mmur</p>
+                           Miguel Mur</p>
                     </div>
-                    
+                    <div class="item-role px-2">
+                        <p>Developer</p>
+                    </div>
                     <div class="item-social pt-2">
                         <a href="https://github.com/mmur07" target="_blank">
                             <span class="p-1 mbr-iconfont mbr-iconfont-social mbri-github"></span>
@@ -224,48 +232,45 @@
     </div>
 </section>
 
-<section class="cid-rKJo4mfilI" id="footer1-6">
-
+<section class="mbr-section contacts2 cid-rKOyq45BE3" id="contacts2-g">
+    <!---->
     
-
+    <!---->
+    <!--Overlay-->
     
-
+    <!--Container-->
     <div class="container">
-        <div class="media-container-row content text-white">
-            <div class="col-12 col-md-3">
-                <div class="media-wrap">
-                    <a href="https://mobirise.co/">
-                        <img src="assets/images/logo2.png" alt="Mobirise">
-                    </a>
+        <div class="row">
+            <!--Titles-->
+            <div class="title col-12">
+                <h2 class="align-left mbr-fonts-style display-1">Other contacts</h2>
+                
+            </div>
+            <div class="col-12">
+                <div class="row justify-content-center">
+                    <div class="col-12 col-md-4">
+                        <div class="b b-adress">
+                            <h5 class="align-left mbr-fonts-style m-0 display-5">
+                                Address:
+                            </h5>
+                            <p class="mbr-text align-left mbr-fonts-style display-7">
+                                Calle del Prof. José García Santesmases, 9, 28040 Madrid
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-12 col-md-4">
+                        <div class="b b-phone">
+                            <h5 class="align-left mbr-fonts-style m-0 display-5">
+                                <a href="http://paypal.me/JuanjoStudios" target="_blank" class="text-white">Paypal:</a>
+                            </h5>
+                            <p class="mbr-text align-left mbr-fonts-style display-7">
+                                Show your support and buy us a coffee</p>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Address
-                </h5>
-                <p class="mbr-text">
-                    1234 Street Name
-                    <br>City, AA 99999
-                </p>
-            </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Contacts
-                </h5>
-                <p class="mbr-text">
-                    Email: support@mobirise.com
-                    <br>Phone: +1 (0) 000 0000 001
-                    <br>Fax: +1 (0) 000 0000 002
-                </p>
-            </div>
-            <div class="col-12 col-md-3 mbr-fonts-style display-7">
-                <h5 class="pb-3">
-                    Links
-                </h5>
-                <p class="mbr-text">Project Repo</p>
-            </div>
         </div>
-        
     </div>
 </section>
 

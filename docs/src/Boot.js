@@ -8,7 +8,7 @@ export default class Boot extends Phaser.Scene{
         // this.load.json('waveData','./waves,json');  
         let jojoBG = this.load.image('jojoBG', '  img/thunderSplit.png');
         this.load.image('jojoSprite', 'img/favicon.png');
-        this.load.image('towerIconSprite', 'img/towericon.png');
+        this.load.image('towerIconSprite', 'img/towerIcon.png');
         this.load.image('hohoho', 'img/HowManyBreadsHaveYouEatenInYourLifetime.png');
         this.load.image('bulletSprite', 'img/rocketto.png');
         this.load.image('speedSprite', 'img/bullethellIcon.png');
@@ -21,7 +21,7 @@ export default class Boot extends Phaser.Scene{
         this.load.image('QTbuy', 'img/QT_buyIcon.png');
         this.load.image('ATbuy', 'img/AT_buyIcon.png');
         this.load.image('CTbuy', 'img/CT_buyIcon.png');
-        this.load.image('startButton','img/StartButton.png')
+        this.load.image('startButton','img/startButton.png')
     
         let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
         let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);

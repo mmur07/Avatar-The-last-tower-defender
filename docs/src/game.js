@@ -165,7 +165,7 @@ export default class Game extends Phaser.Scene {
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.up1,PATHDATA.end]));
     this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.up1,PATHDATA.end]));
 
-    this.ShowPathsDebug();
+    // this.ShowPathsDebug();
   }
   getRoute(num) {
     if (num >= this._routes.length)

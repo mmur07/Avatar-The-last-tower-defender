@@ -6,10 +6,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v4.11.6, mobirise.com">
   <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/logo4.png" type="image/x-icon">
+  <link rel="shortcut icon" href="img/rotationButton.png" type="image/x-icon">
   <meta name="description" content="">
   
-  <title>Home</title>
+  <title>Tri-Towers</title>
 
   <script src="./src/phaser.min.js"></script>
 
@@ -70,7 +70,7 @@
                         mode: Phaser.Scale.FIT,
                         autoCenter: Phaser.Scale.CENTER_BOTH
                     },
-                    physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: true } },
+                    physics: { default: 'arcade', arcade: { gravity: { y: 0 }, debug: false } },
                     scene: [Boot,game]
                 };
                 new Phaser.Game(config);

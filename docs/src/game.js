@@ -17,11 +17,6 @@ import RotationButton from "./RotationButton.js";
 const WIN_WIDTH = 1984, WIN_HEIGTH = 1984;
 const MAX_GOLD = 9999;
 
-const towerData = {normal:{cost: 70,range:200,cadencia:0.5,dmg:40,area:false,name: "NormalT"},
-speedWagon:{cost: 50,range:225,cadencia:0.2,dmg:20,area:false, name: "QuickT"},
-ratt:{cost: 100,range:300,cadencia:2,dmg:500,area:false,name: "CannonT"},
-aoe:{cost: 125, range:200, cadencia: 1.5, dmg: 100, area: true, name: "AoeT"}}; 
-
 const PATHDATA = {'start':{x:-50,y:400},
 'begin':[{x:50,y:400},{x:375,y:550},],
 'up0':[{x:550,y:525},{x:850,y:850},{x:875,y:1100},{x:1100,y:1175}],
@@ -29,7 +24,7 @@ const PATHDATA = {'start':{x:-50,y:400},
 'up1':[{x:1300,y:1000},{x:1400,y:850},{x:1800,y:800}],
 'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
 'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
-
+const ENEMYGOLD = {'normal':15,'shield':30,'tank':50};
 export default class Game extends Phaser.Scene {
 
   constructor() {
@@ -99,13 +94,13 @@ export default class Game extends Phaser.Scene {
       let bull = new AoeBullet(this, 400, 90, 1.25, 100, 100,  elements.FIRE, 'aoeBullet');
     }
   }
-  SpawnEnemy(elem, x, y,route) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 400, 20,route,this._idCount);
+  SpawnEnemy(elem, x, y,route,hp) {
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, 20,route,this._idCount);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields,route) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 400, 20,route, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, 20,route, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){
@@ -142,17 +137,7 @@ export default class Game extends Phaser.Scene {
     });
     return ruta;
   }
-  CreatePaths() {
-
-    // let init = [{x:-50,y:400},{x:50,y:400},{x:375,y:550}];
-    // let camino = this.CreatePath(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
-    this._routes = new Array();
-    let graphics = this.add.graphics();
-    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.down1,PATHDATA.end]));
-    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.down1,PATHDATA.end]));
-    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.up1,PATHDATA.end]));
-    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.up1,PATHDATA.end]));
-
+  ShowPathsDebug(){
     graphics.lineStyle(3, 0xffffff, 1);
     // visualize the path
     this._routes[0].draw(graphics);
@@ -164,7 +149,18 @@ export default class Game extends Phaser.Scene {
     graphics.lineStyle(3, 0x1d13e4,1);
     this._routes[3].draw(graphics);
 
-    // this.paths = this.add.group();
+    this.paths = this.add.group();
+  }
+  CreatePaths() {
+
+    // let init = [{x:-50,y:400},{x:50,y:400},{x:375,y:550}];
+    // let camino = this.CreatePath(pathData.start,[pathData.begin,pathData.up0,pathData.down1]);
+    this._routes = new Array();
+    let graphics = this.add.graphics();
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.down1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.down1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.up0,PATHDATA.up1,PATHDATA.end]));
+    this._routes.push(this.CreatePath(PATHDATA.start,[PATHDATA.begin,PATHDATA.down0,PATHDATA.up1,PATHDATA.end]));
   }
   getRoute(num) {
     if (num >= this._routes.length)
@@ -196,10 +192,13 @@ export default class Game extends Phaser.Scene {
     //primero comprobaremos las subclases cuando las implementemos y enemigo por descarte
     let gain;
     if (enemy instanceof ShieldEnemy) {
-      gain = 20;
+      gain = ENEMYGOLD.shield;
+    }
+    else if (enemy instanceof TankyEnemy) {
+      gain = ENEMYGOLD.tank;
     }
     else{
-      gain = 10;
+      gain = ENEMYGOLD.normal;
     }
     this.player.gold += gain;
     if (this.player.gold > MAX_GOLD) this.player.gold = MAX_GOLD;
@@ -265,13 +264,11 @@ export default class Game extends Phaser.Scene {
     //Creación del mapa
     this.CreateMap();
 
-    this.player = { hp: 20, gold: 9999 };
+    this.player = { hp: 20, gold: 100 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;
     this.camera.setViewport(0, 0, 1982, 1984);
-    
-    
     this.CreatePaths();
     //let wD = this.cache.json.get('waveData');
 
@@ -297,9 +294,18 @@ export default class Game extends Phaser.Scene {
     this.b = this.input.keyboard.addKey('B');
     this.e = this.input.keyboard.addKey('E');
     this.q = this.input.keyboard.addKey('Q');
+    this.s = this.input.keyboard.addKey('S');
 
     this._HUD = new HUD(this,WIN_WIDTH,WIN_HEIGTH);
-    this._Spawner = new Spawner(this, { x: 0, y: 50 });
+    this._startButton = new Phaser.GameObjects.Image(this,WIN_WIDTH/2,WIN_HEIGTH/2,'startButton');
+    this._startButton.setInteractive();
+    self =  this;
+    this._startButton.on('pointerup',() => {
+      self._Spawner = new Spawner(this, { x: 0, y: 50 });
+      console.log(this);
+      self._startButton.destroy();
+    })
+    this.add.existing(this._startButton);
   }
 
   update(time, delta) {
@@ -308,6 +314,9 @@ export default class Game extends Phaser.Scene {
         tower.rotateRight();})
     } if (Phaser.Input.Keyboard.JustDown(this.q)) {
       this.rotateAllTowers();
+    }
+    if(Phaser.Input.Keyboard.JustDown(this.s)){
+     
     }
     if (Phaser.Input.Keyboard.JustDown(this.w)) {
       this.SpawnEnemy(elements.FIRE, 20, 20)
@@ -335,6 +344,9 @@ export default class Game extends Phaser.Scene {
     this.ActiveBullets.getChildren().forEach(bullet => {
       bullet.update(delta);
     });
-    this._Spawner.update(time, delta);
+    if(this._Spawner !== undefined) {
+      this._Spawner.update(time, delta);
+    }
+      
   }
 }

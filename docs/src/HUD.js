@@ -1,9 +1,9 @@
 import TowerIcon from './TowerIcon.js'
 
 const towerData = {
-    normal: { cost: 70, range: 200, cadencia: 0.5, dmg: 40, area: false, name: "NormalT" },
-    speedWagon: { cost: 50, range: 225, cadencia: 0.2, dmg: 20, area: false, name: "QuickT" },
-    ratt: { cost: 100, range: 300, cadencia: 2, dmg: 500, area: false, name: "CannonT" },
+    normal: { cost: 70, range: 200, cadencia: 1, dmg: 40, area: false, name: "NormalT" },
+    speedWagon: { cost: 50, range: 225, cadencia: 0.5, dmg: 20, area: false, name: "QuickT" },
+    ratt: { cost: 100, range: 300, cadencia: 4, dmg: 500, area: false, name: "CannonT" },
     aoe: { cost: 125, range: 150, cadencia: 1.5, dmg: 100, area: true, name: "AoeT" }
 };
 

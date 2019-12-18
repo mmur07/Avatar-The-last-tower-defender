@@ -24,7 +24,7 @@ const PATHDATA = {'start':{x:-50,y:400},
 'up1':[{x:1300,y:1000},{x:1400,y:850},{x:1800,y:800}],
 'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
 'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
-const ENEMYGOLD = {'normal':15,'shield':30,'tank':50};
+const ENEMYGOLD = {'normal':5,'shield':7,'tank':10};
 const BASEGOLD = 100;
 const ENEMYSPEED = 12;
 export default class Game extends Phaser.Scene {

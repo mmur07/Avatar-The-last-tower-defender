@@ -13,6 +13,10 @@ export default class Tower extends Elemental {
         this._areadmg = area;
         this._range = range;
         this._sellCost = sellCost;
+        this.canRotate = false;
+        this.resetTimer = true;
+        this._timeToRotate = 5000;
+        this._nextRotation = 5000;
         //this._spriteName = spriteName;
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
@@ -33,15 +37,7 @@ export default class Tower extends Elemental {
     }
 
     procesaInput(pointer) {
-        if (pointer.leftButtonReleased()) {
-            this.rotateLeft();
-            this.setFrame(this._elem);
-        }
-        else if (pointer.rightButtonReleased()) {
-            this.rotateRight();
-            this.setFrame(this._elem);          
-        }
-        else if (pointer.middleButtonReleased()) {
+        if (pointer.middleButtonReleased()) {
             this._scene.ActiveTowers.remove(this);
             this._scene.deleteTile(this.originX, this.originY);
             this.setActive(false);
@@ -51,14 +47,31 @@ export default class Tower extends Elemental {
 
             this._scene.modifyGold(this._sellCost);
         }
+        else if (this.canRotate){
+            if (pointer.leftButtonReleased()) {
+                this.rotateLeft();
+                this.setFrame(this._elem);
+                this.canRotate = false;
+                this.resetTimer = true;
+            }
+            else if (pointer.rightButtonReleased()) {
+                this.rotateRight();
+                this.setFrame(this._elem);         
+                this.canRotate = false;
+                this.resetTimer = true;
+            }
+        }
     }
 
     update(time, delta) {
-        // if(this.lockedEnemy == undefined) console.log('me vas a comer los cojone phaser de los cojones que eres mas tonto que unos cojones');
+        if (this.resetTimer && time >= this._nextRotation){
+            this.resetTimer = false;
+            this.canRotate = true;
+            this._nextRotation = time += this._timeToRotate;
+        }
         if (this.lockedEnemy != null && time >= this._nextShot) {
             let angle = Phaser.Math.Angle.Between(this.x, this.y, this.lockedEnemy.x, this.lockedEnemy.y);
-            this._nextShot = time += this._cdShoots;
-            //console.log(angle);          
+            this._nextShot = time += this._cdShoots;        
             this.shoot(angle);
         }
     }

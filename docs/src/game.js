@@ -5,8 +5,6 @@ import elements from "./enum.js";
 import Tower from "./Tower.js"
 import Enemy from "./Enemy.js";
 import Bullet from "./Bullet.js"
-import TowerIcon from "./TowerIcon.js";
-import Pool from "./Pool.js";
 import Spawner from "./Spawner.js";
 import ShieldEnemy from "./ShieldEnemy.js"
 import AoeBullet from "./AoeBullet.js";

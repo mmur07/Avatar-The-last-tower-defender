@@ -1,10 +1,10 @@
 import TowerIcon from './TowerIcon.js'
 
 const towerData = {
-    normal: { cost: 70, range: 200, cadencia: 1, dmg: 40, area: false, name: "NormalT" },
-    speedWagon: { cost: 50, range: 225, cadencia: 0.5, dmg: 10, area: false, name: "QuickT" },
-    ratt: { cost: 100, range: 300, cadencia: 4, dmg: 500, area: false, name: "CannonT" },
-    aoe: { cost: 125, range: 150, cadencia: 1.5, dmg: 100, area: true, name: "AoeT" }
+    normal: { cost: 90, range: 200, cadencia: 1, dmg: 40, area: false, name: "NormalT" },
+    speedWagon: { cost: 70, range: 225, cadencia: 0.5, dmg: 10, area: false, name: "QuickT" },
+    ratt: { cost: 150, range: 300, cadencia: 4, dmg: 250, area: false, name: "CannonT" },
+    aoe: { cost: 175, range: 150, cadencia: 1.5, dmg: 100, area: true, name: "AoeT" }
 };
 
 export default class HUD {

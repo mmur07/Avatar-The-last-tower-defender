@@ -1,18 +1,19 @@
 import Wave from "./Wave.js"
 import elements from "./enum.js"
 
-const WAVES = [[{normal:4,shield:0,tank:0}],
-[{normal:4,shield:0,tank:0},{normal:4,shield:0,tank:0}]
+const WAVES = [[{normal:2,shield:0,tank:0}]
+,[{normal:4,shield:0,tank:0}]
+,[{normal:4,shield:0,tank:0},{normal:4,shield:0,tank:0}]
 ,[{normal:5,shield:0,tank:0},{normal:5,shield:0,tank:0}]
 ,[{normal:3,shield:3,tank:0}]
-,[{normal:5,shield:1,tank:0},{normal:5,shield:2,tank:0}]
 //oleada6
+,[{normal:5,shield:1,tank:0},{normal:5,shield:2,tank:0}]
 ,[{normal:3,shield:2,tank:0},{normal:3,shield:2,tank:0},{normal:3,shield:2,tank:0}]
 ,[{normal:10,shield:0,tank:0},{normal:10,shield:0,tank:0}]
 ,[{normal:5,shield:0,tank:0},{normal:0,shield:3,tank:0},{normal:10,shield:0,tank:0}]
 ,[{normal:5,shield:5,tank:0},{normal:5,shield:5,tank:0}]
-,[{normal:5,shield:0,tank:1},{normal:5,shield:0,tank:1}]
 //oleada 11
+,[{normal:5,shield:0,tank:1},{normal:5,shield:0,tank:1}]
 ,[{normal:0,shield:2,tank:2},{normal:20,shield:0,tank:0}]
 ,[{normal:0,shield:5,tank:0},{normal:0,shield:5,tank:0},{normal:0,shield:5,tank:0}]
 ,[{normal:20,shield:20,tank:0},{normal:20,shield:5,tank:20}]
@@ -22,7 +23,6 @@ const WAVES = [[{normal:4,shield:0,tank:0}],
 ,[{normal:15,shield:7,tank:3},{normal:15,shield:7,tank:3}]
 ,[{normal:15,shield:0,tank:5},{normal:15,shield:15,tank:10},{normal:20,shield:10,tank:10}]
 ,[{normal:40,shield:5,tank:5}]
-,[{normal:20,shield:3,tank:5},{normal:20,shield:3,tank:5},{normal:20,shield:3,tank:5}]
 ,[{normal:42,shield:42,tank:42}]];// el significado de la vida
 
 export default class Spawner {

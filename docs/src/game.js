@@ -25,7 +25,7 @@ const PATHDATA = {'start':{x:-50,y:400},
 'down1':[{x:1450,y:1500},{x:1650,y:1500},{x:1775,y:1075},{x:1800,y:800},],
 'end':[{x:1800,y:700},{x:1800,y:400},{x:1750,y:350},{x:1650,y:350},{x:1600,y:300},{x:1500,y:250},{x:1200,y:250},{x:1118,y:200},{x:1118,y:-100}]}
 const ENEMYGOLD = {'normal':5,'shield':7,'tank':10};
-const BASEGOLD = 100;
+const BASEGOLD = 150;
 const ENEMYSPEED = 12;
 export default class Game extends Phaser.Scene {
 
@@ -97,12 +97,12 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y,route,hp) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, ENEMYSPEED,route,this._idCount);
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 200, ENEMYSPEED,route,this._idCount);
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields,route) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, ENEMYSPEED,route, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 100, ENEMYSPEED,route, this._idCount, shields));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){
@@ -116,7 +116,7 @@ export default class Game extends Phaser.Scene {
   }
 
   SpawnTankyEnemy(elem, x, y, hpregen,route) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, ENEMYSPEED, route, hpregen,this._idCount));
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 400, ENEMYSPEED, route, hpregen,this._idCount));
     this._idCount++;
   }
   SpawnBullet(angle, x, y,damage,elem) {

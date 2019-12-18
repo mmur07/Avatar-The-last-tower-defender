@@ -22,10 +22,10 @@ export default class Spawner {
         this._spawnPos = spawnPos;
         this._actWave = 0;
         this._waves = new Array();
-        this._waves.push(WAVES[WAVES.length-1]);
-        // WAVES.forEach(w => {
-        //     this._waves.push(this.randomWave(w));
-        // });
+        // this._waves.push(WAVES[WAVES.length-1]);
+        WAVES.forEach(w => {
+            this._waves.push(this.randomWave(w));
+        });
         //{ type: "normal", el: elements.FIRE,route:0, timer: 1 }
         //{ type: "shield", el: elements.WATER,route:0, timer: 1,shields: 5 }
         // {type: "tanky", el: elements.FIRE,route:0, timer: 1, hpRegen: 20}

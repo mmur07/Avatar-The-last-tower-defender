@@ -74,7 +74,7 @@ export default class Spawner {
             }
             for(let i = 0;i<batch.tank;i++){
                 let enemyJSon = { type: "normal", el: elements.FIRE,route:0, timer: 1,hpRegen:20 };
-                enemyJSon.type = "tank";
+                enemyJSon.type = "tanky";
                 enemyJSon.el = Math.floor(Math.random()*3);
                 enemyJSon.route = Math.floor(Math.random()*4);
                 enemyJSon.timer = 1;

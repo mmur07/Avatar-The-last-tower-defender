@@ -208,7 +208,6 @@ export default class Game extends Phaser.Scene {
     this.player.gold += gain;
     if (this.player.gold > MAX_GOLD) this.player.gold = MAX_GOLD;
     this._HUD.updateGold(this.player.gold);
-    console.log(this.player.gold)
   }
   modifyGold(gain){
     this.player.gold+= gain;

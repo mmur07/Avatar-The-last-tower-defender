@@ -1,9 +1,9 @@
 import Wave from "./Wave.js"
 import elements from "./enum.js"
 
-const WAVES = [[{normal:5,shield:0,tank:0}],
+const WAVES = [[{normal:4,shield:0,tank:0}],
 [{normal:4,shield:0,tank:0},{normal:4,shield:0,tank:0}]
-,[{normal:5,shield:0,tank:0},{normal:5,shield:0,tank:0},{normal:5,shield:0,tank:0}]
+,[{normal:5,shield:0,tank:0},{normal:5,shield:0,tank:0}]
 ,[{normal:3,shield:3,tank:0}]
 ,[{normal:5,shield:1,tank:0},{normal:5,shield:2,tank:0}]
 //oleada6
@@ -52,7 +52,8 @@ export default class Spawner {
     }
 
     randomWave(batchesArray){
-        let data = new Array();
+        let batchData = new Array();
+        let waveData = new Array();
         batchesArray.forEach(batch => {
             for(let i = 0;i<batch.normal;i++){
                 let enemyJSon = { type: "normal", el: elements.FIRE,route:0, timer: 1 };
@@ -60,7 +61,7 @@ export default class Spawner {
                 enemyJSon.el = Math.floor(Math.random()*3);
                 enemyJSon.route = Math.floor(Math.random()*4);
                 enemyJSon.timer = 1;
-                data.push(enemyJSon);
+                batchData.push(enemyJSon);
             }
             for(let i = 0;i<batch.shield;i++){
                 let enemyJSon = { type: "normal", el: elements.FIRE,route:0, timer: 1 ,shields:5};
@@ -69,7 +70,7 @@ export default class Spawner {
                 enemyJSon.route = Math.floor(Math.random()*4);
                 enemyJSon.timer = 1;
                 enemyJSon.shields = 5;
-                data.push(enemyJSon);
+                batchData.push(enemyJSon);
             }
             for(let i = 0;i<batch.tank;i++){
                 let enemyJSon = { type: "normal", el: elements.FIRE,route:0, timer: 1,hpRegen:20 };
@@ -78,13 +79,18 @@ export default class Spawner {
                 enemyJSon.route = Math.floor(Math.random()*4);
                 enemyJSon.timer = 1;
                 enemyJSon.hpRegen = 20;
-                data.push(enemyJSon);
+                batchData.push(enemyJSon);
             }
-            data[data.length-1].timer = 3;
+            batchData.sort(() => Math.random() - 0.5);
+            batchData[batchData.length-1].timer = 5;
+            batchData.forEach(en => {
+                waveData.push(en);
+            });
+            batchData = new Array();
         });
-        data[data.length-1].timer = 5;
-        data.sort(() => Math.random() - 0.5);
-        return new Wave(this,data);
+        waveData[waveData.length-1].timer = 20;
+        //mezclamos los enemigos
+        return new Wave(this,waveData);
     }
 
     update(time, delta) {

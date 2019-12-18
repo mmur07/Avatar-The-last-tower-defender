@@ -32,23 +32,9 @@ export default class Spawner {
         this._spawnPos = spawnPos;
         this._actWave = 0;
         this._waves = new Array();
-        // this._waves.push(WAVES[WAVES.length-1]);
         WAVES.forEach(w => {
             this._waves.push(this.randomWave(w));
         });
-        //{ type: "normal", el: elements.FIRE,route:0, timer: 1 }
-        //{ type: "shield", el: elements.WATER,route:0, timer: 1,shields: 5 }
-        // {type: "tanky", el: elements.FIRE,route:0, timer: 1, hpRegen: 20}
-        // this._waves.push(
-        //     //oleada 1
-        //     new Wave(this,[{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.WATER,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 5 }]),
-        //     //oleada 2
-        //     new Wave(this,[{ type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.EARTH,route:1, timer: 5 },
-        //     { type: "normal", el: elements.FIRE,route:2, timer: 1 },{ type: "normal", el: elements.FIRE,route:2, timer: 1 },{ type: "normal", el: elements.FIRE,route:2, timer: 1 },{ type: "normal", el: elements.FIRE,route:2, timer: 5 }]),
-        //     new Wave(this,[{ type: "normal", el: elements.WATER,route:2, timer: 1 },{ type: "normal", el: elements.WATER,route:2, timer: 1 },{ type: "normal", el: elements.FIRE,route:2, timer: 1 },{ type: "normal", el: elements.WATER,route:2, timer: 1 },{ type: "normal", el: elements.FIRE,route:2, timer: 5 },
-        //     { type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.EARTH,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.EARTH,route:0, timer: 5 },
-        //     { type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.WATER,route:1, timer: 1 },{ type: "normal", el: elements.EARTH,route:1, timer: 1 },{ type: "normal", el: elements.WATER,route:1, timer: 1 }]))
-        //     );
     }
 
     randomWave(batchesArray){

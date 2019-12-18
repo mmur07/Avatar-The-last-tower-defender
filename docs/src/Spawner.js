@@ -9,8 +9,8 @@ const WAVES = [[{normal:2,shield:0,tank:0}]
 //oleada6
 ,[{normal:5,shield:1,tank:0},{normal:5,shield:2,tank:0}]
 ,[{normal:3,shield:2,tank:0},{normal:3,shield:2,tank:0},{normal:3,shield:2,tank:0}]
-,[{normal:10,shield:0,tank:0},{normal:10,shield:0,tank:0}]
-,[{normal:5,shield:0,tank:0},{normal:0,shield:3,tank:0},{normal:10,shield:0,tank:0}]
+,[{normal:10,shield:0,tank:1},{normal:10,shield:0,tank:0}]
+,[{normal:5,shield:0,tank:1},{normal:0,shield:3,tank:0},{normal:10,shield:0,tank:1}]
 ,[{normal:5,shield:5,tank:0},{normal:5,shield:5,tank:0}]
 //oleada 11
 ,[{normal:5,shield:0,tank:1},{normal:5,shield:0,tank:1}]

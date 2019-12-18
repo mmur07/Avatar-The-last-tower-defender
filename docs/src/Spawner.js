@@ -85,6 +85,10 @@ export default class Spawner {
             //console.log("Actualizando la ola: " + this._actWave);
             this._waves[this._actWave].update(time, delta);
         }
+        else{
+            this._scene._won = true;
+        }
+        
     }
     spawn(enemy) {
         switch (enemy.type) {

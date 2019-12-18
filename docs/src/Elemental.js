@@ -10,11 +10,9 @@ export default class Elemental extends Phaser.GameObjects.Sprite {
 
     rotateRight() {
         this._elem = (this._elem + 1) % 3;
-        console.log(this._elem);
     }
     rotateLeft() {
         this._elem = (this._elem + 2) % 3;
-        console.log(this._elem);
     }
     getElem(){
         return this._elem;

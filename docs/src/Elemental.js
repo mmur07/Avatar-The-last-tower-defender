@@ -31,9 +31,9 @@ Elemental.prototype.dmgMultiplier = function (dmgElement) {
     let res = ((this._elem + 2) % 3)
     switch (dmgElement) {
         case vul:
-            return 1.5;
+            return 2;
         case res:
-            return 0.5;
+            return 0.2;
         default:
             return 1;
     }

@@ -14,9 +14,8 @@ export default class Tower extends Elemental {
         this._range = range;
         this._sellCost = sellCost;
         this.canRotate = false;
-        this.resetTimer = true;
         this._timeToRotate = 5000;
-        this._nextRotation = 5000;
+        this._nextRotation = 0;
         //this._spriteName = spriteName;
         this.setOrigin(0.5, 0.5);
         this.scene.ActiveTowers.add(this);
@@ -52,35 +51,29 @@ export default class Tower extends Elemental {
                 this.rotateLeft();
                 this.setFrame(this._elem);
                 this.canRotate = false;
-                this.resetTimer = true;
             }
             else if (pointer.rightButtonReleased()) {
                 this.rotateRight();
                 this.setFrame(this._elem);         
                 this.canRotate = false;
-                this.resetTimer = true;
             }
-        }
-    }
-
-    update(time, delta) {
-        if (this.resetTimer && time >= this._nextRotation){
-            this.resetTimer = false;
-            this.canRotate = true;
-            this._nextRotation = time += this._timeToRotate;
-        }
-        if (this.lockedEnemy != null && time >= this._nextShot) {
-            let angle = Phaser.Math.Angle.Between(this.x, this.y, this.lockedEnemy.x, this.lockedEnemy.y);
-            this._nextShot = time += this._cdShoots;        
-            this.shoot(angle);
         }
     }
 
     preUpdate(time, delta) {
         super.preUpdate(time, delta)
-        if (this.lockedEnemy != null)
-            if (!this.scene.physics.collide(this, this.lockedEnemy))
-                this.looseTarget();
+        if (this.lockedEnemy != null){
+            if (!this.scene.physics.collide(this, this.lockedEnemy)) this.looseTarget();
+        }
+        if (!this.canRotate && time >= this._nextRotation){
+            this.canRotate = true;
+            this._nextRotation = time + this._timeToRotate;
+        }
+        if (this.lockedEnemy != null && time >= this._nextShot) {
+            let angle = Phaser.Math.Angle.Between(this.x, this.y, this.lockedEnemy.x, this.lockedEnemy.y);
+            this._nextShot = time + this._cdShoots;        
+            this.shoot(angle);
+        }
     }
     rotateRight(){
         super.rotateRight();

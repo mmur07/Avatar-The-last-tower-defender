@@ -13,7 +13,17 @@ const WAVES = [[{normal:5,shield:0,tank:0}],
 ,[{normal:5,shield:5,tank:0},{normal:5,shield:5,tank:0}]
 ,[{normal:5,shield:0,tank:1},{normal:5,shield:0,tank:1}]
 //oleada 11
-,[{normal:0,shield:2,tank:2},{normal:20,shield:0,tank:0}]];
+,[{normal:0,shield:2,tank:2},{normal:20,shield:0,tank:0}]
+,[{normal:0,shield:5,tank:0},{normal:0,shield:5,tank:0},{normal:0,shield:5,tank:0}]
+,[{normal:20,shield:20,tank:0},{normal:20,shield:5,tank:20}]
+,[{normal:0,shield:10,tank:3},{normal:0,shield:10,tank:3},{normal:0,shield:10,tank:3}]
+,[{normal:0,shield:0,tank:10}]
+//oleada 16
+,[{normal:15,shield:7,tank:3},{normal:15,shield:7,tank:3}]
+,[{normal:15,shield:0,tank:5},{normal:15,shield:15,tank:10},{normal:20,shield:10,tank:10}]
+,[{normal:40,shield:5,tank:5}]
+,[{normal:20,shield:3,tank:5},{normal:20,shield:3,tank:5},{normal:20,shield:3,tank:5}]
+,[{normal:42,shield:42,tank:42}]];// el significado de la vida
 
 export default class Spawner {
     constructor(scene, spawnPos, )//lo ideal sería cargarlo desde un JSON
@@ -22,10 +32,10 @@ export default class Spawner {
         this._spawnPos = spawnPos;
         this._actWave = 0;
         this._waves = new Array();
-        this._waves.push(WAVES[WAVES.length-1]);
-        // WAVES.forEach(w => {
-        //     this._waves.push(this.randomWave(w));
-        // });
+        // this._waves.push(WAVES[WAVES.length-1]);
+        WAVES.forEach(w => {
+            this._waves.push(this.randomWave(w));
+        });
         //{ type: "normal", el: elements.FIRE,route:0, timer: 1 }
         //{ type: "shield", el: elements.WATER,route:0, timer: 1,shields: 5 }
         // {type: "tanky", el: elements.FIRE,route:0, timer: 1, hpRegen: 20}

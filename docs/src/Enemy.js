@@ -4,7 +4,7 @@ export default class Enemy extends Elemental {
 
     constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id) {
         super(scene, spritename, element, xPos, yPos)
-        this._reduceVal = 10;
+        this._reduceVal = 200;
         this._speed = speed;
         this._id = id;
         this._hp = hp;
@@ -27,9 +27,9 @@ export default class Enemy extends Elemental {
         //ajustamos la velocidad a la longitud de la ruta
         this._reducedSpeed = this._speed / (this._reduceVal*this.gps.ruta.getLength());
     }
-    sigueRuta(delta) {
+    sigueRuta(time,delta) {
         //console.log(this.gps.ruta);
-        this.gps.nodo += this._reducedSpeed;
+        this.gps.nodo += this._reducedSpeed*delta;
         //console.log(this.gps.nodo);
         this.gps.ruta.getPoint(this.gps.nodo, this.gps.pos);
         // this.gps.dir = nextPt;
@@ -46,11 +46,10 @@ export default class Enemy extends Elemental {
 
     preUpdate(time,delta) {
         super.preUpdate(time,delta);
-        this.sigueRuta(delta);
+        this.sigueRuta(time,delta);
     }
 
     ReceiveDMG(dmg, dmgType) {
-        console.log('Yo, de tipo ' + this._elem + ' recibo daño de tipo ' + dmgType + '. Bonus: ' + this.dmgMultiplier(dmgType))
         this._hp = this._hp - (this.dmgMultiplier(dmgType) * dmg);
         if (this._hp <= 0) {
             this.die();

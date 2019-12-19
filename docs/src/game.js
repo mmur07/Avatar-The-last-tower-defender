@@ -97,11 +97,11 @@ export default class Game extends Phaser.Scene {
     this._idCount++;
   }
   SpawnTankyEnemy(elem, x, y, hpregen,route) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 400, ENEMYSPEED, route, hpregen,this._idCount));
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 400, ENEMYSPEED, route, hpregen,this._idCount,'deathSoundGolem'));
     this._idCount++;
   }
-  SpawnTankyEnemy(elem, x, y, hpregen,route) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, ENEMYSPEED, route, hpregen,this._idCount, 'deathSoundGolem'));
+  SpawnShieldedEnemy(elem, x, y, shields,route) {
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 250, ENEMYSPEED, route,this._idCount,shields, 'deathSoundSkeleton'));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){

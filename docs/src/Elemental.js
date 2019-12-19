@@ -31,7 +31,7 @@ Elemental.prototype.dmgMultiplier = function (dmgElement) {
         case vul:
             return 2;
         case res:
-            return 0.2;
+            return 0.5;
         default:
             return 1;
     }

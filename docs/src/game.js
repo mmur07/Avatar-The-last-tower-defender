@@ -92,7 +92,8 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y,route,hp) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 100, ENEMYSPEED,route, this._idCount, shields, 'deathSoundSkeleton'));
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 200, ENEMYSPEED,route,this._idCount, 'deathSoundMinion');
+    this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnTankyEnemy(elem, x, y, hpregen,route) {

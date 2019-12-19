@@ -100,6 +100,7 @@ export default class Spawner {
     }
     waveEnded() {
         this._actWave++;
+        if (this._actWave % 2 == 0) this._scene.switchWaveMusic();
         this._scene._HUD.updateWave(this._actWave);
     }
 }

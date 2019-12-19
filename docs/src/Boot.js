@@ -22,6 +22,30 @@ export default class Boot extends Phaser.Scene{
         this.load.image('ATbuy', 'img/AT_buyIcon.png');
         this.load.image('CTbuy', 'img/CT_buyIcon.png');
         this.load.image('startButton','img/startButton.png')
+
+        this.load.audio('titleScreen', 'sounds/Music/TitleScreen.mp3');
+
+        this.load.audio('stage1Music', 'sounds/Music/MusicPhase1.mp3');
+        this.load.audio('stage2Music', 'sounds/Music/MusicPhase2.mp3');
+        this.load.audio('stage3Music', 'sounds/Music/MusicPhase3.mp3');
+        this.load.audio('stage4Music', 'sounds/Music/MusicPhase4.mp3');
+        this.load.audio('stage5Music', 'sounds/Music/MusicPhase5.mp3');
+        this.load.audio('stage6Music', 'sounds/Music/MusicPhase6.mp3');
+        this.load.audio('stage7Music', 'sounds/Music/MusicPhase7.mp3');
+        this.load.audio('stage8Music', 'sounds/Music/MusicPhase8.mp3');
+
+        this.load.audio('deathSoundMinion', 'sounds/SoundEffects/Enemies/DeathSoundMinion.mp3');
+        this.load.audio('deathSoundSkeleton', 'sounds/SoundEffects/Enemies/DeathSoundSkeleton.mp3');
+        this.load.audio('deathSoundGolem', 'sounds/SoundEffects/Enemies/DeathSoundGolem.mp3');
+        this.load.audio('enemyAttacksVillage', 'sounds/SoundEffects/Enemies/EnemyAttacksVillageSound.mp3');
+
+        this.load.audio('selectButtonSound', 'sounds/SoundEffects/Buttons/SelectButtonSound.mp3');
+        this.load.audio('globalRotationSound', 'sounds/SoundEffects/Buttons/GlobalRotationSound.mp3')
+
+        this.load.audio('sellTowerSound', 'sounds/SoundEffects/Towers/SellTowerSound.mp3');
+        this.load.audio('buyTowerSound', 'sounds/SoundEffects/Towers/BuildTowerSound.mp3');
+        this.load.audio('rotateTowerSound', 'sounds/SoundEffects/Towers/IndividualRotationSound.mp3');
+ 
     
         let towerFrameInfo = {frameWidth: 17,frameHeight:17,margin: 1};
         let NT = this.load.spritesheet('NormalT',"img/towers/NT_Spritesheet.png",towerFrameInfo);

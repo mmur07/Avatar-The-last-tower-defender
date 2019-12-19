@@ -285,7 +285,7 @@ export default class Game extends Phaser.Scene {
     //Creación del mapa
     this.CreateMap();
 
-    this.player = { hp: 1, gold: 0 };
+    this.player = { hp: 20, gold: 0 };
 
     //Modificación de la cámara principal para ajustarse al nuevo mapa
     this.camera = this.cameras.main;

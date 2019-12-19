@@ -15,6 +15,7 @@ export default class RotationButton extends Phaser.GameObjects.Image {
         this._createHitbox();
         this.rotationObjective = 0;
         this.rotateVals = [0, 120, -120];
+        this.rotationSound = this.scene.sound.add('globalRotationSound');
     }
 
     _createHitbox(){
@@ -29,6 +30,7 @@ export default class RotationButton extends Phaser.GameObjects.Image {
                 this.rotateAnim = true;
                 this.rotationObjective = (this.rotationObjective + 1) % 3;
                 this.scene.rotateAllTowers();
+                this.rotationSound.play();
             }
         });
     }

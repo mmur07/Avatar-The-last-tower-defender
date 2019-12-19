@@ -5,6 +5,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
 
     constructor(scene, spritename, xPos, yPos,size,towerData,spriteKey) {
         super(scene, xPos, yPos, spritename)
+        this.actionSound = this.scene.sound.add('selectButtonSound');
         this._spriteDrag = spritename;
         this._spriteKey = spriteKey;
         this.originX = xPos;
@@ -26,6 +27,7 @@ export default class TowerIcon extends Phaser.GameObjects.Image {
 
     //Seleccionamos el objeto a mover y activamos los nuevos listeners
     addTower(pointer, target) {
+        this.actionSound.play();
         this._canAdd = true;
         this.dragObj = this.scene.add.image(64, 64, this._spriteDrag); //El objeto que arrastramos es un sprite
         this.dragObj.setScale(3);

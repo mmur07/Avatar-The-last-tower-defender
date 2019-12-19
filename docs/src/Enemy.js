@@ -2,12 +2,13 @@ import Elemental from "./Elemental.js";
 
 export default class Enemy extends Elemental {
 
-    constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id) {
+    constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id, deathSound) {
         super(scene, spritename, element, xPos, yPos)
         this._reduceVal = 10;
         this._speed = speed;
         this._id = id;
         this._hp = hp;
+        this._deathSound = deathSound;
         this.scene.physics.add.existing(this);
         //this.body.setCollideWorldBounds();
         this.scene.add.existing(this);
@@ -35,7 +36,7 @@ export default class Enemy extends Elemental {
         // this.gps.dir = nextPt;
         this.setPosition(this.gps.pos.x, this.gps.pos.y);
         if (this.gps.nodo >= 1) {
-            //aquí lo que pasa si llega al núcleo
+            this.scene.sound.add('enemyAttacksVillage').play();
             this.attack();
         }
     }
@@ -57,7 +58,9 @@ export default class Enemy extends Elemental {
         }
     }
     die() {
-
+        this.deathSound = this.scene.sound.add(this._deathSound);
+        this.deathSound.play();
+        this.deathSound.setVolume(5);
         this.scene.OnEnemySlain(this);
         //this.destroy();
         //otras funcionalidades como MORIR

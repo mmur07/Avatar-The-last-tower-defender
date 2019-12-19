@@ -9,7 +9,7 @@ export default class Spawner {
         this._actWave = 0;
         this._waves = new Array();
         this._waves.push(
-            new Wave(this, [{ type: "normal", el: elements.FIRE,route:0, timer: 1 }, {type: "normal", el: elements.FIRE,route:0, timer: 1, hpRegen: 20},
+            new Wave(this, [{ type: "tanky", el: elements.FIRE,route:0, timer: 1 }, {type: "normal", el: elements.FIRE,route:0, timer: 1, hpRegen: 20},
         { type: "normal", el: elements.WATER,route:1, timer: 20 }]),
         new Wave(this,[{ type: "normal", el: elements.EARTH,route:0, timer: 1 },{ type: "normal", el: elements.EARTH,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },
         { type: "normal", el: elements.EARTH,route:0, timer: 1 },{ type: "normal", el: elements.FIRE,route:0, timer: 1 },{ type: "normal", el: elements.EARTH,route:0, timer: 1 },{ type: "normal", el: elements.EARTH,route:0, timer: 20 }]),
@@ -40,6 +40,7 @@ export default class Spawner {
     }
     waveEnded() {
         this._actWave++;
+        if (this._actWave % 2 == 0) this._scene.switchWaveMusic();
         this._scene._HUD.updateWave(this._actWave);
     }
 }

@@ -80,9 +80,6 @@ export default class Game extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('TankEnE', { start: 0, end: 3 }),
       frameRate: 5, repeat: -1
     });
-
-    // this.load.script('webfont', 'https://ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js');
-
   }
   PoolBullets() {
     for (let i = 0; i < 200; i++) {
@@ -97,12 +94,16 @@ export default class Game extends Phaser.Scene {
     }
   }
   SpawnEnemy(elem, x, y,route,hp) {
-    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, ENEMYSPEED,route,this._idCount);
+    let en = new Enemy(this, 'BasicEnF', elem, x, y, 100, ENEMYSPEED,route,this._idCount, 'deathSoundMinion');
     this.ActiveEnemies.add(en);
     this._idCount++;
   }
   SpawnShieldedEnemy(elem, x, y, shields,route) {
-    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, ENEMYSPEED,route, this._idCount, shields));
+    this.ActiveEnemies.add(new ShieldEnemy(this, 'ShieldEnF', elem, x, y, 50, ENEMYSPEED,route, this._idCount, shields, 'deathSoundSkeleton'));
+    this._idCount++;
+  }
+  SpawnTankyEnemy(elem, x, y, hpregen,route) {
+    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, ENEMYSPEED, route, hpregen,this._idCount, 'deathSoundGolem'));
     this._idCount++;
   }
   SpawnAoeBullet(x, y, damage, range,elem){
@@ -115,10 +116,6 @@ export default class Game extends Phaser.Scene {
     b.fire(x, y, range);
   }
 
-  SpawnTankyEnemy(elem, x, y, hpregen,route) {
-    this.ActiveEnemies.add(new TankyEnemy(this, 'TankEnF', elem, x, y, 250, ENEMYSPEED, route, hpregen,this._idCount));
-    this._idCount++;
-  }
   SpawnBullet(angle, x, y,damage,elem) {
     let b;
     if (this.BulletPool.getLength() > 0) {
@@ -180,6 +177,7 @@ export default class Game extends Phaser.Scene {
   OnEnemySlain(enemy) {
     this.ActiveEnemies.remove(enemy);
     this.EnemyPool.add(enemy);
+
     enemy.setActive(false);
     enemy.setVisible(false);
     this.earnGoldEnemy(enemy);
@@ -266,6 +264,24 @@ export default class Game extends Phaser.Scene {
   }
 
   create() {
+    //Creación sonidos
+
+    this.musicPhases = [];
+    this.waveMusicCount = 0;
+    this.startMenuMusic = this.sound.add('titleScreen');
+
+    this.musicPhases.push(this.sound.add('stage1Music'));
+    this.musicPhases.push(this.sound.add('stage2Music'));
+    this.musicPhases.push(this.sound.add('stage3Music'));
+    this.musicPhases.push(this.sound.add('stage4Music'));
+    this.musicPhases.push(this.sound.add('stage5Music'));
+    this.musicPhases.push(this.sound.add('stage6Music'));
+    this.musicPhases.push(this.sound.add('stage7Music'));
+    this.musicPhases.push(this.sound.add('stage8Music'));
+
+    this.startMenuMusic.play();
+    this.startMenuMusic.setLoop(true);
+
     //Creación del mapa
     this.CreateMap();
 
@@ -282,8 +298,6 @@ export default class Game extends Phaser.Scene {
     this.EnemyPool = this.add.group();
     this.ActiveEnemies = this.physics.add.group();
     this.ActiveEnemies.runChildUpdate = true;
-    //this.PoolEnemies();
-    //this.EnemyPool.killAndHide(this.EnemyPool.getFirstAlive());
     this.BulletPool = this.add.group();
     this.ActiveBullets = this.physics.add.group();
     this.physics.add.overlap(this.ActiveBullets, this.ActiveEnemies, (bullet, enemy) => bullet.hitEnemy(enemy));
@@ -306,6 +320,11 @@ export default class Game extends Phaser.Scene {
     this._startButton.setInteractive();
     self =  this;
     this._startButton.on('pointerup',() => {
+      this.startMenuMusic.stop();
+      this.currentWaveMusic = this.musicPhases[0];
+      this.currentWaveMusic.play();
+      this.currentWaveMusic.setLoop(true);
+
       self._Spawner = new Spawner(this, { x: 0, y: 50 });
       console.log(this);
       self._startButton.destroy();
@@ -313,6 +332,15 @@ export default class Game extends Phaser.Scene {
      self._HUD.updateGold(this.player.gold);
     })
     this.add.existing(this._startButton);
+  }
+
+  switchWaveMusic(){
+    console.log(this.waveMusicCount);
+    this.waveMusicCount++;
+    this.currentWaveMusic.stop();
+    this.currentWaveMusic = this.musicPhases[this.waveMusicCount];
+    this.currentWaveMusic.play();
+    this.currentWaveMusic.setLoop(true);
   }
 
   update(time, delta) {

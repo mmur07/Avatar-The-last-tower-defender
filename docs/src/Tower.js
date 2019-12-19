@@ -3,7 +3,7 @@ import Elemental from "./Elemental.js";
 export default class Tower extends Elemental {
 
     constructor(scene, spriteKey, element, xPos, yPos, range, cdShoots, dmg, area, sellCost) {
-        super(scene, spriteKey, element, xPos, yPos,element); 
+        super(scene, spriteKey, element, xPos, yPos,element);
         let upscaleFactor = 4;
         this._scene = scene;
         this._cdShoots = cdShoots * 1000;
@@ -25,7 +25,11 @@ export default class Tower extends Elemental {
         this.scene.physics.add.overlap(this, this.scene.ActiveEnemies, onCollision);
         this.createContainer();
         this.setScale(upscaleFactor);
-        
+
+        this.buildTowerSound = this.scene.sound.add('buyTowerSound');
+        this.buildTowerSound.setVolume(2);
+        this.buildTowerSound.play();
+        this.rotateTowerSound = this.scene.sound.add('rotateTowerSound');
     }
 
     createContainer() {
@@ -38,13 +42,13 @@ export default class Tower extends Elemental {
 
     procesaInput(pointer) {
         if (pointer.middleButtonReleased()) {
+            this.scene.sound.add('sellTowerSound').play();
             this._scene.ActiveTowers.remove(this);
             this._scene.deleteTile(this.originX, this.originY);
             this.setActive(false);
             this.setVisible(false);
             this.lockedEnemy = null;
             this.destroy();
-
             this._scene.modifyGold(this._sellCost);
         }
         else if (this.canRotate){
@@ -53,12 +57,14 @@ export default class Tower extends Elemental {
                 this.setFrame(this._elem);
                 this.canRotate = false;
                 this.resetTimer = true;
+                this.rotateTowerSound.play();
             }
             else if (pointer.rightButtonReleased()) {
                 this.rotateRight();
                 this.setFrame(this._elem);         
                 this.canRotate = false;
                 this.resetTimer = true;
+                this.rotateTowerSound.play();
             }
         }
     }

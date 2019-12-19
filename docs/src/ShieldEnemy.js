@@ -1,8 +1,8 @@
 import Enemy from "./Enemy.js"
 
 export default class ShieldEnemy extends Enemy {
-    constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id, shields) {
-        super(scene, spritename, element, xPos, yPos, hp, speed,route, id)
+    constructor(scene, spritename, element, xPos, yPos, hp, speed,route, id, shields, deathSound) {
+        super(scene, spritename, element, xPos, yPos, hp, speed,route, id, deathSound)
         //this.setScale(0.1);
         this._shieldsLeft = shields;
         this.anims.stop();
